@@ -1,6 +1,6 @@
 /*
- * Dungeon Engine
- * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ * For Gold and Sweetrolls
+ * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
  */
 
 #include <iostream>

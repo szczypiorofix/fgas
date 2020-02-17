@@ -1,6 +1,6 @@
 /*
  * For Gold and Sweetrolls
- * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
  */
 
 #pragma once
