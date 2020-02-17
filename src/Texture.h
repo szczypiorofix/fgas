@@ -32,6 +32,12 @@ public:
 	GLfloat height;
 	GLfloat tileWidth;
 	GLfloat tileHeight;
+
+	ILubyte* data;
+	ILuint format;
+	ILuint bpp;
+	ILuint pBpp;
+
 	int columns;
 
 	void draw(TextureRect src, TextureRect dest);

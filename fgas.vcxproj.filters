@@ -87,6 +87,9 @@
     <Image Include="res\images\logo-title.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="res\images\mouse_cursor.png">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\fgas.rc">

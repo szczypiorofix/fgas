@@ -17,7 +17,7 @@ Texture::Texture(std::string fileName, GLfloat tileWidth, GLfloat tileHeight) {
 	this->columns = (int)(this->width / this->tileWidth);
 
 #ifdef _DEBUG 
-	printf("Texture %s, columns %i.\n", fileName.c_str(), this->columns);
+	printf("Texture %s loaded. Columns %i.\n", fileName.c_str(), this->columns);
 #endif
 	
 }
@@ -30,7 +30,7 @@ Texture::Texture(std::string fileName) {
 	this->columns = 0;
 
 #ifdef _DEBUG 
-	printf("Texture %s.\n", fileName.c_str());
+	printf("Texture %s loaded.\n", fileName.c_str());
 #endif
 
 }
@@ -59,6 +59,11 @@ GLuint Texture::loadTexture(std::string fileName) {
 
 		this->width = (GLfloat)ilGetInteger(IL_IMAGE_WIDTH);
 		this->height = (GLfloat)ilGetInteger(IL_IMAGE_HEIGHT);
+		this->data = ilGetData();
+		this->format = ilGetInteger(IL_IMAGE_FORMAT);
+		this->bpp = ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL);
+		this->pBpp = ilGetInteger(IL_IMAGE_FORMAT);
+		//printf("BPP: %i\n", this->pBpp);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_BPP), ilGetInteger(IL_IMAGE_WIDTH),
 			ilGetInteger(IL_IMAGE_HEIGHT), 0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE,

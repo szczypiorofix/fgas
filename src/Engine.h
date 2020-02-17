@@ -47,7 +47,13 @@ public:
 	void releaseMusic(void);
 
 private:
+
 	Music* currentMusic;
+
+	SDL_Cursor* systemCursor;
+	SDL_Surface* cursorIcon;
+
+	void setSystemCursor();
 
 	void init();
 

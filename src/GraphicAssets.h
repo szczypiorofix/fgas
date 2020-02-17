@@ -10,18 +10,19 @@
 #include <string>
 #include "Texture.h"
 
-constexpr int MAX_SPRITESHEETS = 5;
+constexpr int MAX_SPRITESHEETS = 6;
 
 
 class GraphicAssets {
 
 public:
 
-	static const int IMAGE_ASSETS_MAIN_MENU_BACKGROUND = 0;
-	static const int IMAGE_ASSETS_LOGO = 1;
-	static const int IMAGE_ASSETS_MAIN_MENU_BUTTONS = 2;
-	static const int IMAGE_ASSETS_VINGUE_FONT = 3;
-	static const int IMAGE_ASSETS_TEST_TEXTURE = 4;
+	static const int IMAGE_ASSETS_MOUSE_CURSOR = 0;
+	static const int IMAGE_ASSETS_MAIN_MENU_BACKGROUND = 1;
+	static const int IMAGE_ASSETS_LOGO = 2;
+	static const int IMAGE_ASSETS_MAIN_MENU_BUTTONS = 3;
+	static const int IMAGE_ASSETS_VINGUE_FONT = 4;
+	static const int IMAGE_ASSETS_TEST_TEXTURE = 5;
 	
 
 	static GraphicAssets* getAssets();

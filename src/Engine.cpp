@@ -3,8 +3,11 @@
  * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
  */
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include "Engine.h"
 #include "Defines.h"
+#include "GraphicAssets.h"
 
 
 Engine::Engine() {
@@ -12,6 +15,7 @@ Engine::Engine() {
 	this->window = nullptr;
 	this->glContext = nullptr;
 	this->currentMusic = nullptr;
+	this->systemCursor = nullptr;
 
 	this->settings = {
 		SCREEN_WIDTH,					// Screen width
@@ -38,10 +42,58 @@ void Engine::stop() {
 	SDL_DestroyWindow(this->window);
 
 	delete this->currentMusic;
-
+	
+	if (this->systemCursor != NULL) {
+		SDL_FreeCursor(this->systemCursor);
+	}
+	
 	SDL_Quit();
 }
 
+
+void Engine::setSystemCursor() {
+#ifdef _DEBUG 
+	printf("Initializing system cursor.\n");
+#endif
+	int m = SDL_SetRelativeMouseMode(SDL_FALSE); // Trap mouse on window
+	if (m == -1) {
+		printf("Warning! Error while locking mouse pointer to the window.\n");
+	}
+	SDL_WarpMouseInWindow(this->window, this->settings.screenWidth / 2, this->settings.screenHeight / 2);
+	
+
+	GraphicAssets::getAssets()->addToAssets("../res/images/mouse_cursor.png", GraphicAssets::IMAGE_ASSETS_MOUSE_CURSOR);
+
+	Texture* texture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MOUSE_CURSOR];
+	int width = (int)texture->width;
+	int height = (int)texture->height;
+
+	// Little endian
+	Uint32 rmask = 0x000000ff;
+	Uint32 gmask = 0x0000ff00;
+	Uint32 bmask = 0x00ff0000;
+	Uint32 amask = 0xff000000;
+
+	int depth = 32;
+	int pitch = (int)texture->bpp * width;
+
+	this->cursorIcon = SDL_CreateRGBSurfaceFrom((void*)texture->data, width, height, depth, pitch, rmask, gmask, bmask, amask);
+	if (this->cursorIcon == NULL) {
+		printf("Unable to Create RPG surface!\n");
+		exit(1);
+	}
+	else {
+		this->systemCursor = SDL_CreateColorCursor(this->cursorIcon, 0, 0);
+		if (this->systemCursor == NULL) {
+			printf("Unable to create a mouse cursor !\n");
+			exit(1);
+		}
+		else {
+			SDL_SetCursor(this->systemCursor);
+		}
+	}
+
+}
 
 void Engine::init() {
 #ifdef _DEBUG 
@@ -51,7 +103,7 @@ void Engine::init() {
 	this->initOGL();
 	this->initDevIL();
 	this->initBASS();
-
+	this->setSystemCursor();
 }
 
 
