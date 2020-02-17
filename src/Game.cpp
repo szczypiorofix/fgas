@@ -78,7 +78,7 @@ void Game::mainLoop() {
         this->update();
         this->render();
 
-        SDL_Delay(1000/ 60);
+        SDL_Delay(1000 / 60);
 
     }
 
