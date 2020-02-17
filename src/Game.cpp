@@ -9,6 +9,9 @@
 Game::Game() {
 	
     this->quit = false;
+    this->engine = nullptr;
+    this->backgroundTexture = nullptr;
+    this->logoTexture = nullptr;
 
 }
 
@@ -16,6 +19,15 @@ void Game::start() {
     
     this->engine = new Engine();
     this->engine->launch();
+
+    GraphicAssets::addToAssets("../res/images/background.png", GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND);
+    GraphicAssets::addToAssets("../res/images/logo-title.png", GraphicAssets::IMAGE_ASSETS_LOGO);
+    
+    this->logoTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO];
+    this->backgroundTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND];
+
+    this->engine->loadMusic("menu-music.ogg");
+    this->engine->playMusic(0.1f);
 
     this->mainLoop();
 
@@ -48,9 +60,40 @@ void Game::update() {
 void Game::render() {
     glClear(GL_COLOR_BUFFER_BIT);
     glPushMatrix();
-    glOrtho(0, Engine::SCREEN_WIDTH, Engine::SCREEN_HEIGHT, 0, -1.0, 1.0); // Set the matrix
+    glOrtho(0, engine->settings.screenWidth, engine->settings.screenHeight, 0, -1.0, 1.0); // Set the matrix
 
     // ================================= Render Start =================================
+
+    TextureRect s = {
+        0,
+        0,
+        928,
+        792
+    };
+    TextureRect d = {
+        0,
+        0,
+        800,
+        600
+    };
+
+    this->backgroundTexture->draw(s, d);
+
+    s = {
+        0,
+        0,
+        335,
+        201
+    };
+    d = {
+        280,
+        55,
+        250,
+        150
+    };
+
+    this->logoTexture->draw(s, d);
+
 
     glBegin(GL_TRIANGLES); //GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON
         glColor3ub(255, 0, 0);

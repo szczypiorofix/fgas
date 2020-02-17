@@ -9,32 +9,52 @@
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
-//#include <GL/GLU.h>
-#include <SDL2/SDL_image.h>
+#include <IL/il.h>
 #include <string>
+
+#include "Music.h"
+
+typedef struct Settings {
+	int screenWidth;
+	int screenHeight;
+	float scale;
+	int fullScreen;
+	float musicVolume;
+} Settings;
 
 
 class Engine {
 
 public:
 	
-	static const int SCREEN_WIDTH = 800;
-	static const int SCREEN_HEIGHT = 600;
-
 	Engine();
 
 	void launch();
 	void stop();
 
+	Settings settings;
+
 	SDL_Window* window;
 	SDL_GLContext glContext;
+	
+	Music* getCurrentMusic(void);
+
+	void loadMusic(std::string musicFile);
+	bool playMusic(float volume);
+	bool playMusic(void);
+	bool stopMusic(void);
+	bool pauseMusic(void);
+	void releaseMusic(void);
 
 private:
-	
+	Music* currentMusic;
+
 	void init();
 
 	void initSDL(void);
 	void initOGL(void);
+	void initDevIL(void);
+	void initBASS(void);
 
 };
 

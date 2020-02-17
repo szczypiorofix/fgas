@@ -27,6 +27,18 @@
     <ClCompile Include="src\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\GraphicAssets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Texture.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Defines.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Music.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -40,6 +52,7 @@
     <None Include="README.md">
       <Filter>doc</Filter>
     </None>
+    <None Include="res\images\logo-title.svg" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine.h">
@@ -51,9 +64,27 @@
     <ClInclude Include="res\resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\GraphicAssets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Texture.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Music.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\background.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\logo-title.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

@@ -6,6 +6,7 @@
 #pragma once
 
 #include "Engine.h"
+#include "GraphicAssets.h"
 
 
 class Game {
@@ -21,6 +22,8 @@ private:
 
 	Engine* engine;
 	bool quit;
+	Texture* backgroundTexture;
+	Texture* logoTexture;
 
 	void mainLoop();
 
