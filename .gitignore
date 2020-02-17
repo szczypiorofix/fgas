@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# Directories with binaries/pch
+/obj
+/bin
+/debug
+/.vs
