@@ -74,7 +74,7 @@ void Engine::setSystemCursor() {
 	Uint32 bmask = 0x00ff0000;
 	Uint32 amask = 0xff000000;
 
-	int depth = 32;
+	int depth = 32; // 3 colors & alpha, 8 bytes each
 	int pitch = (int)texture->bpp * width;
 
 	this->cursorIcon = SDL_CreateRGBSurfaceFrom((void*)texture->data, width, height, depth, pitch, rmask, gmask, bmask, amask);

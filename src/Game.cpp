@@ -29,6 +29,11 @@ void Game::start() {
     this->engine->loadMusic("menu-music.ogg");
     this->engine->playMusic(0.1f);
 
+    this->shader = new ShaderLoader();
+    this->shader->compileShaders("vert_shader.glsl", "frag_shader.glsl");
+    this->shader->addAttribute("vertexUV");
+    this->shader->linkShaders();
+
     this->mainLoop();
 
 }

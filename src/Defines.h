@@ -36,6 +36,7 @@ extern const char* DIR_RES_IMAGES;
 extern const char* DIR_RES_MUSIC;
 extern const char* DIR_RES;
 extern const char* DIR_FONTS;
+extern const char* DIR_SHADERS;
 extern const char* DIR_SCRIPTS;
 
 

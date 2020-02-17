@@ -36,7 +36,7 @@ public:
 	ILubyte* data;
 	ILuint format;
 	ILuint bpp;
-	ILuint pBpp;
+	ILuint depth;
 
 	int columns;
 

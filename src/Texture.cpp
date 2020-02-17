@@ -62,8 +62,6 @@ GLuint Texture::loadTexture(std::string fileName) {
 		this->data = ilGetData();
 		this->format = ilGetInteger(IL_IMAGE_FORMAT);
 		this->bpp = ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL);
-		this->pBpp = ilGetInteger(IL_IMAGE_FORMAT);
-		//printf("BPP: %i\n", this->pBpp);
 
 		glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_BPP), ilGetInteger(IL_IMAGE_WIDTH),
 			ilGetInteger(IL_IMAGE_HEIGHT), 0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE,

@@ -7,6 +7,7 @@
 
 #include "Engine.h"
 #include "GraphicAssets.h"
+#include "ShaderLoader.h"
 
 
 class Game {
@@ -24,6 +25,8 @@ private:
 	bool quit;
 	Texture* backgroundTexture;
 	Texture* logoTexture;
+
+	ShaderLoader* shader;
 
 	void mainLoop();
 

@@ -16,6 +16,12 @@
     <Filter Include="doc">
       <UniqueIdentifier>{1930b5e1-6aee-4243-bcde-970785c00103}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\images">
+      <UniqueIdentifier>{1b8e18b9-7650-4aad-a037-d97507a40cc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\music">
+      <UniqueIdentifier>{b1db68c1-44a8-42c8-a120-5d177c1a84ac}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
@@ -39,6 +45,9 @@
     <ClCompile Include="src\Music.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\ShaderLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -53,6 +62,14 @@
       <Filter>doc</Filter>
     </None>
     <None Include="res\images\logo-title.svg" />
+    <None Include="res\music\ex-aws_cave.xm">
+      <Filter>Resource Files\music</Filter>
+    </None>
+    <None Include="res\music\menu-music.ogg">
+      <Filter>Resource Files\music</Filter>
+    </None>
+    <None Include="shaders\vert_shader.glsl" />
+    <None Include="shaders\frag_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine.h">
@@ -76,19 +93,22 @@
     <ClInclude Include="src\Music.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ShaderLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\icon.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\images\background.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\images</Filter>
     </Image>
     <Image Include="res\images\logo-title.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\images</Filter>
     </Image>
     <Image Include="res\images\mouse_cursor.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="res\icon.ico">
+      <Filter>Resource Files\images</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>
