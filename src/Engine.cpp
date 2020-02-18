@@ -38,6 +38,9 @@ void Engine::stop() {
 #ifdef _DEBUG 
 	printf("Shutting down SDL modules.\n");
 #endif
+
+	GraphicAssets::getAssets()->releaseAssets();
+
 	SDL_GL_DeleteContext(this->glContext);
 	SDL_DestroyWindow(this->window);
 

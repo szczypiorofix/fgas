@@ -50,6 +50,9 @@ void Game::input(SDL_Event* event) {
             case SDLK_ESCAPE:
                 this->quit = true;
                 break;
+            case SDLK_SPACE:
+                GraphicAssets::getAssets()->releaseAssets();
+                break;
             }
         }
     }

@@ -26,7 +26,10 @@ void GraphicAssets::releaseAssets() {
 #endif
 	
 	for (int i = 0; i < MAX_SPRITESHEETS; i++) {
-		delete GraphicAssets::getAssets()->textures[i];
+		if (GraphicAssets::getAssets()->textures[i] != NULL) {
+			delete GraphicAssets::getAssets()->textures[i];
+			GraphicAssets::getAssets()->textures[i] = NULL;
+		}
 	}
 }
 

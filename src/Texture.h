@@ -25,8 +25,8 @@ public:
 	Texture(std::string fileName, GLfloat tileWidth, GLfloat tileHeight);
 	~Texture();
 
-	ILuint texid;
-	GLuint image;
+	ILuint imageId;
+	GLuint textureId;
 
 	GLfloat width;
 	GLfloat height;
