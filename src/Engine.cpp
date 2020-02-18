@@ -15,6 +15,7 @@ Engine::Engine() {
 	this->window = nullptr;
 	this->glContext = nullptr;
 	this->currentMusic = nullptr;
+	this->cursorIcon = nullptr;
 	this->systemCursor = nullptr;
 
 	this->settings = {
@@ -77,8 +78,8 @@ void Engine::setSystemCursor() {
 	Uint32 bmask = 0x00ff0000;
 	Uint32 amask = 0xff000000;
 
-	int depth = 32; // 3 colors & alpha, 8 bytes each
-	int pitch = (int)texture->bpp * width;
+	int depth = texture->bitsPerPixel; // 3 colors & alpha, 8 bytes each
+	int pitch = texture->bytesPerPixel * width;
 
 	this->cursorIcon = SDL_CreateRGBSurfaceFrom((void*)texture->data, width, height, depth, pitch, rmask, gmask, bmask, amask);
 	if (this->cursorIcon == NULL) {
@@ -149,10 +150,9 @@ void Engine::initOGL(void) {
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
-	// Setting OpenGL version to 3.1
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	// Setting OpenGL version to 2.1
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
-
 
 	// GLEW part
 #ifdef _DEBUG 

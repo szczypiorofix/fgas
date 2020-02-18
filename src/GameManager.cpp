@@ -3,19 +3,23 @@
  * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
  */
 
-#include "Game.h"
+#include "GameManager.h"
 
 
-Game::Game() {
+GameManager::GameManager() {
 	
     this->quit = false;
     this->engine = nullptr;
     this->backgroundTexture = nullptr;
     this->logoTexture = nullptr;
+    this->shader = nullptr;
+    this->mainMenu = nullptr;
+    this->state = State::MAIN_MENU;
+
 
 }
 
-void Game::start() {
+void GameManager::start() {
     
     this->engine = new Engine();
     this->engine->launch();
@@ -23,6 +27,8 @@ void Game::start() {
     GraphicAssets::addToAssets("../res/images/background.png", GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND);
     GraphicAssets::addToAssets("../res/images/logo-title.png", GraphicAssets::IMAGE_ASSETS_LOGO);
     
+    this->mainMenu = new MainMenu();
+
     this->logoTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO];
     this->backgroundTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND];
 
@@ -30,23 +36,23 @@ void Game::start() {
     this->engine->playMusic(0.1f);
 
     this->shader = new ShaderLoader();
-    this->shader->compileShaders("vert_shader.glsl", "frag_shader.glsl");
-    this->shader->addAttribute("vertexUV");
-    this->shader->linkShaders();
+    //this->shader->compileShaders("vert_shader.glsl", "frag_shader.glsl");
+    //this->shader->addAttribute("LVertexPos2D");
+    //this->shader->linkShaders();
 
     this->mainLoop();
 
 }
 
 
-void Game::input(SDL_Event* event) {
+void GameManager::input(SDL_Event& event) {
 
-    while (SDL_PollEvent(event) != 0) {
-        if (event->type == SDL_QUIT) {
+    while (SDL_PollEvent(&event) != 0) {
+        if (event.type == SDL_QUIT) {
             this->quit = true;
         }
-        else if (event->type == SDL_KEYDOWN) {
-            switch (event->key.keysym.sym) {
+        else if (event.type == SDL_KEYDOWN) {
+            switch (event.key.keysym.sym) {
             case SDLK_ESCAPE:
                 this->quit = true;
                 break;
@@ -55,17 +61,37 @@ void Game::input(SDL_Event* event) {
                 break;
             }
         }
+
+        switch (this->state) {
+        case State::SPLASH_SCREEN:
+            break;
+        case State::MAIN_MENU:
+            this->mainMenu->input(event);
+            break;
+        case State::GAME:
+            break;
+        }
+
     }
+}
+
+
+void GameManager::update() {
  
+    switch (this->state) {
+    case State::SPLASH_SCREEN:
+        break;
+    case State::MAIN_MENU:
+        this->mainMenu->update();
+        break;
+    case State::GAME:
+        break;
+    }
+
 }
 
 
-void Game::update() {
-
-}
-
-
-void Game::render() {
+void GameManager::render() {
     glClear(GL_COLOR_BUFFER_BIT);
     glPushMatrix();
     glOrtho(0, engine->settings.screenWidth, engine->settings.screenHeight, 0, -1.0, 1.0); // Set the matrix
@@ -85,8 +111,10 @@ void Game::render() {
         600
     };
 
-    this->backgroundTexture->draw(s, d);
 
+    this->backgroundTexture->draw(s, d);
+    
+   
     s = {
         0,
         0,
@@ -102,7 +130,6 @@ void Game::render() {
 
     this->logoTexture->draw(s, d);
 
-
     glBegin(GL_TRIANGLES); //GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON
         glColor3ub(255, 0, 0);
         glVertex2f(400, 200);
@@ -112,6 +139,19 @@ void Game::render() {
         glVertex2f(200, 400);
     glEnd();
 
+
+    switch (this->state) {
+    case State::SPLASH_SCREEN:
+        break;
+    case State::MAIN_MENU:
+        this->mainMenu->render();
+        break;
+    case State::GAME:
+        break;
+    }
+
+
+
     // ================================== Render End ==================================
 
     glPopMatrix();
@@ -119,13 +159,13 @@ void Game::render() {
 }
 
 
-void Game::mainLoop() {
+void GameManager::mainLoop() {
 
     SDL_Event event;
 
     while (!this->quit) {
 
-        this->input(&event);
+        this->input(event);
         this->update();
         this->render();
 

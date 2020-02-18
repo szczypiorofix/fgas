@@ -13,7 +13,8 @@
 Texture::Texture(std::string fileName, GLfloat tileWidth, GLfloat tileHeight) {
 	this->imageId = 0;
 	this->data = NULL;
-	this->bpp = 0;
+	this->bytesPerPixel = 0;
+	this->bitsPerPixel = 0;
 	this->depth = 0;
 	this->format = 0;
 	this->textureId = loadTexture(fileName);
@@ -31,7 +32,8 @@ Texture::Texture(std::string fileName, GLfloat tileWidth, GLfloat tileHeight) {
 Texture::Texture(std::string fileName) {
 	this->imageId = 0;
 	this->data = NULL;
-	this->bpp = 0;
+	this->bytesPerPixel = 0;
+	this->bitsPerPixel = 0;
 	this->depth = 0;
 	this->format = 0;
 	this->textureId = loadTexture(fileName);
@@ -71,7 +73,8 @@ GLuint Texture::loadTexture(std::string fileName) {
 		this->height = (GLfloat)ilGetInteger(IL_IMAGE_HEIGHT);
 		this->data = ilGetData();
 		this->format = ilGetInteger(IL_IMAGE_FORMAT);
-		this->bpp = ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL);
+		this->bytesPerPixel = ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL);
+		this->bitsPerPixel = ilGetInteger(IL_IMAGE_BITS_PER_PIXEL);
 
 		printf("Loading texture %i to video memory.\n", this->textureId);
 
@@ -98,7 +101,8 @@ Texture::~Texture() {
 	
 	this->imageId = 0;
 	this->data = NULL;
-	this->bpp = 0;
+	this->bytesPerPixel = 0;
+	this->bitsPerPixel = 0;
 	this->depth = 0;
 	this->format = 0;
 	this->textureId = 0;
@@ -150,17 +154,17 @@ void Texture::draw(TextureRect src, TextureRect dest) {
 		//GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON
 		glBegin(GL_QUADS);
 
-		glTexCoord2f(src.x / this->width, src.y / this->height);
-		glVertex2f(dest.x, dest.y);
+			glTexCoord2f(src.x / this->width, src.y / this->height);
+			glVertex2f(dest.x, dest.y);
 
-		glTexCoord2f((src.x + src.w) / this->width, src.y / this->height);
-		glVertex2f(dest.x + dest.w, dest.y);
+			glTexCoord2f((src.x + src.w) / this->width, src.y / this->height);
+			glVertex2f(dest.x + dest.w, dest.y);
 
-		glTexCoord2f((src.x + src.w) / this->width, (src.y + src.h) / this->height);
-		glVertex2f(dest.x + dest.w, dest.y + dest.h);
+			glTexCoord2f((src.x + src.w) / this->width, (src.y + src.h) / this->height);
+			glVertex2f(dest.x + dest.w, dest.y + dest.h);
 
-		glTexCoord2f(src.x / this->width, (src.y + src.h) / this->height);
-		glVertex2f(dest.x, dest.y + dest.h);
+			glTexCoord2f(src.x / this->width, (src.y + src.h) / this->height);
+			glVertex2f(dest.x, dest.y + dest.h);
 
 		glEnd();
 		glDisable(GL_TEXTURE_2D);

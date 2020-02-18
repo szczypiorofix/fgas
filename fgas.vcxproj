@@ -115,9 +115,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\ShaderLoader.cpp" />
     <ClCompile Include="src\Defines.cpp" />
-    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameManager.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\GraphicAssets.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -131,16 +132,19 @@
     <None Include="README.md" />
     <None Include="res\fgas.aps" />
     <None Include="res\images\logo-title.svg" />
+    <None Include="res\images\mm-gui-button.pyxel" />
+    <None Include="res\images\mm-gui-controlls.pyxel" />
     <None Include="res\music\ex-aws_cave.xm" />
     <None Include="res\music\menu-music.ogg" />
     <None Include="shaders\frag_shader.glsl" />
     <None Include="shaders\vert_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\MainMenu.h" />
     <ClInclude Include="res\resource.h" />
     <ClInclude Include="src\ShaderLoader.h" />
     <ClInclude Include="src\Defines.h" />
-    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\GameManager.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\GraphicAssets.h" />
     <ClInclude Include="src\Music.h" />
@@ -153,6 +157,8 @@
     <Image Include="res\icon.ico" />
     <Image Include="res\images\background.png" />
     <Image Include="res\images\logo-title.png" />
+    <Image Include="res\images\mm-gui-button.png" />
+    <Image Include="res\images\mm-gui-controlls.png" />
     <Image Include="res\images\mouse_cursor.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

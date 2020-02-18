@@ -35,7 +35,8 @@ public:
 
 	ILubyte* data;
 	ILuint format;
-	ILuint bpp;
+	ILuint bytesPerPixel;
+	ILuint bitsPerPixel;
 	ILuint depth;
 
 	int columns;

@@ -8,13 +8,21 @@
 #include "Engine.h"
 #include "GraphicAssets.h"
 #include "ShaderLoader.h"
+#include "MainMenu.h"
 
 
-class Game {
+enum class State {
+	SPLASH_SCREEN,
+	MAIN_MENU,
+	GAME,
+};
+
+
+class GameManager {
 
 public:
 
-	Game();
+	GameManager();
 	
 	void start();
 
@@ -25,12 +33,15 @@ private:
 	bool quit;
 	Texture* backgroundTexture;
 	Texture* logoTexture;
+	MainMenu* mainMenu;
+
+	State state;
 
 	ShaderLoader* shader;
 
 	void mainLoop();
 
-	void input(SDL_Event* e);
+	void input(SDL_Event& e);
 	void update();
 	void render();
 

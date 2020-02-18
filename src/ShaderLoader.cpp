@@ -1,3 +1,9 @@
+/*
+ * For Gold and Sweetrolls
+ * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
+ */
+
+
 #include "ShaderLoader.h"
 
 #include <vector>
@@ -87,9 +93,9 @@ void ShaderLoader::use() {
 }
 
 void ShaderLoader::unuse() {
-	glUseProgram(0);  // ??????
+	glUseProgram(_programID);
 	for (int i = 0; i < _numAttributes; i++) {
-		glDisableVertexAttribArray(0);  // ?????/
+		glDisableVertexAttribArray(i);
 	}
 }
 
