@@ -4,7 +4,7 @@
  */
 
 
-#include "Game.h"
+#include "GameManager.h"
 
 
 int main(int argc, char** argv) {
@@ -16,8 +16,8 @@ int main(int argc, char** argv) {
 		}
 	}
 
-    Game* game = new Game();
-    game->start();
+	GameManager* gameManager = new GameManager();
+	gameManager->start();
 
 	return 0;
 

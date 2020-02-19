@@ -16,15 +16,21 @@
     <Filter Include="doc">
       <UniqueIdentifier>{1930b5e1-6aee-4243-bcde-970785c00103}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\images">
+      <UniqueIdentifier>{1b8e18b9-7650-4aad-a037-d97507a40cc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\music">
+      <UniqueIdentifier>{b1db68c1-44a8-42c8-a120-5d177c1a84ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\shaders">
+      <UniqueIdentifier>{14fadd4f-2de9-498e-bc59-fb2fe0008f2c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\GraphicAssets.cpp">
@@ -37,6 +43,24 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Music.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ShaderLoader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MainMenu.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GameManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TiledMap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\XMLHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -52,13 +76,28 @@
     <None Include="README.md">
       <Filter>doc</Filter>
     </None>
-    <None Include="res\images\logo-title.svg" />
+    <None Include="res\music\ex-aws_cave.xm">
+      <Filter>Resource Files\music</Filter>
+    </None>
+    <None Include="res\music\menu-music.ogg">
+      <Filter>Resource Files\music</Filter>
+    </None>
+    <None Include="shaders\frag_shader.glsl">
+      <Filter>Source Files\shaders</Filter>
+    </None>
+    <None Include="shaders\vert_shader.glsl">
+      <Filter>Source Files\shaders</Filter>
+    </None>
+    <None Include="res\images\logo-title.svg">
+      <Filter>Resource Files\images</Filter>
+    </None>
+    <None Include="res\images\mm-gui-button.pyxel" />
+    <None Include="res\images\mm-gui-controlls.pyxel" />
+    <None Include="res\images\spritesheet.tsx" />
+    <None Include="res\images\mm_background.tmx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="res\resource.h">
@@ -76,15 +115,48 @@
     <ClInclude Include="src\Music.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\ShaderLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MainMenu.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\GameManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TiledMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\XMLHelper.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\icon.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\images\background.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\images</Filter>
     </Image>
     <Image Include="res\images\logo-title.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="res\images\mouse_cursor.png">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="res\icon.ico">
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="res\images\mm-gui-controlls.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\mm-gui-button.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\ProjectUtumno_full.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\spritesheet.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

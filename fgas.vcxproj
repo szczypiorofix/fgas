@@ -58,7 +58,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level2</WarningLevel>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
@@ -83,7 +83,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level4</WarningLevel>
+      <WarningLevel>Level2</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
@@ -115,13 +115,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Animation.cpp" />
+    <ClCompile Include="src\MainMenu.cpp" />
+    <ClCompile Include="src\ShaderLoader.cpp" />
     <ClCompile Include="src\Defines.cpp" />
-    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GameManager.cpp" />
     <ClCompile Include="src\Engine.cpp" />
     <ClCompile Include="src\GraphicAssets.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Music.cpp" />
     <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\TiledMap.cpp" />
+    <ClCompile Include="src\XMLHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />
@@ -130,15 +135,28 @@
     <None Include="README.md" />
     <None Include="res\fgas.aps" />
     <None Include="res\images\logo-title.svg" />
+    <None Include="res\images\mm-gui-button.pyxel" />
+    <None Include="res\images\mm-gui-controlls.pyxel" />
+    <None Include="res\images\mm_background.tmx" />
+    <None Include="res\images\spritesheet.tsx" />
+    <None Include="res\music\ex-aws_cave.xm" />
+    <None Include="res\music\menu-music.ogg" />
+    <None Include="shaders\frag_shader.glsl" />
+    <None Include="shaders\vert_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Animation.h" />
+    <ClInclude Include="src\MainMenu.h" />
     <ClInclude Include="res\resource.h" />
+    <ClInclude Include="src\ShaderLoader.h" />
     <ClInclude Include="src\Defines.h" />
-    <ClInclude Include="src\Game.h" />
+    <ClInclude Include="src\GameManager.h" />
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\GraphicAssets.h" />
     <ClInclude Include="src\Music.h" />
     <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\TiledMap.h" />
+    <ClInclude Include="src\XMLHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\fgas.rc" />
@@ -147,6 +165,11 @@
     <Image Include="res\icon.ico" />
     <Image Include="res\images\background.png" />
     <Image Include="res\images\logo-title.png" />
+    <Image Include="res\images\mm-gui-button.png" />
+    <Image Include="res\images\mm-gui-controlls.png" />
+    <Image Include="res\images\mouse_cursor.png" />
+    <Image Include="res\images\ProjectUtumno_full.png" />
+    <Image Include="res\images\spritesheet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -25,13 +25,20 @@ public:
 	Texture(std::string fileName, GLfloat tileWidth, GLfloat tileHeight);
 	~Texture();
 
-	ILuint texid;
-	GLuint image;
+	ILuint imageId;
+	GLuint textureId;
 
 	GLfloat width;
 	GLfloat height;
 	GLfloat tileWidth;
 	GLfloat tileHeight;
+
+	ILubyte* data;
+	ILuint format;
+	ILuint bytesPerPixel;
+	ILuint bitsPerPixel;
+	ILuint depth;
+
 	int columns;
 
 	void draw(TextureRect src, TextureRect dest);

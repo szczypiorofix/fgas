@@ -5,7 +5,6 @@
 
 #pragma once
 
-#define GLEW_STATIC
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
@@ -47,7 +46,13 @@ public:
 	void releaseMusic(void);
 
 private:
+
 	Music* currentMusic;
+
+	SDL_Cursor* systemCursor;
+	SDL_Surface* cursorIcon;
+
+	void setSystemCursor();
 
 	void init();
 
