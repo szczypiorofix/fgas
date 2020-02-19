@@ -22,7 +22,7 @@ public:
 	static const int IMAGE_ASSETS_LOGO = 2;
 	static const int IMAGE_ASSETS_MAIN_MENU_BUTTONS = 3;
 	static const int IMAGE_ASSETS_VINGUE_FONT = 4;
-	static const int IMAGE_ASSETS_TEST_TEXTURE = 5;
+	static const int IMAGE_ASSETS_BIG_SPRITESHEET = 5;
 	
 
 	static GraphicAssets* getAssets();

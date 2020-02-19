@@ -33,6 +33,7 @@ private:
 	bool quit;
 	Texture* backgroundTexture;
 	Texture* logoTexture;
+	Texture* bigSpriteSheet;
 	MainMenu* mainMenu;
 
 	State state;

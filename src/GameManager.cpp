@@ -10,10 +10,14 @@ GameManager::GameManager() {
 	
     this->quit = false;
     this->engine = nullptr;
+    
     this->backgroundTexture = nullptr;
     this->logoTexture = nullptr;
+    this->bigSpriteSheet = nullptr;
+
     this->shader = nullptr;
     this->mainMenu = nullptr;
+
     this->state = State::MAIN_MENU;
 
 
@@ -26,11 +30,13 @@ void GameManager::start() {
 
     GraphicAssets::addToAssets("../res/images/background.png", GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND);
     GraphicAssets::addToAssets("../res/images/logo-title.png", GraphicAssets::IMAGE_ASSETS_LOGO);
+    GraphicAssets::addToAssets("../res/images/ProjectUtumno_full.png", 32, 32, GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET); // 64 x 95 tiles
     
     this->mainMenu = new MainMenu();
 
     this->logoTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO];
     this->backgroundTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND];
+    this->bigSpriteSheet = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET];
 
     this->engine->loadMusic("menu-music.ogg");
     this->engine->playMusic(0.1f);
@@ -130,14 +136,30 @@ void GameManager::render() {
 
     this->logoTexture->draw(s, d);
 
-    glBegin(GL_TRIANGLES); //GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON
-        glColor3ub(255, 0, 0);
-        glVertex2f(400, 200);
-        glColor3ub(0, 255, 0);
-        glVertex2f(600, 400);
-        glColor3ub(0, 0, 255);
-        glVertex2f(200, 400);
-    glEnd();
+
+    s = {
+        0,
+        0,
+        2048,
+        3040
+    };
+    d = {
+        10,
+        10,
+        512,
+        512
+    };
+
+    this->bigSpriteSheet->drawTile(1665, 100, 100); // mouse cursor
+
+    //glBegin(GL_TRIANGLES); //GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON
+    //    glColor3ub(255, 0, 0);
+    //    glVertex2f(400, 200);
+    //    glColor3ub(0, 255, 0);
+    //    glVertex2f(600, 400);
+    //    glColor3ub(0, 0, 255);
+    //    glVertex2f(200, 400);
+    //glEnd();
 
 
     switch (this->state) {

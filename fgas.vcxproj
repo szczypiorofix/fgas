@@ -124,6 +124,8 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Music.cpp" />
     <ClCompile Include="src\Texture.cpp" />
+    <ClCompile Include="src\TiledMap.cpp" />
+    <ClCompile Include="src\XMLHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />
@@ -149,6 +151,8 @@
     <ClInclude Include="src\GraphicAssets.h" />
     <ClInclude Include="src\Music.h" />
     <ClInclude Include="src\Texture.h" />
+    <ClInclude Include="src\TiledMap.h" />
+    <ClInclude Include="src\XMLHelper.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="res\fgas.rc" />

@@ -16,7 +16,7 @@ GraphicAssets::GraphicAssets() {
 	this->textures[IMAGE_ASSETS_LOGO] = NULL;
 	this->textures[IMAGE_ASSETS_MAIN_MENU_BUTTONS] = NULL;
 	this->textures[IMAGE_ASSETS_VINGUE_FONT] = NULL;
-	this->textures[IMAGE_ASSETS_TEST_TEXTURE] = NULL;
+	this->textures[IMAGE_ASSETS_BIG_SPRITESHEET] = NULL;
 }
 
 
