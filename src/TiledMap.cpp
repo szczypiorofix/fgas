@@ -1,10 +1,9 @@
 /*
- * Dungeon Engine
- * Copyright (C) 2020 szczypiorofix <szczypiorofix@o2.pl>
+ * For Gold and Sweetrolls
+ * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
  */
 
 #include "TiledMap.h"
-#include "Defines.h"
 #include "XMLHelper.h"
 
 
@@ -120,7 +119,7 @@ TiledObject** TiledMap::getObjects(xmlNodePtr cur, int objectCount) {
 			
 			objects[c] = new TiledObject();
 
-			objects[c]->id = (int) XMLHelper::readPropInt(cur, (const xmlChar*)"id");
+			objects[c]->id = XMLHelper::readPropInt(cur, (const xmlChar*)"id");
 			objects[c]->name = (char*)xmlGetProp(cur, (const xmlChar*)"name");
 			objects[c]->type = (char*)xmlGetProp(cur, (const xmlChar*)"type");
 			objects[c]->templateFile = (char*)xmlGetProp(cur, (const xmlChar*)"template");

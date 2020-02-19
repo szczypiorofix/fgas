@@ -9,6 +9,8 @@
 #include "GraphicAssets.h"
 #include "ShaderLoader.h"
 #include "MainMenu.h"
+#include "TiledMap.h"
+#include "Animation.h"
 
 
 enum class State {
@@ -31,12 +33,18 @@ private:
 
 	Engine* engine;
 	bool quit;
-	Texture* backgroundTexture;
-	Texture* logoTexture;
+
 	Texture* bigSpriteSheet;
 	MainMenu* mainMenu;
+	TiledMap* mainMenuBackgroundMap;
 
 	State state;
+	
+	Animation* torchAnimation;
+	Animation* lavaAnimation;
+	Animation* altarOfBloodAnimation;
+	Animation* firePlaceAnimation;
+
 
 	ShaderLoader* shader;
 

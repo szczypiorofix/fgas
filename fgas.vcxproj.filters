@@ -60,6 +60,9 @@
     <ClCompile Include="src\XMLHelper.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Animation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -90,6 +93,8 @@
     </None>
     <None Include="res\images\mm-gui-button.pyxel" />
     <None Include="res\images\mm-gui-controlls.pyxel" />
+    <None Include="res\images\spritesheet.tsx" />
+    <None Include="res\images\mm_background.tmx" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine.h">
@@ -125,6 +130,9 @@
     <ClInclude Include="src\XMLHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Animation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\images\background.png">
@@ -143,6 +151,12 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\images\mm-gui-button.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\ProjectUtumno_full.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\images\spritesheet.png">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

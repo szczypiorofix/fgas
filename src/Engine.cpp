@@ -65,7 +65,6 @@ void Engine::setSystemCursor() {
 	}
 	SDL_WarpMouseInWindow(this->window, this->settings.screenWidth / 2, this->settings.screenHeight / 2);
 	
-
 	GraphicAssets::getAssets()->addToAssets("../res/images/mouse_cursor.png", GraphicAssets::IMAGE_ASSETS_MOUSE_CURSOR);
 
 	Texture* texture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MOUSE_CURSOR];
@@ -82,6 +81,7 @@ void Engine::setSystemCursor() {
 	int pitch = texture->bytesPerPixel * width;
 
 	this->cursorIcon = SDL_CreateRGBSurfaceFrom((void*)texture->data, width, height, depth, pitch, rmask, gmask, bmask, amask);
+	
 	if (this->cursorIcon == NULL) {
 		printf("Unable to Create RPG surface!\n");
 		exit(1);
