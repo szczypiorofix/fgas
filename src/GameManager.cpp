@@ -48,7 +48,7 @@ void GameManager::start() {
 
     unsigned int framesTorch[] = { 1359, 1360, 1361, 1362 };
 
-    this->torchAnimation = new Animation(2, 4, framesTorch);
+    this->torchAnimation = new Animation(5, 4, framesTorch);
     this->torchAnimation->setCurrentFrame(0);
 
 
@@ -61,13 +61,13 @@ void GameManager::start() {
 
     unsigned int framesAltarOfBlood[] = { 1, 2 };
 
-    this->altarOfBloodAnimation = new Animation(5, 2, framesAltarOfBlood);
+    this->altarOfBloodAnimation = new Animation(7, 2, framesAltarOfBlood);
     this->altarOfBloodAnimation->setCurrentFrame(0);
 
-    unsigned int framesFirePlace[] = { 48, 50, 51, 52, 54, 53, 49, 47 };
+    //unsigned int framesFirePlace[] = { 48, 50, 51, 52, 54, 53, 49, 47 };
 
-    this->firePlaceAnimation = new Animation(3, 8, framesFirePlace);
-    this->firePlaceAnimation->setCurrentFrame(0);
+    //this->firePlaceAnimation = new Animation(6, 8, framesFirePlace);
+    //this->firePlaceAnimation->setCurrentFrame(0);
 
 
     this->shader = new ShaderLoader();
@@ -116,7 +116,7 @@ void GameManager::update() {
     this->torchAnimation->nextTile();
     this->lavaAnimation->nextTile();
     this->altarOfBloodAnimation->nextTile();
-    this->firePlaceAnimation->nextTile();
+    //this->firePlaceAnimation->nextTile();
 
     switch (this->state) {
     case State::SPLASH_SCREEN:
@@ -165,8 +165,8 @@ void GameManager::render() {
     }
 
 
-    this->bigSpriteSheet->drawTile(this->firePlaceAnimation->getTile(), 300, 290);
-    this->bigSpriteSheet->drawTile(this->firePlaceAnimation->getTile(), 500, 290);
+    //this->bigSpriteSheet->drawTile(this->firePlaceAnimation->getTile(), 300, 290);
+    //this->bigSpriteSheet->drawTile(this->firePlaceAnimation->getTile(), 500, 290);
 
     this->bigSpriteSheet->drawTile(this->torchAnimation->getTile(), 200, 250);
     this->bigSpriteSheet->drawTile(this->torchAnimation->getTile(), 600, 250);
