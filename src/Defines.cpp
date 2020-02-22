@@ -25,9 +25,6 @@ const int DIR_DOWN_LEFT		    = 6;
 const int DIR_UP_LEFT		    = 7;
 
 
-const short NPC_SPEED		    = 1;
-
-
 const char* DIR_RES_IMAGES		= "../res/images/";
 const char* DIR_RES_MUSIC		= "../res/music/";
 const char* DIR_RES				= "../res/";

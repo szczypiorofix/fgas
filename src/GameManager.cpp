@@ -4,6 +4,8 @@
  */
 
 #include "GameManager.h"
+#include "Tileset.h"
+
 
 
 GameManager::GameManager() {
@@ -46,21 +48,21 @@ void GameManager::start() {
 
     // Animations
 
-    unsigned int framesTorch[] = { 1359, 1360, 1361, 1362 };
+    CUINT framesTorch[] = { 1359, 1360, 1361, 1362 };
 
     this->torchAnimation = new Animation(5, 4, framesTorch);
     this->torchAnimation->setCurrentFrame(0);
 
 
-    unsigned int framesLava[] = { 380, 381, 382, 383 };
+    CUINT framesLava[] = { 380, 381, 382, 383 };
     //unsigned int framesLava[] = { 476, 477, 478, 479 };
 
     this->lavaAnimation = new Animation(8, 4, framesLava);
     this->lavaAnimation->setCurrentFrame(0);
 
 
-    unsigned int framesAltarOfBlood[] = { 1, 2 };
-
+    CUINT framesAltarOfBlood[] = { 1, 2 };
+    
     this->altarOfBloodAnimation = new Animation(7, 2, framesAltarOfBlood);
     this->altarOfBloodAnimation->setCurrentFrame(0);
 
