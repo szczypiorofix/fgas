@@ -5,7 +5,7 @@
 
 #include "Animation.h"
 
-Animation::Animation(unsigned short speed, const unsigned short size, unsigned int* tilesArray) {
+Animation::Animation(unsigned short speed, const unsigned short size, CUINT* tilesArray) {
 	this->size = size;
 	this->speed = speed;
 	this->counter = 0;

@@ -29,9 +29,6 @@ extern const int DIR_DOWN_LEFT;
 extern const int DIR_UP_LEFT;
 
 
-extern const short NPC_SPEED;
-
-
 extern const char* DIR_RES_IMAGES;
 extern const char* DIR_RES_MUSIC;
 extern const char* DIR_RES;

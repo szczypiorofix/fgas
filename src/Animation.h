@@ -8,13 +8,14 @@
 #pragma once
 
 #include <SDL2/SDL.h>
+#include "Tileset.h"
 
 
 class Animation {
 
 public:
 	Animation(unsigned int textureWidth, unsigned int textureTileWidth, unsigned short speed, unsigned int sw, unsigned int sh, const unsigned short size, const unsigned int* frames);
-	Animation(unsigned short speed, const unsigned short size, unsigned int* tilesArray);
+	Animation(unsigned short speed, const unsigned short size, CUINT* tilesArray);
 	~Animation();
 	int nextFrame();
 	int nextTile();
@@ -26,7 +27,7 @@ public:
 private:
 	unsigned short size;
 	SDL_Rect* frames;
-	unsigned int* tilesArray;
+	CUINT* tilesArray;
 	unsigned short speed;
 	int curFrame;
 	int counter;
