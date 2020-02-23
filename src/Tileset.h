@@ -65,5 +65,36 @@ extern CUINT TS_STATUE_FLAME8;
 
 
 
+extern CUINT TS_SIGN_ON_WALL;
+
+
+// Torch
+
+extern CUINT TS_TORCH_PUT_OUT;
+extern CUINT TS_TORCH1;
+extern CUINT TS_TORCH2;
+extern CUINT TS_TORCH3;
+extern CUINT TS_TORCH4;
+
+
+
+
+// Arrow
+
+extern CUINT TS_ARROW_N;
+extern CUINT TS_ARROW_NE;
+extern CUINT TS_ARROW_E;
+extern CUINT TS_ARROW_SE;
+extern CUINT TS_ARROW_S;
+extern CUINT TS_ARROW_SW;
+extern CUINT TS_ARROW_W;
+extern CUINT TS_ARROW_NW;
+
+
+
+// UI Elements
+
+extern CUINT TS_UI_CANCEL;
+extern CUINT TS_UI_ACCEPT;
 
 
