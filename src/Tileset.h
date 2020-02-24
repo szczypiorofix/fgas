@@ -1,7 +1,14 @@
+/*
+ * For Gold and Sweetrolls
+ * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
+ */
+#ifndef _TILESET_H_
+#define _TILESET_H_
+
 #pragma once
 
 
-typedef const unsigned int CUINT;
+typedef unsigned int CUINT;
 
 
 extern CUINT TS_EMPTY;
@@ -98,3 +105,5 @@ extern CUINT TS_UI_CANCEL;
 extern CUINT TS_UI_ACCEPT;
 
 
+
+#endif

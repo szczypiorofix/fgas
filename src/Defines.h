@@ -43,8 +43,20 @@ typedef struct DG_ArrayInt {
 } DG_ArrayInt;
 
 
+
+enum class State {
+    SPLASH_SCREEN,
+    MAIN_MENU,
+    GAME,
+    QUIT
+};
+
+
+
 int stringToInt(const char* a);
+
 std::string charArrayToString(char* a);
+
 DG_ArrayInt* stringToArrayOfInt(std::string s);
 
 

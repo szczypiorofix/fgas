@@ -1,3 +1,8 @@
+/*
+ * For Gold and Sweetrolls
+ * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
+ */
+
 #include "Tileset.h"
 
 
@@ -58,11 +63,6 @@ CUINT TS_STATUE_FLAME7 = 53;
 CUINT TS_STATUE_FLAME8 = 54;
 
 
-
-
-
-
-
 CUINT TS_SIGN_ON_WALL = 1357;
 
 
@@ -73,9 +73,6 @@ CUINT TS_TORCH3 = 1361;
 CUINT TS_TORCH4 = 1362;
 
 
-
-
-
 CUINT TS_ARROW_N = 1485;
 CUINT TS_ARROW_NE = 1486;
 CUINT TS_ARROW_E = 1487;
@@ -84,10 +81,6 @@ CUINT TS_ARROW_S = 1489;
 CUINT TS_ARROW_SW = 1490;
 CUINT TS_ARROW_W = 1491;
 CUINT TS_ARROW_NW = 1492;
-
-
-
-
 
 
 CUINT TS_UI_CANCEL = 1734;

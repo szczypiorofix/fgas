@@ -3,8 +3,8 @@
  * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
  */
 
-#ifndef _TILED_MAP_H_
-#define _TILED_MAP_H_
+#ifndef _TILEDMAP_H_
+#define _TILEDMAP_H_
 #pragma once
 
 #include <iostream>

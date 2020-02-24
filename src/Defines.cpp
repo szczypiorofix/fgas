@@ -54,6 +54,7 @@ int stringToInt(const char* a) {
     return n;
 }
 
+
 DG_ArrayInt* stringToArrayOfInt(std::string s) {
     int str_length = s.length();
     int* arr { new int[str_length + 1] { 0 } };
@@ -76,6 +77,7 @@ DG_ArrayInt* stringToArrayOfInt(std::string s) {
     array->arr = arr;
     return array;
 }
+
 
 std::string charArrayToString(char* a) {
     std::string str = "";

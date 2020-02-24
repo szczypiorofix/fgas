@@ -3,7 +3,8 @@
  * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
  */
 
-
+#ifndef _SHADERLOADER_H_
+#define _SHADERLOADER_H_
 #pragma once
 
 #include <string>
@@ -37,3 +38,5 @@ private:
 
 };
 
+
+#endif

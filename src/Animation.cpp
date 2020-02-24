@@ -5,43 +5,13 @@
 
 #include "Animation.h"
 
-Animation::Animation(unsigned short speed, const unsigned short size, CUINT* tilesArray) {
+
+Animation::Animation(unsigned short speed, const unsigned short size, std::vector<CUINT> tilesArray) {
 	this->size = size;
 	this->speed = speed;
 	this->counter = 0;
 	this->curFrame = 0;
-	this->frames = nullptr;
 	this->tilesArray = tilesArray;
-}
-
-
-Animation::Animation(unsigned int textureWidth, unsigned int textureTileWidth, unsigned short speed, unsigned int sw, unsigned int sh, const unsigned short size, const unsigned int* frames) {
-	this->size = size;
-	this->speed = speed;
-	this->counter = 0;
-	this->curFrame = 0;
-	this->tilesArray = nullptr;
-	this->frames = new SDL_Rect[size];
-
-	for (unsigned int i = 0; i < size; i++) {
-		int col = textureWidth / textureTileWidth;
-		this->frames[i].x = ((frames[i] - 1) % col) * sw;
-		this->frames[i].y = ((frames[i] - 1) / col) * sh;
-		this->frames[i].w = sw;
-		this->frames[i].h = sh;
-	}
-}
-
-
-int Animation::nextTile() {
-	this->counter++;
-	if (this->counter > this->speed) {
-		this->counter = 0;
-		this->curFrame++;
-		if (this->curFrame >= this->size)
-			this->curFrame = 0;
-	}
-	return this->curFrame;
 }
 
 
@@ -58,12 +28,13 @@ int Animation::nextFrame() {
 
 
 int Animation::getTile() {
-	return this->tilesArray[this->curFrame];
-}
-
-
-SDL_Rect Animation::getFrame(int index) {
-	return this->frames[index];
+	int res = 0;
+	try {
+		res = this->tilesArray.at(this->curFrame);
+	} catch (std::out_of_range & ex) {
+		std::cout << "OUT OF RANGE EXCEPTION !!!" << ex.what() << std::endl;
+	}
+	return res;
 }
 
 

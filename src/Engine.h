@@ -2,7 +2,8 @@
  * For Gold and Sweetrolls
  * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
  */
-
+#ifndef _ENGINE_H_
+#define _ENGINE_H_
 #pragma once
 
 #include <SDL2/SDL.h>
@@ -63,3 +64,4 @@ private:
 
 };
 
+#endif

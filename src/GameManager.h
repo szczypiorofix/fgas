@@ -2,22 +2,15 @@
  * For Gold and Sweetrolls
  * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
  */
-
+#ifndef _GAMEMANAGER_H_
+#define _GAMEMANAGER_H_
 #pragma once
 
 #include "Engine.h"
 #include "GraphicAssets.h"
 #include "ShaderLoader.h"
 #include "MainMenu.h"
-#include "TiledMap.h"
-#include "Animation.h"
-
-
-enum class State {
-	SPLASH_SCREEN,
-	MAIN_MENU,
-	GAME,
-};
+#include "Defines.h"
 
 
 class GameManager {
@@ -34,19 +27,11 @@ private:
 	Engine* engine;
 	bool quit;
 
-	Texture* bigSpriteSheet;
 	MainMenu* mainMenu;
-	TiledMap* mainMenuBackgroundMap;
-
+	
 	State state;
 	
-	Animation* torchAnimation;
-	Animation* lavaAnimation;
-	Animation* altarOfBloodAnimation;
-	Animation* firePlaceAnimation;
-
-
-	ShaderLoader* shader;
+	//ShaderLoader* shader;
 
 	void mainLoop();
 
@@ -56,3 +41,5 @@ private:
 
 };
 
+
+#endif
