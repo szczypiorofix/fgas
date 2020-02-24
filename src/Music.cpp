@@ -36,7 +36,7 @@
 
 
 
-Music::Music(const std::string musicFile, float volume, bool loop) {
+Music::Music(const std::string& musicFile, float volume, bool loop) {
 	
 	this->channel = 0;
 	this->sample = 0;

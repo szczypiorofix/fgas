@@ -3,11 +3,12 @@
  * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
  */
 
-#ifndef _TILED_MAP_H_
-#define _TILED_MAP_H_
+#ifndef _TILEDMAP_H_
+#define _TILEDMAP_H_
 #pragma once
 
 #include <iostream>
+#include <vector>
 #include <libxml/xmlIO.h>
 #include <libxml/xinclude.h>
 #include <libxml/tree.h>
@@ -17,71 +18,71 @@
 
 typedef struct TileSetSource {
 	char* name;
-	int tileWidth;
-	int tileHeight;
-	int tileCount;
-	int columns;
-	int width;
-	int height;
+	u16 tileWidth;
+	u16 tileHeight;
+	u16 tileCount;
+	u16 columns;
+	u16 width;
+	u16 height;
 	char* imageSource;
 } TileSetSource;
 
 typedef struct TiledObject {
-	int id;
+	u16 id;
 	char* name;
 	char* type;
 	char* templateFile;
-	int x;
-	int y;
-	int firstGid;
+	s16 x;
+	s16 y;
+	u16 firstGid;
 	char* source;
-	int gid;
-	int width;
-	int height;
+	u16 gid;
+	u16 width;
+	u16 height;
 } TiledObject;
 
 typedef struct ObjectGroup {
-	int id;
+	u16 id;
 	char* name;
-	int objectsCount;
-	TiledObject** objects;
+	u16 objectsCount;
+	std::vector<TiledObject*> objects;
 } ObjectGroup;
 
 typedef struct TiledTemplate {
-	int tileSetFirstGid;
+	u16 tileSetFirstGid;
 	std::string source;
-	int objectGid;
-	int width;
-	int height;
+	u16 objectGid;
+	u16 width;
+	u16 height;
 } TiledTemplate;
 
 typedef struct TileSet {
-	int firstGid;
+	u16 firstGid;
 	TileSetSource* source;
 } TileSet;
 
 typedef struct Layer {
-	int id;
+	u16 id;
 	char* name;
-	int width;
-	int height;
+	u16 width;
+	u16 height;
 	DG_ArrayInt data;
-	int dataSize;
+	u16 dataSize;
 } Layer;
 
 typedef struct Map {
-	int width;
-	int height;
-	int tileWidth;
-	int tileHeight;
-	int nextLayerId;
-	int nextObjectId;
-	TileSet** tileSets;
-	int tileSetCounter;
-	Layer** layers;
-	int layerCounter;
-	ObjectGroup** objectGroups;
-	int objectGroupCounter;
+	u16 width;
+	u16 height;
+	u16 tileWidth;
+	u16 tileHeight;
+	u16 nextLayerId;
+	u16 nextObjectId;
+	std::vector<TileSet*> tileSets;
+	std::vector<Layer*> layers;
+	std::vector<ObjectGroup*> objectGroups;
+	
+	Map() : width(0), height(0), tileWidth(0), tileHeight(0), nextLayerId(0), nextObjectId(0), tileSets(), layers(), objectGroups() {}
+
 } Map;
 
 class TiledMap {
@@ -90,13 +91,13 @@ public:
 	TiledMap(std::string fileName);
 	~TiledMap();
 
-	Map map;
+	Map* map;
 
 private:
 
 	TileSetSource* getTileSetSource(std::string tsxFileName);
 	DG_ArrayInt parseData(xmlDocPtr doc, xmlNodePtr cur);
-	TiledObject** getObjects(xmlNodePtr cur, int objectCount);
+	std::vector<TiledObject*> getObjects(xmlNodePtr cur, int objectCount);
 };
 
 

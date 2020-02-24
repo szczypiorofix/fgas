@@ -9,6 +9,8 @@
 
 TiledMap::TiledMap(std::string fileName) {
 	
+	this->map = new Map();
+
 	xmlDocPtr doc;
 	xmlNodePtr cur;
 	std::string fn = DIR_RES_IMAGES + fileName;
@@ -19,7 +21,7 @@ TiledMap::TiledMap(std::string fileName) {
 
 	doc = xmlParseFile(fn.c_str());
 	if (doc == NULL) {
-		std::cout << "Unable to parse document " << fn << std::endl;
+		std::cout << "Unable to parse the document: " << fn << std::endl;
 		exit(1);
 	}
 	
@@ -35,53 +37,53 @@ TiledMap::TiledMap(std::string fileName) {
 		exit(1);
 	}
 
-	this->map = {0,0,0,0,0,0,NULL,0,NULL,0,NULL,0};
-
-	this->map.width			= XMLHelper::readPropInt(cur, (const xmlChar*)"width");
-	this->map.height		= XMLHelper::readPropInt(cur, (const xmlChar*)"height");
-	this->map.tileWidth		= XMLHelper::readPropInt(cur, (const xmlChar*)"tilewidth");
-	this->map.tileHeight	= XMLHelper::readPropInt(cur, (const xmlChar*)"tileheight");
+	this->map->width			= XMLHelper::readPropInt(cur, (const xmlChar*)"width");
+	this->map->height			= XMLHelper::readPropInt(cur, (const xmlChar*)"height");
+	this->map->tileWidth		= XMLHelper::readPropInt(cur, (const xmlChar*)"tilewidth");
+	this->map->tileHeight		= XMLHelper::readPropInt(cur, (const xmlChar*)"tileheight");
 
 	cur = cur->xmlChildrenNode;
 	xmlNodePtr firstForCounter = cur;
 
+	u16 tileSetCounter = 0;
+	u16 layerCounter = 0;
+	u16 objectGroupCounter = 0;
 
 	while (firstForCounter != NULL) {
-		if ((!xmlStrcmp(firstForCounter->name, (const xmlChar*)"tileset")))		this->map.tileSetCounter++;
-		if ((!xmlStrcmp(firstForCounter->name, (const xmlChar*)"layer")))		this->map.layerCounter++;
-		if ((!xmlStrcmp(firstForCounter->name, (const xmlChar*)"objectgroup")))	this->map.objectGroupCounter++;
+		if ((!xmlStrcmp(firstForCounter->name, (const xmlChar*)"tileset")))		tileSetCounter++;
+		if ((!xmlStrcmp(firstForCounter->name, (const xmlChar*)"layer")))		layerCounter++;
+		if ((!xmlStrcmp(firstForCounter->name, (const xmlChar*)"objectgroup")))	objectGroupCounter++;
 		firstForCounter = firstForCounter->next;
 	}
 
-	int tsc = 0;	// tilesets counter
-	int lc = 0;		// layers counter
-	int ogc = 0;	// object groups counter
+	this->map->tileSets.clear();
+	this->map->tileSets.reserve(tileSetCounter);
+	
+	this->map->layers.clear();
+	this->map->layers.reserve(layerCounter);
 
-	this->map.tileSets		= new TileSet * [this->map.tileSetCounter];
-	this->map.layers		= new Layer * [this->map.layerCounter];
-	this->map.objectGroups	= new ObjectGroup * [this->map.objectGroupCounter];
+	this->map->objectGroups.clear();
+	this->map->objectGroups.reserve(objectGroupCounter);
 
 	while (cur != NULL) {
 		if ((!xmlStrcmp(cur->name, (const xmlChar*)"tileset"))) {
-			this->map.tileSets[tsc] = new TileSet();
-			this->map.tileSets[tsc]->firstGid = XMLHelper::readPropInt(cur, (const xmlChar*)"firstgid");
+			this->map->tileSets.push_back(new TileSet());
+			this->map->tileSets.back()->firstGid = XMLHelper::readPropInt(cur, (const xmlChar*)"firstgid");
 			TileSetSource* tss = this->getTileSetSource((char*)xmlGetProp(cur, (const xmlChar*)"source"));
-			this->map.tileSets[tsc]->source = tss;
-			tsc++;
+			this->map->tileSets.back()->source = tss;
 		}
 		if ((!xmlStrcmp(cur->name, (const xmlChar*)"layer"))) {
-			this->map.layers[lc] = new Layer();
-			this->map.layers[lc]->id		= XMLHelper::readPropInt(cur, (const xmlChar*)"id");
-			this->map.layers[lc]->name		= (char*)xmlGetProp(cur, (const xmlChar*)"name");
-			this->map.layers[lc]->width		= XMLHelper::readPropInt(cur, (const xmlChar*)"width");
-			this->map.layers[lc]->height	= XMLHelper::readPropInt(cur, (const xmlChar*)"height");
-			this->map.layers[lc]->data		= this->parseData(doc, cur);
-			lc++;
+			this->map->layers.push_back(new Layer());
+			this->map->layers.back()->id		= XMLHelper::readPropInt(cur, (const xmlChar*)"id");
+			this->map->layers.back()->name		= (char*)xmlGetProp(cur, (const xmlChar*)"name");
+			this->map->layers.back()->width		= XMLHelper::readPropInt(cur, (const xmlChar*)"width");
+			this->map->layers.back()->height	= XMLHelper::readPropInt(cur, (const xmlChar*)"height");
+			this->map->layers.back()->data		= this->parseData(doc, cur);
 		}
 		if ((!xmlStrcmp(cur->name, (const xmlChar*)"objectgroup"))) {
-			this->map.objectGroups[ogc] = new ObjectGroup();
-			this->map.objectGroups[ogc]->id		= XMLHelper::readPropInt(cur, (const xmlChar*)"id");
-			this->map.objectGroups[ogc]->name	= (char*)xmlGetProp(cur, (const xmlChar*)"name");
+			this->map->objectGroups.push_back(new ObjectGroup());
+			this->map->objectGroups.back()->id		= XMLHelper::readPropInt(cur, (const xmlChar*)"id");
+			this->map->objectGroups.back()->name	= (char*)xmlGetProp(cur, (const xmlChar*)"name");
 	
 			// Counting objects in a group
 			xmlNodePtr objNode = cur->xmlChildrenNode;
@@ -93,11 +95,10 @@ TiledMap::TiledMap(std::string fileName) {
 				objNode = objNode->next;
 			}
 			
-			this->map.objectGroups[ogc]->objectsCount = objCounter;
+			this->map->objectGroups.back()->objectsCount = objCounter;
 
 			// Getting objects from object groups
-			this->map.objectGroups[ogc]->objects = this->getObjects(cur, this->map.objectGroups[ogc]->objectsCount);
-			ogc++;
+			//this->map->objectGroups.back()->objects = this->getObjects(cur, this->map.objectGroups[ogc]->objectsCount);
 		}
 		cur = cur->next;
 	}
@@ -109,28 +110,27 @@ TiledMap::TiledMap(std::string fileName) {
 }
 
 
-TiledObject** TiledMap::getObjects(xmlNodePtr cur, int objectCount) {
-	TiledObject** objects = new TiledObject * [objectCount];
+std::vector<TiledObject*> TiledMap::getObjects(xmlNodePtr cur, int objectCount) {
+	std::vector<TiledObject*> objects = {};
 
 	cur = cur->xmlChildrenNode;
-	int c = 0;
 	while (cur != NULL) {
 		if ((!xmlStrcmp(cur->name, (const xmlChar*)"object"))) {
 			
-			objects[c] = new TiledObject();
+			objects.push_back(new TiledObject());
 
-			objects[c]->id = XMLHelper::readPropInt(cur, (const xmlChar*)"id");
-			objects[c]->name = (char*)xmlGetProp(cur, (const xmlChar*)"name");
-			objects[c]->type = (char*)xmlGetProp(cur, (const xmlChar*)"type");
-			objects[c]->templateFile = (char*)xmlGetProp(cur, (const xmlChar*)"template");
-			objects[c]->x = XMLHelper::readPropInt(cur, (const xmlChar*)"x");
-			objects[c]->y = XMLHelper::readPropInt(cur, (const xmlChar*)"y");
+			objects.back()->id				= XMLHelper::readPropInt(cur, (const xmlChar*)"id");
+			objects.back()->name			= (char*)xmlGetProp(cur, (const xmlChar*)"name");
+			objects.back()->type			= (char*)xmlGetProp(cur, (const xmlChar*)"type");
+			objects.back()->templateFile	= (char*)xmlGetProp(cur, (const xmlChar*)"template");
+			objects.back()->x				= XMLHelper::readPropInt(cur, (const xmlChar*)"x");
+			objects.back()->y				= XMLHelper::readPropInt(cur, (const xmlChar*)"y");
 
 			// Parse template file
 			xmlDocPtr txDoc;
 			xmlNodePtr txCurNode;
 
-			std::string fn = DIR_RES_IMAGES + charArrayToString(objects[c]->templateFile);
+			std::string fn = DIR_RES_IMAGES + charArrayToString(objects.back()->templateFile);
 #ifdef _DEBUG
 			std::cout << "Parsing tx file: " << fn << "... " << std::endl;
 #endif
@@ -155,19 +155,18 @@ TiledObject** TiledMap::getObjects(xmlNodePtr cur, int objectCount) {
 
 			while (txCurNode != NULL) {
 				if (!(xmlStrcmp(txCurNode->name, (const xmlChar*)"tileset"))) {
-					objects[c]->source = (char*)xmlGetProp(txCurNode, (const xmlChar*)"source");
-					objects[c]->firstGid = XMLHelper::readPropInt(txCurNode, (const xmlChar*)"firstgid");
+					objects.back()->source		= (char*)xmlGetProp(txCurNode, (const xmlChar*)"source");
+					objects.back()->firstGid	= XMLHelper::readPropInt(txCurNode, (const xmlChar*)"firstgid");
 				}
 				if (!(xmlStrcmp(txCurNode->name, (const xmlChar*)"object"))) {
-					objects[c]->gid		= XMLHelper::readPropInt(txCurNode, (const xmlChar*)"gid");
-					objects[c]->width	= XMLHelper::readPropInt(txCurNode, (const xmlChar*)"width");
-					objects[c]->height	= XMLHelper::readPropInt(txCurNode, (const xmlChar*)"height");
+					objects.back()->gid		= XMLHelper::readPropInt(txCurNode, (const xmlChar*)"gid");
+					objects.back()->width	= XMLHelper::readPropInt(txCurNode, (const xmlChar*)"width");
+					objects.back()->height	= XMLHelper::readPropInt(txCurNode, (const xmlChar*)"height");
 				}
 				txCurNode = txCurNode->next;
 			}
 
 			xmlFreeDoc(txDoc);
-			c++;
 		}
 		cur = cur->next;
 	}
@@ -178,7 +177,7 @@ TiledObject** TiledMap::getObjects(xmlNodePtr cur, int objectCount) {
 
 DG_ArrayInt TiledMap::parseData(xmlDocPtr doc, xmlNodePtr cur) {
 	DG_ArrayInt arr;
-	arr.size = this->map.width * this->map.height;
+	arr.size = this->map->width * this->map->height;
 
 	xmlChar* key;
 	cur = cur->xmlChildrenNode;
@@ -254,6 +253,4 @@ TileSetSource* TiledMap::getTileSetSource(std::string tsxFileName) {
 	return tss;
 }
 
-TiledMap::~TiledMap() {
-
-}
+TiledMap::~TiledMap() {}
