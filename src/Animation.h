@@ -9,7 +9,7 @@
 
 #include <iostream>
 #include <vector>
-#include "Tileset.h"
+#include "Defines.h"
 
 
 class Animation {

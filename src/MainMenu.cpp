@@ -5,10 +5,9 @@
 
 #include "MainMenu.h"
 #include "GraphicAssets.h"
-#include "Tileset.h"
 
 
-MainMenu::MainMenu(State& _state, Engine* _engine) : state{ _state }, engine{ _engine } {
+MainMenu::MainMenu(State& _state) : state{ _state } {
 
     this->bigSpriteSheet = nullptr;
 
@@ -17,6 +16,12 @@ MainMenu::MainMenu(State& _state, Engine* _engine) : state{ _state }, engine{ _e
     
     std::vector<u16> framesTorch = { TS_TORCH1, TS_TORCH2, TS_TORCH3, TS_TORCH4 };
     this->torchAnimation = new Animation(4, 4, framesTorch);
+
+    std::vector<u16> framesDiamond = { 79, 80, 81 };
+    this->diamondAnimation = new Animation(4, 3, framesDiamond);
+
+    std::vector<u16> framesCards = { 84, 85, 86, 87, 88 };
+    this->cardsAnimation = new Animation(4, 5, framesCards);
 
 }
 
@@ -34,7 +39,11 @@ void MainMenu::input(SDL_Event& event) {
 
 
 void MainMenu::update() {
+
     this->torchAnimation->nextFrame();
+    this->diamondAnimation->nextFrame();
+    this->cardsAnimation->nextFrame();
+
 }
 
 
@@ -54,6 +63,11 @@ void MainMenu::render() {
     }
 
     this->bigSpriteSheet->drawTile(this->torchAnimation->getTile(), 200, 250);
+    this->bigSpriteSheet->drawTile(this->torchAnimation->getTile(), 600, 250);
+
+    this->bigSpriteSheet->drawTile(this->diamondAnimation->getTile(), 300, 350);
+    this->bigSpriteSheet->drawTile(this->cardsAnimation->getTile(), 500, 350);
+
 
     //this->bigSpriteSheet->drawTile(1665, 100, 100); // mouse cursor
 

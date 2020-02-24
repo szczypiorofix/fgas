@@ -4,16 +4,15 @@
  */
 
 #include "GameManager.h"
-#include "Tileset.h"
 
 
 
 GameManager::GameManager() {
 	
     this->quit = false;
-    this->engine = nullptr;
 
-    //this->shader = nullptr;
+    this->engine = nullptr;
+    this->shader = nullptr;
     this->mainMenu = nullptr;
 
     this->state = State::MAIN_MENU;
@@ -27,31 +26,17 @@ void GameManager::start() {
 
     GraphicAssets::addToAssets("../res/images/spritesheet.png", 32, 32, GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET);
     
-    this->mainMenu = new MainMenu(this->state, this->engine);
+    this->mainMenu = new MainMenu(this->state);
 
-   
 
     this->engine->loadMusic("menu-music.ogg");
     this->engine->playMusic(0.1f);
 
 
-
-
-    // Animations
-
-    //CUINT framesTorch[] = { 1359, 1360, 1361, 1362 };
-
-
-    //unsigned int framesFirePlace[] = { 48, 50, 51, 52, 54, 53, 49, 47 };
-
-    //this->firePlaceAnimation = new Animation(6, 8, framesFirePlace);
-    //this->firePlaceAnimation->setCurrentFrame(0);
-
-
-    //this->shader = new ShaderLoader();
-    //this->shader->compileShaders("vert_shader.glsl", "frag_shader.glsl");
-    //this->shader->addAttribute("LVertexPos2D");
-    //this->shader->linkShaders();
+    this->shader = new ShaderLoader();
+    this->shader->compileShaders("vert_shader.glsl", "frag_shader.glsl");
+    this->shader->addAttribute("LVertexPos2D");
+    this->shader->linkShaders();
 
     this->mainLoop();
 
@@ -108,7 +93,6 @@ void GameManager::render() {
     // ================================= Render Start =================================
 
 
-
     switch (this->state) {
     case State::SPLASH_SCREEN:
         break;
@@ -144,5 +128,3 @@ void GameManager::mainLoop() {
     this->engine->stop(0);
 
 }
-
-

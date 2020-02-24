@@ -25,12 +25,10 @@ public:
 	bool stopMusic();
 	bool pauseMusic();
 
-	HCHANNEL getChannel();
 	HSTREAM getStream();
 
 private:
-	HSAMPLE sample;
-	HCHANNEL channel;
+
 	HSTREAM stream;
 
 	std::string musicFileName;

@@ -9,8 +9,6 @@
 
 
 
-
-
 // ############################ BASS ############################
 
 //BASS_Init(-1, 44100, 0, 0, NULL);
@@ -38,8 +36,6 @@
 
 Music::Music(const std::string& musicFile, float volume, bool loop) {
 	
-	this->channel = 0;
-	this->sample = 0;
 	this->volume = volume;
 	this->loop = loop;
 	this->musicFileName = DIR_RES_MUSIC + musicFile;
@@ -101,11 +97,6 @@ bool Music::stopMusic() {
 
 bool Music::pauseMusic() {
 	return BASS_ChannelPause(this->stream);
-}
-
-
-HCHANNEL Music::getChannel() {
-	return this->channel;
 }
 
 
