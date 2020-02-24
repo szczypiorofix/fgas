@@ -8,6 +8,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 #include <libxml/xmlIO.h>
 #include <libxml/xinclude.h>
 #include <libxml/tree.h>
@@ -44,7 +45,7 @@ typedef struct ObjectGroup {
 	u16 id;
 	char* name;
 	u16 objectsCount;
-	TiledObject** objects;
+	std::vector<TiledObject*> objects;
 } ObjectGroup;
 
 typedef struct TiledTemplate {
@@ -76,12 +77,12 @@ typedef struct Map {
 	u16 tileHeight;
 	u16 nextLayerId;
 	u16 nextObjectId;
-	TileSet** tileSets;
-	u16 tileSetCounter;
-	Layer** layers;
-	u16 layerCounter;
-	ObjectGroup** objectGroups;
-	u16 objectGroupCounter;
+	std::vector<TileSet*> tileSets;
+	std::vector<Layer*> layers;
+	std::vector<ObjectGroup*> objectGroups;
+	
+	Map() : width(0), height(0), tileWidth(0), tileHeight(0), nextLayerId(0), nextObjectId(0), tileSets(), layers(), objectGroups() {}
+
 } Map;
 
 class TiledMap {
@@ -90,13 +91,13 @@ public:
 	TiledMap(std::string fileName);
 	~TiledMap();
 
-	Map map;
+	Map* map;
 
 private:
 
 	TileSetSource* getTileSetSource(std::string tsxFileName);
 	DG_ArrayInt parseData(xmlDocPtr doc, xmlNodePtr cur);
-	TiledObject** getObjects(xmlNodePtr cur, int objectCount);
+	std::vector<TiledObject*> getObjects(xmlNodePtr cur, int objectCount);
 };
 
 

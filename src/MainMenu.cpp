@@ -40,14 +40,14 @@ void MainMenu::update() {
 
 void MainMenu::render() {
     
-    for (int l = 0; l < this->mainMenuBackgroundMap->map.layerCounter; l++) {
-        for (int i = 0; i < this->mainMenuBackgroundMap->map.width * this->mainMenuBackgroundMap->map.height; i++) {
-            int id = (this->mainMenuBackgroundMap->map.layers[l]->data.arr[i]) - 1;
+    for (int l = 0; l < this->mainMenuBackgroundMap->map->layers.size(); l++) {
+        for (int i = 0; i < this->mainMenuBackgroundMap->map->width * this->mainMenuBackgroundMap->map->height; i++) {
+            int id = (this->mainMenuBackgroundMap->map->layers.at(l)->data.arr[i]) - 1;
             if (id > 0) {
                 this->bigSpriteSheet->drawTile(
                     id,
-                    (GLfloat)((i % this->mainMenuBackgroundMap->map.layers[l]->width) * this->mainMenuBackgroundMap->map.tileWidth),
-                    (GLfloat)((i / this->mainMenuBackgroundMap->map.layers[l]->width) * this->mainMenuBackgroundMap->map.tileHeight)
+                    (GLfloat)((i % this->mainMenuBackgroundMap->map->layers.at(l)->width) * this->mainMenuBackgroundMap->map->tileWidth),
+                    (GLfloat)((i / this->mainMenuBackgroundMap->map->layers.at(l)->width) * this->mainMenuBackgroundMap->map->tileHeight)
                 );
             }
         }
