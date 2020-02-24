@@ -31,7 +31,7 @@ private:
 	
 	State state;
 	
-	//ShaderLoader* shader;
+	ShaderLoader* shader;
 
 	void mainLoop();
 

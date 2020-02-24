@@ -7,17 +7,18 @@
 #include "XMLHelper.h"
 
 int XMLHelper::xmlCharToInt(const xmlChar* a) {
-	int c = 0, sign = 0, offset = 0, n = 0;
+	int c = 0;
+	int sign = 0;
+	int offset = 0;
+	int n = 0;
 	if (a[0] == '-') {
 		sign = -1;
 	}
 	if (sign == -1) {
 		offset = 1;
-	}
-	else {
+	} else {
 		offset = 0;
 	}
-	n = 0;
 	for (c = offset; a[c] != '\0'; c++) {
 		n = n * 10 + a[c] - '0';
 	}
@@ -29,17 +30,18 @@ int XMLHelper::xmlCharToInt(const xmlChar* a) {
 
 
 short XMLHelper::xmlCharToShort(const xmlChar* a) {
-	short c = 0, sign = 0, offset = 0, n = 0;
+	short c = 0;
+	short sign = 0;
+	short offset = 0;
+	short n = 0;
 	if (a[0] == '-') {
 		sign = -1;
 	}
 	if (sign == -1) {
 		offset = 1;
-	}
-	else {
+	} else {
 		offset = 0;
 	}
-	n = 0;
 	for (c = offset; a[c] != '\0'; c++) {
 		n = n * 10 + a[c] - '0';
 	}
@@ -52,12 +54,12 @@ short XMLHelper::xmlCharToShort(const xmlChar* a) {
 
 int XMLHelper::readPropInt(xmlNodePtr node, const xmlChar* prop) {
 	xmlChar* c = xmlGetProp(node, prop);
-	int s = 0;
+	int i = 0;
 	if (c != NULL) {
-		s = xmlCharToInt(c);
+		i = xmlCharToInt(c);
 		xmlFree(c);
 	}
-	return s;
+	return i;
 }
 
 

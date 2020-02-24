@@ -7,7 +7,6 @@
 #pragma once
 
 #include <SDL2/SDL_events.h>
-#include "Engine.h"
 #include "TiledMap.h"
 #include "Animation.h"
 #include "Texture.h"
@@ -17,7 +16,7 @@
 class MainMenu {
 
 public:
-	MainMenu(State& state, Engine* engine);
+	MainMenu(State& state);
 	~MainMenu();
 
 	void update();
@@ -28,10 +27,14 @@ public:
 private:
 
 	State& state;
-	Engine* engine;
+	
 	Texture* bigSpriteSheet;
+	
 	TiledMap* mainMenuBackgroundMap;
+
 	Animation* torchAnimation;
+	Animation* diamondAnimation;
+	Animation* cardsAnimation;
 
 };
 
