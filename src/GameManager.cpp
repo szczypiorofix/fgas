@@ -141,7 +141,7 @@ void GameManager::mainLoop() {
 
     }
 
-    this->engine->stop();
+    this->engine->stop(0);
 
 }
 

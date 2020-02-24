@@ -15,19 +15,19 @@
 class Animation {
 
 public:
-	Animation(unsigned short speed, const unsigned short size, std::vector<CUINT> tilesArray);
+	Animation(u16 speed, cu16 size, std::vector<u16> tilesArray);
 	~Animation();
-	int nextFrame();
-	int getTile();
-	int getCurFrame();
-	void setCurrentFrame(int curFrame);
+	void nextFrame(void);
+	u16 getTile(void);
+	u16 getCurFrame(void);
+	void setCurrentFrame(u16 curFrame);
 
 private:
-	unsigned short size;
-	std::vector<CUINT> tilesArray;
+	u16 size;
+	std::vector<u16> tilesArray;
 	unsigned short speed;
-	int curFrame;
-	int counter;
+	u16 curFrame;
+	u16 counter;
 
 };
 

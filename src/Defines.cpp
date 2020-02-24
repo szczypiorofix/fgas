@@ -7,22 +7,22 @@
 
 
 
-const int SCREEN_WIDTH		    = 800;
-const int SCREEN_HEIGHT		    = 600;
+const u16 SCREEN_WIDTH		    = 800;
+const u16 SCREEN_HEIGHT		    = 600;
 
 
-const float MIN_SCALE             = 1.0f;
-const float MAX_SCALE             = 5.0f;
+const float MIN_SCALE           = 1.0f;
+const float MAX_SCALE           = 5.0f;
 
 
-const int DIR_UP			    = 0;
-const int DIR_RIGHT			    = 1;
-const int DIR_DOWN			    = 2;
-const int DIR_LEFT			    = 3;
-const int DIR_UP_RIGHT		    = 4;
-const int DIR_DOWN_RIGHT	    = 5;
-const int DIR_DOWN_LEFT		    = 6;
-const int DIR_UP_LEFT		    = 7;
+const cu8 DIR_UP                 = 0;
+const cu8 DIR_RIGHT			    = 1;
+const cu8 DIR_DOWN			    = 2;
+const cu8 DIR_LEFT			    = 3;
+const cu8 DIR_UP_RIGHT		    = 4;
+const cu8 DIR_DOWN_RIGHT         = 5;
+const cu8 DIR_DOWN_LEFT		    = 6;
+const cu8 DIR_UP_LEFT		    = 7;
 
 
 const char* DIR_RES_IMAGES		= "../res/images/";

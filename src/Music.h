@@ -17,7 +17,7 @@ public:
 	constexpr static float DEFAULT_MUSIC_VOLUME = 1.0f;
 
 
-	Music(const std::string musicFile, float volume, bool loop);
+	Music(const std::string& musicFile, float volume, bool loop);
 	~Music();
 
 	bool playMusic(float _volume);

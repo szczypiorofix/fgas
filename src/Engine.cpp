@@ -6,7 +6,6 @@
 #define _CRT_SECURE_NO_WARNINGS
 
 #include "Engine.h"
-#include "Defines.h"
 #include "GraphicAssets.h"
 
 
@@ -26,16 +25,17 @@ Engine::Engine() {
 		0.5f							// music volume
 	};
 
+	this->exitCode = 0;
 }
 
 
-void Engine::launch() {
+void Engine::launch(void) {
 	
 	this->init();
 
 }
 
-void Engine::stop() {
+void Engine::stop(s16 _exitCode) {
 #ifdef _DEBUG 
 	printf("Shutting down SDL modules.\n");
 #endif
@@ -52,6 +52,14 @@ void Engine::stop() {
 	}
 	
 	SDL_Quit();
+	
+	exit(_exitCode);
+
+}
+
+
+void Engine::stop() {
+	this->stop(this->exitCode);
 }
 
 
@@ -63,6 +71,7 @@ void Engine::setSystemCursor() {
 	if (m == -1) {
 		printf("Warning! Error while locking mouse pointer to the window.\n");
 	}
+
 	SDL_WarpMouseInWindow(this->window, this->settings.screenWidth / 2, this->settings.screenHeight / 2);
 	
 	GraphicAssets::getAssets()->addToAssets("../res/images/mouse_cursor.png", GraphicAssets::IMAGE_ASSETS_MOUSE_CURSOR);
@@ -84,13 +93,13 @@ void Engine::setSystemCursor() {
 	
 	if (this->cursorIcon == NULL) {
 		printf("Unable to Create RPG surface!\n");
-		exit(1);
+		this->stop(1);
 	}
 	else {
 		this->systemCursor = SDL_CreateColorCursor(this->cursorIcon, 0, 0);
 		if (this->systemCursor == NULL) {
 			printf("Unable to create a mouse cursor !\n");
-			exit(1);
+			this->stop(1);
 		}
 		else {
 			SDL_SetCursor(this->systemCursor);
@@ -117,7 +126,7 @@ void Engine::initSDL(void) {
 #endif
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		printf("SDL_Init error! %s\n", SDL_GetError());
-		exit(1);
+		this->stop(1);
 	}
 
 	atexit(SDL_Quit);
@@ -127,7 +136,7 @@ void Engine::initSDL(void) {
 	this->window = SDL_CreateWindow("For Gold and Sweetrolls", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, this->settings.screenWidth, this->settings.screenHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 	if (this->window == NULL) {
 		printf("SDL_CreateWindow error! %s\n", SDL_GetError());
-		exit(1);
+		this->stop(1);
 	}
 }
 
@@ -162,7 +171,7 @@ void Engine::initOGL(void) {
 	GLenum err = glewInit();
 	if (GLEW_OK != err) {
 		printf("ERROR !!! %s\n", glewGetErrorString(err));
-		exit(1);
+		this->stop(1);
 	}
 		
 	printf("GLEW STATUS: %s\n", glewGetString(GLEW_VERSION));
@@ -211,6 +220,7 @@ void Engine::initBASS(void) {
 
 	if (BASS_Init(-1, 44100, 0, 0, NULL) < 0) {
 		printf("SDL_mixer BASS_Init() error code: %i.\n", BASS_ErrorGetCode());
+		this->stop(1);
 	}
 
 	BASS_Start();

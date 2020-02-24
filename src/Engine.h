@@ -12,13 +12,14 @@
 #include <IL/il.h>
 #include <string>
 
+#include "Defines.h"
 #include "Music.h"
 
 typedef struct Settings {
-	int screenWidth;
-	int screenHeight;
+	u16 screenWidth;
+	u16 screenHeight;
 	float scale;
-	int fullScreen;
+	u8 fullScreen;
 	float musicVolume;
 } Settings;
 
@@ -29,14 +30,17 @@ public:
 	
 	Engine();
 
-	void launch();
+	void launch(void);
 	void stop();
+	void stop(s16 _exitCode);
 
 	Settings settings;
 
 	SDL_Window* window;
 	SDL_GLContext glContext;
 	
+	s16 exitCode;
+
 	Music* getCurrentMusic(void);
 
 	void loadMusic(std::string musicFile);
@@ -53,9 +57,9 @@ private:
 	SDL_Cursor* systemCursor;
 	SDL_Surface* cursorIcon;
 
-	void setSystemCursor();
+	void setSystemCursor(void);
 
-	void init();
+	void init(void);
 
 	void initSDL(void);
 	void initOGL(void);

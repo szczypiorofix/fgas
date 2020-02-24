@@ -8,26 +8,27 @@
 #pragma once
 
 #include <string>
+#include "Defines.h"
 #include "Texture.h"
 
-constexpr int MAX_SPRITESHEETS = 6;
+
+constexpr u8 MAX_SPRITESHEETS						= 6;
 
 
 class GraphicAssets {
 
 public:
-
-	static const int IMAGE_ASSETS_MOUSE_CURSOR = 0;
-	static const int IMAGE_ASSETS_MAIN_MENU_BACKGROUND = 1;
-	static const int IMAGE_ASSETS_LOGO = 2;
-	static const int IMAGE_ASSETS_MAIN_MENU_BUTTONS = 3;
-	static const int IMAGE_ASSETS_VINGUE_FONT = 4;
-	static const int IMAGE_ASSETS_BIG_SPRITESHEET = 5;
+	static cu8 IMAGE_ASSETS_MOUSE_CURSOR			= 0;
+	static cu8 IMAGE_ASSETS_MAIN_MENU_BACKGROUND	= 1;
+	static cu8 IMAGE_ASSETS_LOGO					= 2;
+	static cu8 IMAGE_ASSETS_MAIN_MENU_BUTTONS		= 3;
+	static cu8 IMAGE_ASSETS_VINGUE_FONT				= 4;
+	static cu8 IMAGE_ASSETS_BIG_SPRITESHEET			= 5;
 	
 
 	static GraphicAssets* getAssets();
-	static void addToAssets(std::string fileName, GLfloat spriteWidth, GLfloat spriteHeight, const int imagesEnum);
-	static void addToAssets(std::string fileName, const int imagesEnum);
+	static void addToAssets(std::string fileName, GLfloat spriteWidth, GLfloat spriteHeight, cu8 imagesEnum);
+	static void addToAssets(std::string fileName, cu8 imagesEnum);
 	static void releaseAssets();
 
 	Texture* textures[MAX_SPRITESHEETS];

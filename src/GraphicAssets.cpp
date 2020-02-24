@@ -42,13 +42,13 @@ GraphicAssets* GraphicAssets::getAssets() {
 }
 
 
-void GraphicAssets::addToAssets(std::string fileName, GLfloat tileWidth, GLfloat tileHeight, const int imagesEnum) {
+void GraphicAssets::addToAssets(std::string fileName, GLfloat tileWidth, GLfloat tileHeight, cu8 imagesEnum) {
 	Texture* tempTexture = new Texture(fileName, tileWidth, tileHeight);
 	GraphicAssets::getAssets()->textures[imagesEnum] = tempTexture;
 }
 
 
-void GraphicAssets::addToAssets(std::string fileName, const int imagesEnum) {
+void GraphicAssets::addToAssets(std::string fileName, cu8 imagesEnum) {
 	Texture* tempTexture = new Texture(fileName);
 	GraphicAssets::getAssets()->textures[imagesEnum] = tempTexture;
 }

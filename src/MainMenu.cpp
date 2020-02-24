@@ -3,7 +3,6 @@
  * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
  */
 
-
 #include "MainMenu.h"
 #include "GraphicAssets.h"
 #include "Tileset.h"
@@ -16,15 +15,13 @@ MainMenu::MainMenu(State& _state, Engine* _engine) : state{ _state }, engine{ _e
     this->mainMenuBackgroundMap = new TiledMap("mm_background.tmx");
     this->bigSpriteSheet = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET];
     
-    std::vector<CUINT> framesTorch = { TS_TORCH1, TS_TORCH2, TS_TORCH3, TS_TORCH4 };
+    std::vector<u16> framesTorch = { TS_TORCH1, TS_TORCH2, TS_TORCH3, TS_TORCH4 };
     this->torchAnimation = new Animation(4, 4, framesTorch);
 
 }
 
 
-
 MainMenu::~MainMenu() {}
-
 
 
 void MainMenu::input(SDL_Event& event) {
@@ -37,12 +34,8 @@ void MainMenu::input(SDL_Event& event) {
 
 
 void MainMenu::update() {
-
     this->torchAnimation->nextFrame();
-
 }
-
-
 
 
 void MainMenu::render() {
@@ -74,4 +67,3 @@ void MainMenu::render() {
     //glEnd();
 
 }
-

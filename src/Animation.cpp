@@ -6,7 +6,7 @@
 #include "Animation.h"
 
 
-Animation::Animation(unsigned short speed, const unsigned short size, std::vector<CUINT> tilesArray) {
+Animation::Animation(u16 speed, cu16 size, std::vector<u16> tilesArray) {
 	this->size = size;
 	this->speed = speed;
 	this->counter = 0;
@@ -15,7 +15,7 @@ Animation::Animation(unsigned short speed, const unsigned short size, std::vecto
 }
 
 
-int Animation::nextFrame() {
+void Animation::nextFrame(void) {
 	this->counter++;
 	if (this->counter > this->speed) {
 		this->counter = 0;
@@ -23,12 +23,11 @@ int Animation::nextFrame() {
 		if (this->curFrame >= this->size)
 			this->curFrame = 0;
 	}
-	return this->curFrame;
 }
 
 
-int Animation::getTile() {
-	int res = 0;
+u16 Animation::getTile(void) {
+	u16 res = 0;
 	try {
 		res = this->tilesArray.at(this->curFrame);
 	} catch (std::out_of_range & ex) {
@@ -38,12 +37,12 @@ int Animation::getTile() {
 }
 
 
-int Animation::getCurFrame() {
+u16 Animation::getCurFrame(void) {
 	return this->curFrame;
 }
 
 
-void Animation::setCurrentFrame(int cf) {
+void Animation::setCurrentFrame(u16 cf) {
 	this->curFrame = cf;
 }
 

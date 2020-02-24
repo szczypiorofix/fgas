@@ -17,71 +17,71 @@
 
 typedef struct TileSetSource {
 	char* name;
-	int tileWidth;
-	int tileHeight;
-	int tileCount;
-	int columns;
-	int width;
-	int height;
+	u16 tileWidth;
+	u16 tileHeight;
+	u16 tileCount;
+	u16 columns;
+	u16 width;
+	u16 height;
 	char* imageSource;
 } TileSetSource;
 
 typedef struct TiledObject {
-	int id;
+	u16 id;
 	char* name;
 	char* type;
 	char* templateFile;
-	int x;
-	int y;
-	int firstGid;
+	s16 x;
+	s16 y;
+	u16 firstGid;
 	char* source;
-	int gid;
-	int width;
-	int height;
+	u16 gid;
+	u16 width;
+	u16 height;
 } TiledObject;
 
 typedef struct ObjectGroup {
-	int id;
+	u16 id;
 	char* name;
-	int objectsCount;
+	u16 objectsCount;
 	TiledObject** objects;
 } ObjectGroup;
 
 typedef struct TiledTemplate {
-	int tileSetFirstGid;
+	u16 tileSetFirstGid;
 	std::string source;
-	int objectGid;
-	int width;
-	int height;
+	u16 objectGid;
+	u16 width;
+	u16 height;
 } TiledTemplate;
 
 typedef struct TileSet {
-	int firstGid;
+	u16 firstGid;
 	TileSetSource* source;
 } TileSet;
 
 typedef struct Layer {
-	int id;
+	u16 id;
 	char* name;
-	int width;
-	int height;
+	u16 width;
+	u16 height;
 	DG_ArrayInt data;
-	int dataSize;
+	u16 dataSize;
 } Layer;
 
 typedef struct Map {
-	int width;
-	int height;
-	int tileWidth;
-	int tileHeight;
-	int nextLayerId;
-	int nextObjectId;
+	u16 width;
+	u16 height;
+	u16 tileWidth;
+	u16 tileHeight;
+	u16 nextLayerId;
+	u16 nextObjectId;
 	TileSet** tileSets;
-	int tileSetCounter;
+	u16 tileSetCounter;
 	Layer** layers;
-	int layerCounter;
+	u16 layerCounter;
 	ObjectGroup** objectGroups;
-	int objectGroupCounter;
+	u16 objectGroupCounter;
 } Map;
 
 class TiledMap {
