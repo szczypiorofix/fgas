@@ -16,11 +16,11 @@
 class MainMenu {
 
 public:
-	MainMenu(State& state);
+	MainMenu(State& _state);
 	~MainMenu();
 
 	void update();
-	void input(SDL_Event& e);
+	void input(SDL_Event& event);
 	void render();
 
 

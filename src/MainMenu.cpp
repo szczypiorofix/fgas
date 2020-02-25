@@ -34,6 +34,9 @@ void MainMenu::input(SDL_Event& event) {
     case SDLK_ESCAPE:
         this->state = State::QUIT;
         break;
+    case SDLK_2:
+        this->state = State::GAME;
+        break;
     }
 }
 
@@ -70,14 +73,5 @@ void MainMenu::render() {
 
 
     //this->bigSpriteSheet->drawTile(1665, 100, 100); // mouse cursor
-
-    //glBegin(GL_TRIANGLES); //GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON
-    //    glColor3ub(255, 0, 0);
-    //    glVertex2f(400, 200);
-    //    glColor3ub(0, 255, 0);
-    //    glVertex2f(600, 400);
-    //    glColor3ub(0, 0, 255);
-    //    glVertex2f(200, 400);
-    //glEnd();
 
 }
