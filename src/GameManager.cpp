@@ -27,6 +27,7 @@ void GameManager::start() {
     this->engine->launch();
 
     GraphicAssets::addToAssets("../res/images/spritesheet.png", 32, 32, GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET);
+    GraphicAssets::addToAssets("../res/images/mm-gui-button.png", 168, 32, GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS);
     
     
     this->mainMenu = new MainMenu(this->state);

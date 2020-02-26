@@ -16,11 +16,17 @@ public:
     Player();
     Player(Vector2* _vector, float _width, float _height);
     Player(float _x, float _y, float _width, float _height);
+    Player(const char* _name, float _x, float _y, float _width, float _height);
     ~Player();
 
 
-    void update();
-    void render();
+    void update() override;
+    void render() override;
+
+    const char* name;
+
+private:
+    
 
 };
 

@@ -7,6 +7,7 @@
 
 #include "Engine.h"
 #include "GraphicAssets.h"
+#include "FontAssets.h"
 
 
 Engine::Engine() {
@@ -41,6 +42,8 @@ void Engine::stop(s16 _exitCode) {
 #endif
 
 	GraphicAssets::getAssets()->releaseAssets();
+
+	FontAssets::getAssets()->releaseAssets();
 
 	SDL_GL_DeleteContext(this->glContext);
 	SDL_DestroyWindow(this->window);

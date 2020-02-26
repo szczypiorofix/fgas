@@ -10,7 +10,7 @@
 #include "TiledMap.h"
 #include "Animation.h"
 #include "Texture.h"
-
+#include "MainMenuButton.h"
 
 
 class MainMenu {
@@ -28,6 +28,8 @@ private:
 
 	State& state;
 	
+	std::vector<MainMenuButton*> mainMenuButtons;
+
 	Texture* bigSpriteSheet;
 	
 	TiledMap* mainMenuBackgroundMap;

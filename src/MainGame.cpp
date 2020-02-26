@@ -5,9 +5,24 @@
 
 #include "MainGame.h"
 #include "GraphicAssets.h"
+#include "LuaHandler.h"
+
 
 MainGame::MainGame(State& _state) : state{ _state } {
-    this->player = new Player();
+    
+
+    LuaHandler* lua = new LuaHandler("script.lua");
+    this->player = lua->getPlayer();
+    if (this->player) {
+	    std::cout << "Object 'Player' was found. Player name: " << this->player->name << std::endl;
+	    std::cout << "X: " << this->player->vector->x << ", Y: " << this->player->vector->y << ", player width: " << this->player->width << ", height: " << this->player->height << std::endl;
+    } else {
+	    std::cout << "Cannot read object 'Player'." << std::endl;
+    }
+    delete lua;
+
+    //this->player = new Player(100, 100, 32, 32);
+
 }
 
 

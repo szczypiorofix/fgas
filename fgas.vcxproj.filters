@@ -22,8 +22,14 @@
     <Filter Include="Resource Files\music">
       <UniqueIdentifier>{b1db68c1-44a8-42c8-a120-5d177c1a84ac}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\shaders">
+    <Filter Include="Resource Files\maps">
+      <UniqueIdentifier>{b557ec4c-9e31-4b8a-b824-9a74be94fbde}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders">
       <UniqueIdentifier>{14fadd4f-2de9-498e-bc59-fb2fe0008f2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="scripts">
+      <UniqueIdentifier>{b89d0b09-e2c3-49cd-a6d6-7b2ebb9f7588}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +78,21 @@
     <ClCompile Include="src\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\GUIElement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\MainMenuButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\FontAssets.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\TextFont.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\LuaHandler.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -92,18 +113,29 @@
       <Filter>Resource Files\music</Filter>
     </None>
     <None Include="shaders\frag_shader.glsl">
-      <Filter>Source Files\shaders</Filter>
+      <Filter>shaders</Filter>
     </None>
     <None Include="shaders\vert_shader.glsl">
-      <Filter>Source Files\shaders</Filter>
+      <Filter>shaders</Filter>
     </None>
     <None Include="res\images\logo-title.svg">
       <Filter>Resource Files\images</Filter>
     </None>
-    <None Include="res\images\mm-gui-button.pyxel" />
-    <None Include="res\images\mm-gui-controlls.pyxel" />
-    <None Include="res\images\spritesheet.tsx" />
-    <None Include="res\images\mm_background.tmx" />
+    <None Include="res\images\spritesheet.tsx">
+      <Filter>Resource Files\images</Filter>
+    </None>
+    <None Include="res\images\mm_background.tmx">
+      <Filter>Resource Files\maps</Filter>
+    </None>
+    <None Include="res\images\mm-gui-controlls.pyxel">
+      <Filter>Resource Files\images</Filter>
+    </None>
+    <None Include="res\images\mm-gui-button.pyxel">
+      <Filter>Resource Files\images</Filter>
+    </None>
+    <None Include="res\scripts\script.lua">
+      <Filter>scripts</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Engine.h">
@@ -151,6 +183,21 @@
     <ClInclude Include="src\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\GUIElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\MainMenuButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\FontAssets.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\TextFont.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\LuaHandler.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\images\background.png">
@@ -165,17 +212,14 @@
     <Image Include="res\icon.ico">
       <Filter>Resource Files\images</Filter>
     </Image>
-    <Image Include="res\images\mm-gui-controlls.png">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="res\images\mm-gui-button.png">
-      <Filter>Resource Files</Filter>
-    </Image>
-    <Image Include="res\images\ProjectUtumno_full.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\images</Filter>
     </Image>
     <Image Include="res\images\spritesheet.png">
-      <Filter>Resource Files</Filter>
+      <Filter>Resource Files\images</Filter>
+    </Image>
+    <Image Include="res\images\mm-gui-controlls.png">
+      <Filter>Resource Files\images</Filter>
     </Image>
   </ItemGroup>
   <ItemGroup>

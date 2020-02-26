@@ -24,9 +24,10 @@ public:
     int getTileX(u16 tileWidth);
     int getTileY(u16 tileHeight);
 
-protected:
     float width, height;
     Vector2* vector;
+
+protected:
 
 };
 
