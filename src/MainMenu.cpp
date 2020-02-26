@@ -5,7 +5,7 @@
 
 #include "MainMenu.h"
 #include "GraphicAssets.h"
-#include "FontAssets.h"
+
 
 
 MainMenu::MainMenu(State& _state) : state{ _state } {
@@ -14,12 +14,7 @@ MainMenu::MainMenu(State& _state) : state{ _state } {
 
     this->mainMenuBackgroundMap = new TiledMap("mm_background.tmx");
     
-    this->bigSpriteSheet = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET];
-    
-
-    GraphicAssets::addToAssets("../res/fonts/vingue.png", GraphicAssets::IMAGE_ASSETS_VINGUE_FONT);
-    FontAssets::addToAssets("vingue", GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT], FontAssets::FONT_ASSETS_VINGUE);
-
+    this->bigSpriteSheet = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET];    
 
     std::vector<u16> framesTorch = { TS_TORCH1, TS_TORCH2, TS_TORCH3, TS_TORCH4 };
     this->torchAnimation = new Animation(4, 4, framesTorch);

@@ -12,6 +12,11 @@ MainGame::MainGame(State& _state) : state{ _state } {
     
 
     LuaHandler* lua = new LuaHandler("script.lua");
+    
+    //int value = 0;
+    //lua->getInt("value", value);
+    //printf("Value from LUA script: %i\n", value);
+
     this->player = lua->getPlayer();
     if (this->player) {
 	    std::cout << "Object 'Player' was found. Player name: " << this->player->name << std::endl;

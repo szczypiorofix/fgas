@@ -4,7 +4,7 @@
  */
 
 #include "GameManager.h"
-
+#include "FontAssets.h"
 
 
 GameManager::GameManager() {
@@ -28,7 +28,9 @@ void GameManager::start() {
 
     GraphicAssets::addToAssets("../res/images/spritesheet.png", 32, 32, GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET);
     GraphicAssets::addToAssets("../res/images/mm-gui-button.png", 168, 32, GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS);
-    
+    GraphicAssets::addToAssets("../res/fonts/vingue.png", GraphicAssets::IMAGE_ASSETS_VINGUE_FONT);
+
+    FontAssets::addToAssets("vingue", GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT], FontAssets::FONT_ASSETS_VINGUE);
     
     this->mainMenu = new MainMenu(this->state);
     this->mainGame = new MainGame(this->state);
