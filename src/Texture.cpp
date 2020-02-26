@@ -3,6 +3,7 @@
  * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
  */
 
+
 #include <SDL2/SDL.h>
 #include <GL/glew.h>
 
