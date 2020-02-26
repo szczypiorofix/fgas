@@ -7,7 +7,7 @@
 #define _FONT_ASSETS_H_
 #pragma once
 
-#include <iostream>
+#include <string>
 #include "TextFont.h"
 
 constexpr int MAX_FONTS = 1;

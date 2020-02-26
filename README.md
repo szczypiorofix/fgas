@@ -7,6 +7,7 @@ Simple 2D game made with SDL2 and OpenGL
 - BASS
 - DevIL
 - LibXML2
+- Lua 5.3
 
 ## Assets
 - not sure what I'll be using right now.

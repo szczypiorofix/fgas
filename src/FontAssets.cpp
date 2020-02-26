@@ -9,7 +9,7 @@
 
 FontAssets::FontAssets() {
 #ifdef _DEBUG 
-	std::cout << "Creating new font assets..." << std::endl;
+	printf("Creating new font assets...\n");
 #endif
 	
 	this->fonts[0] = NULL;
@@ -21,16 +21,13 @@ FontAssets::~FontAssets() {}
 
 void FontAssets::releaseAssets() {
 #ifdef _DEBUG 
-	std::cout << "Releasing fonts ... ";
+	printf("Releasing fonts ...\n");
 #endif
 	
 	for (int i = 0; i < MAX_FONTS; i++) {
 		delete FontAssets::getAssets()->fonts[i];
 	}
 	
-#ifdef _DEBUG 
-	std::cout << "done." << std::endl;
-#endif
 }
 
 
