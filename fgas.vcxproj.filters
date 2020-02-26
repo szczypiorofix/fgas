@@ -112,12 +112,6 @@
     <None Include="res\music\menu-music.ogg">
       <Filter>Resource Files\music</Filter>
     </None>
-    <None Include="shaders\frag_shader.glsl">
-      <Filter>shaders</Filter>
-    </None>
-    <None Include="shaders\vert_shader.glsl">
-      <Filter>shaders</Filter>
-    </None>
     <None Include="res\images\logo-title.svg">
       <Filter>Resource Files\images</Filter>
     </None>
@@ -135,6 +129,12 @@
     </None>
     <None Include="res\scripts\script.lua">
       <Filter>scripts</Filter>
+    </None>
+    <None Include="res\shaders\frag_shader.glsl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="res\shaders\vert_shader.glsl">
+      <Filter>shaders</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>

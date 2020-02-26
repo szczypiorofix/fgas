@@ -152,8 +152,8 @@
     <None Include="res\music\ex-aws_cave.xm" />
     <None Include="res\music\menu-music.ogg" />
     <None Include="res\scripts\script.lua" />
-    <None Include="shaders\frag_shader.glsl" />
-    <None Include="shaders\vert_shader.glsl" />
+    <None Include="res\shaders\frag_shader.glsl" />
+    <None Include="res\shaders\vert_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FontAssets.h" />

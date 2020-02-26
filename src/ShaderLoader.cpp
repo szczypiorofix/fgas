@@ -33,8 +33,8 @@ void ShaderLoader::compileShaders(const std::string& vertexShaderFilePath, const
 		printf("Fragment Shader failed to create.");
 	}
 
-	compileShader( DIR_SHADERS + vertexShaderFilePath, _vertexShaderID);
-	compileShader( DIR_SHADERS + fragmentShaderFilePath, _fragmentShaderID);
+	compileShader(DIR_RES_SHADERS + vertexShaderFilePath, _vertexShaderID);
+	compileShader(DIR_RES_SHADERS + fragmentShaderFilePath, _fragmentShaderID);
 
 }
 
