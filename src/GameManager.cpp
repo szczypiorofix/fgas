@@ -13,7 +13,9 @@ GameManager::GameManager() {
 
     this->engine = nullptr;
     this->shader = nullptr;
+
     this->mainMenu = nullptr;
+    this->mainGame = nullptr;
 
     this->state = State::MAIN_MENU;
 
@@ -25,8 +27,11 @@ void GameManager::start() {
     this->engine->launch();
 
     GraphicAssets::addToAssets("../res/images/spritesheet.png", 32, 32, GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET);
+    GraphicAssets::addToAssets("../res/images/mm-gui-button.png", 168, 32, GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS);
+    
     
     this->mainMenu = new MainMenu(this->state);
+    this->mainGame = new MainGame(this->state);
 
 
     this->engine->loadMusic("menu-music.ogg");
@@ -57,6 +62,7 @@ void GameManager::input(SDL_Event& event) {
                 this->mainMenu->input(event);
                 break;
             case State::GAME:
+                this->mainGame->input(event);
                 break;
             }
         }
@@ -74,6 +80,7 @@ void GameManager::update() {
         this->mainMenu->update();
         break;
     case State::GAME:
+        this->mainGame->update();
         break;
     }
 
@@ -100,6 +107,7 @@ void GameManager::render() {
         this->mainMenu->render();
         break;
     case State::GAME:
+        this->mainGame->render();
         break;
     }
 

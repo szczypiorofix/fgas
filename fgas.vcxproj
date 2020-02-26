@@ -66,7 +66,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;opengl32.lib;glew32.lib;DevIL.lib;libxml2.lib;bass.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;opengl32.lib;glew32.lib;DevIL.lib;libxml2.lib;lua53.lib;bass.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:LIBCMT %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -95,7 +96,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>SDL2.lib;SDL2main.lib;opengl32.lib;glew32.lib;DevIL.lib;libxml2.lib;bass.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;opengl32.lib;glew32.lib;DevIL.lib;libxml2.lib;lua53.lib;bass.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalOptions>/NODEFAULTLIB:LIBCMT %(AdditionalOptions)</AdditionalOptions>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -115,6 +117,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\FontAssets.cpp" />
+    <ClCompile Include="src\GUIElement.cpp" />
+    <ClCompile Include="src\LuaHandler.cpp" />
+    <ClCompile Include="src\MainMenuButton.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\GameObject.cpp" />
+    <ClCompile Include="src\MainGame.cpp" />
     <ClCompile Include="src\Animation.cpp" />
     <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\ShaderLoader.cpp" />
@@ -124,6 +133,7 @@
     <ClCompile Include="src\GraphicAssets.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Music.cpp" />
+    <ClCompile Include="src\TextFont.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\TiledMap.cpp" />
     <ClCompile Include="src\XMLHelper.cpp" />
@@ -141,10 +151,18 @@
     <None Include="res\images\spritesheet.tsx" />
     <None Include="res\music\ex-aws_cave.xm" />
     <None Include="res\music\menu-music.ogg" />
+    <None Include="res\scripts\script.lua" />
     <None Include="shaders\frag_shader.glsl" />
     <None Include="shaders\vert_shader.glsl" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\FontAssets.h" />
+    <ClInclude Include="src\GUIElement.h" />
+    <ClInclude Include="src\LuaHandler.h" />
+    <ClInclude Include="src\MainMenuButton.h" />
+    <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\GameObject.h" />
+    <ClInclude Include="src\MainGame.h" />
     <ClInclude Include="src\Animation.h" />
     <ClInclude Include="src\MainMenu.h" />
     <ClInclude Include="res\resource.h" />
@@ -154,6 +172,7 @@
     <ClInclude Include="src\Engine.h" />
     <ClInclude Include="src\GraphicAssets.h" />
     <ClInclude Include="src\Music.h" />
+    <ClInclude Include="src\TextFont.h" />
     <ClInclude Include="src\Texture.h" />
     <ClInclude Include="src\TiledMap.h" />
     <ClInclude Include="src\XMLHelper.h" />
@@ -168,7 +187,6 @@
     <Image Include="res\images\mm-gui-button.png" />
     <Image Include="res\images\mm-gui-controlls.png" />
     <Image Include="res\images\mouse_cursor.png" />
-    <Image Include="res\images\ProjectUtumno_full.png" />
     <Image Include="res\images\spritesheet.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

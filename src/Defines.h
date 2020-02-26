@@ -60,9 +60,9 @@ extern const cu8 DIR_UP_LEFT;
 extern const char* DIR_RES_IMAGES;
 extern const char* DIR_RES_MUSIC;
 extern const char* DIR_RES;
-extern const char* DIR_FONTS;
+extern const char* DIR_RES_FONTS;
 extern const char* DIR_SHADERS;
-extern const char* DIR_SCRIPTS;
+extern const char* DIR_RES_SCRIPTS;
 
 
 
@@ -158,6 +158,26 @@ extern cu16 TS_UI_ACCEPT;
 
 
 
+
+
+class Vector2 {
+
+public:
+	Vector2();
+	Vector2(float x, float y);
+	~Vector2();
+
+	float x;
+	float y;
+
+	Vector2 operator+(Vector2 v);
+
+	Vector2 operator-(Vector2 v);
+
+	Vector2& operator+=(Vector2& v);
+
+	Vector2& operator-=(Vector2& v);
+};
 
 
 
