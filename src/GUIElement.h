@@ -16,7 +16,7 @@ class GUIElement {
 public:
 
     GUIElement(float _x, float _y, float _width, float _height);
-    GUIElement(std::string& _text, float _x, float _y, float _width, float _height);
+    GUIElement(std::string _text, float _x, float _y, float _width, float _height);
 
     ~GUIElement();
 

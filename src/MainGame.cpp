@@ -26,7 +26,6 @@ MainGame::MainGame(State& _state) : state{ _state } {
     }
     delete lua;
 
-    //this->player = new Player(100, 100, 32, 32);
 
 }
 
@@ -40,11 +39,14 @@ void MainGame::update() {
 
 
 void MainGame::input(SDL_Event& event) {
-    switch (event.key.keysym.sym) {
-    case SDLK_1:
-        this->state = State::MAIN_MENU;
-        break;
+    if (event.type == SDL_KEYUP) {
+        switch (event.key.keysym.sym) {
+        case SDLK_ESCAPE:
+            this->state = State::MAIN_MENU;
+            break;
+        }
     }
+    
 }
 
 

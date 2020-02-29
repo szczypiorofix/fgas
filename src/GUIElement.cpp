@@ -13,7 +13,7 @@ GUIElement::GUIElement(float _x, float _y, float _width, float _height) : x(_x),
 }
 
 
-GUIElement::GUIElement(std::string& _text, float _x, float _y, float _width, float _height) : text(_text), x(_x), y(_y), width(_width), height(_height) {
+GUIElement::GUIElement(std::string _text, float _x, float _y, float _width, float _height) : text(_text), x(_x), y(_y), width(_width), height(_height) {
     this->listeners = { false };
 }
 

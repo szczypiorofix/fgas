@@ -82,6 +82,7 @@ GLuint Texture::loadTexture(std::string fileName) {
 		glTexImage2D(GL_TEXTURE_2D, 0, ilGetInteger(IL_IMAGE_BPP), ilGetInteger(IL_IMAGE_WIDTH),
 			ilGetInteger(IL_IMAGE_HEIGHT), 0, ilGetInteger(IL_IMAGE_FORMAT), GL_UNSIGNED_BYTE,
 			ilGetData()); /* Texture specification */
+
 	}
 	else {
 		printf("Unable to load image %s !!!\n", fileName.c_str());
@@ -125,19 +126,14 @@ void Texture::drawTile(int _id, GLfloat dx, GLfloat dy) {
 
 		//GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON
 		glBegin(GL_QUADS);
-
 			glTexCoord2f( sx / this->width, sy / this->height );
 			glVertex2f( dx, dy );
-
 			glTexCoord2f( (sx + this->tileWidth) / this->width, sy / this->height );
 			glVertex2f( dx + this->tileWidth, dy );
-
 			glTexCoord2f( (sx + this->tileWidth) / this->width, (sy + this->tileHeight) / this->height );
 			glVertex2f( dx + this->tileWidth, dy + this->tileHeight );
-
 			glTexCoord2f( sx / this->width, (sy + this->tileHeight) / this->height );
 			glVertex2f( dx, dy + this->tileHeight );
-
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 	}
@@ -154,20 +150,16 @@ void Texture::draw(TextureRect src, TextureRect dest) {
 
 		//GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON
 		glBegin(GL_QUADS);
-
-			glTexCoord2f(src.x / this->width, src.y / this->height);
-			glVertex2f(dest.x, dest.y);
-
-			glTexCoord2f((src.x + src.w) / this->width, src.y / this->height);
-			glVertex2f(dest.x + dest.w, dest.y);
-
-			glTexCoord2f((src.x + src.w) / this->width, (src.y + src.h) / this->height);
-			glVertex2f(dest.x + dest.w, dest.y + dest.h);
-
-			glTexCoord2f(src.x / this->width, (src.y + src.h) / this->height);
-			glVertex2f(dest.x, dest.y + dest.h);
-
+			glTexCoord2f( src.x / this->width, src.y / this->height );
+			glVertex2f( dest.x, dest.y );
+			glTexCoord2f( ( src.x + src.w) / this->width, src.y / this->height );
+			glVertex2f( dest.x + dest.w, dest.y );
+			glTexCoord2f( (src.x + src.w) / this->width, (src.y + src.h) / this->height );
+			glVertex2f( dest.x + dest.w, dest.y + dest.h );
+			glTexCoord2f( src.x / this->width, (src.y + src.h) / this->height );
+			glVertex2f( dest.x, dest.y + dest.h );
 		glEnd();
+
 		glDisable(GL_TEXTURE_2D);
 	}
 

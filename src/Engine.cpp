@@ -161,16 +161,19 @@ void Engine::initOGL(void) {
 	SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 16);
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+	SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
-	// Setting OpenGL version to 2.1
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
-	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+	// Setting OpenGL version to 3.3
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+
 
 	// GLEW part
 #ifdef _DEBUG 
 	printf("GLEW initialization.\n");
 #endif
-	//glewExperimental = GL_TRUE; - ??
+
+	glewExperimental = GL_TRUE;
 	GLenum err = glewInit();
 	if (GLEW_OK != err) {
 		printf("ERROR !!! %s\n", glewGetErrorString(err));
@@ -183,11 +186,14 @@ void Engine::initOGL(void) {
 		printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 	}
 
+	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Spacify clear color
 	glClearColor(0, 0, 0, 1);
+	glClear(GL_COLOR_BUFFER_BIT);
 
 	// Viewport to display
 	glViewport(0, 0, this->settings.screenWidth, this->settings.screenHeight);
@@ -196,7 +202,7 @@ void Engine::initOGL(void) {
 	glShadeModel(GL_SMOOTH); // GL_SMOOTH or GL_FLAT
 
 	// 2D rendering
-	glMatrixMode(GL_PROJECTION);
+	glMatrixMode(GL_PROJECTION); // GL_MODELVIEW or GL_PROJECTION
 
 	// Save it!
 	glLoadIdentity();
