@@ -167,6 +167,13 @@ void Engine::initOGL(void) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
+	int verMin = 0, verMaj = 0, accel = 0;
+	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &verMaj);
+	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &verMin);
+	SDL_GL_GetAttribute(SDL_GL_ACCELERATED_VISUAL, &accel);
+	
+	printf("OpenGL version %i.%i\n", verMaj, verMin);
+	printf("%s.\n", accel == 1 ? "Accelerated (hardware) renderer" : "Forced software renderer");
 
 	// GLEW part
 #ifdef _DEBUG 
@@ -185,6 +192,17 @@ void Engine::initOGL(void) {
 	if (SDL_GL_SetSwapInterval(1) < 0) { // 1 - VSYNC ON, 0 - VSYNC OFF, -1 - adaptive VSYNC
 		printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 	}
+
+	int profile;
+	SDL_GL_GetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, &profile);
+	printf("OpenGL profile: ");
+	if (profile == SDL_GL_CONTEXT_PROFILE_ES)
+		printf("OpenGL ES profile - only a subset of the base OpenGL functionality is available\n");  // OpenGL ES 2.0
+	if (profile == SDL_GL_CONTEXT_PROFILE_COMPATIBILITY)
+		printf("OpenGL compatibility profile - deprecated functions are allowed\n");  // Compatibility mode
+	if (profile == SDL_GL_CONTEXT_PROFILE_CORE)
+		printf("OpenGL core profile - deprecated functions are disabled\n");  // OpenGL 2.1
+
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
