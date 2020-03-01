@@ -8,7 +8,6 @@
 
 
 GameManager::GameManager() {
-	
     this->quit = false;
 
     this->engine = nullptr;
@@ -19,11 +18,9 @@ GameManager::GameManager() {
     this->mainGame = nullptr;
 
     this->state = State::MAIN_MENU;
-
 }
 
 void GameManager::start() {
-    
     this->engine = new Engine();
     this->engine->launch();
 
@@ -44,7 +41,6 @@ void GameManager::start() {
     this->shader->compileShaders("vert_shader.glsl", "frag_shader.glsl");
 
     this->mainLoop();
-
 }
 
 
@@ -110,10 +106,7 @@ void GameManager::render() {
     case State::SPLASH_SCREEN:
         break;
     case State::MAIN_MENU:
-        //this->shader->use();
         this->mainMenu->render();
-        
-        //this->shader->unuse();
         break;
     case State::GAME:
         this->mainGame->render();
@@ -158,7 +151,6 @@ void GameManager::mainLoop() {
     }
 
     delete this->shader;
-
     this->engine->stop(0);
 
 }

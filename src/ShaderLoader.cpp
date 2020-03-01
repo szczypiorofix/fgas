@@ -46,63 +46,6 @@ ShaderLoader::~ShaderLoader() {
 
 
 void ShaderLoader::compileShaders(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath) {
-
-	//this->vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-	//if (this->vertexShaderID == 0) {
-	//	printf("Vertex Shader failed to create.");
-	//}
-
-	//this->fragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-	//if (this->fragmentShaderID == 0) {
-	//	printf("Fragment Shader failed to create.");
-	//}
-
-	//compileShader(DIR_RES_SHADERS + vertexShaderFilePath, this->vertexShaderID);
-	//compileShader(DIR_RES_SHADERS + fragmentShaderFilePath, this->fragmentShaderID);
-
-	//this->programID = glCreateProgram();
-
-	//printf("Linking shaders...\n");
-
-	//glAttachShader(this->programID, this->vertexShaderID);
-	//glAttachShader(this->programID, this->fragmentShaderID);
-
-	//glBindFragDataLocation(this->programID, 0, "outColor");
-
-	//glLinkProgram(this->programID);
-
-	//glUseProgram(this->programID);
-
-	//int isLinked = 0;
-	//glGetProgramiv(this->programID, GL_LINK_STATUS, &isLinked);
-	//if (isLinked == GL_FALSE) {
-	//	GLint maxLength = 0;
-	//	glGetProgramiv(this->programID, GL_INFO_LOG_LENGTH, &maxLength);
-	//	std::vector<GLchar> infoLog(maxLength);
-	//	glGetProgramInfoLog(this->programID, maxLength, &maxLength, &infoLog[0]);
-
-	//	glDeleteProgram(this->programID);
-	//	glDeleteShader(this->vertexShaderID);
-	//	glDeleteShader(this->fragmentShaderID);
-
-	//	printf("%s\n", &infoLog[0]);
-	//	printf("ERROR !!! Shaders failed to link !\n");
-	//}
-
-	//glDetachShader(this->programID, vertexShaderID);
-	//glDetachShader(this->programID, this->fragmentShaderID);
-	//glDeleteShader(this->vertexShaderID);
-	//glDeleteShader(this->fragmentShaderID);
-
-	//this->posAttrib = glGetAttribLocation(this->programID, "position");
-	//glEnableVertexAttribArray(this->posAttrib);
-	//glVertexAttribPointer(this->posAttrib, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
-
-	//this->colAttrib = glGetAttribLocation(this->programID, "color");
-	//glEnableVertexAttribArray(this->colAttrib);
-	//glVertexAttribPointer(this->colAttrib, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
-
-
 	// Create Vertex Array Object
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
@@ -201,9 +144,7 @@ void ShaderLoader::compileShaderFile(const std::string& filePath, GLuint& shader
 }
 
 
-
 void ShaderLoader::use() {
-
 	glUseProgram(this->programID);
 
 	this->posAttrib = glGetAttribLocation(this->programID, "position");
@@ -213,7 +154,6 @@ void ShaderLoader::use() {
 	this->colAttrib = glGetAttribLocation(this->programID, "color");
 	glEnableVertexAttribArray(this->colAttrib);
 	glVertexAttribPointer(this->colAttrib, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
-
 }
 
 
@@ -225,5 +165,4 @@ void ShaderLoader::unuse() {
 
 	this->colAttrib = glGetAttribLocation(this->programID, "color");
 	glDisableVertexAttribArray(this->colAttrib);
-
 }
