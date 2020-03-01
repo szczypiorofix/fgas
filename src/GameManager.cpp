@@ -4,47 +4,43 @@
  */
 
 #include "GameManager.h"
-
+#include "FontAssets.h"
 
 
 GameManager::GameManager() {
-	
     this->quit = false;
 
     this->engine = nullptr;
+
     this->shader = nullptr;
 
     this->mainMenu = nullptr;
     this->mainGame = nullptr;
 
     this->state = State::MAIN_MENU;
-
 }
 
 void GameManager::start() {
-    
     this->engine = new Engine();
     this->engine->launch();
 
     GraphicAssets::addToAssets("../res/images/spritesheet.png", 32, 32, GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET);
     GraphicAssets::addToAssets("../res/images/mm-gui-button.png", 168, 32, GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS);
-    
+    GraphicAssets::addToAssets("../res/fonts/vingue.png", GraphicAssets::IMAGE_ASSETS_VINGUE_FONT);
+    GraphicAssets::addToAssets("../res/images/logo-title.png", GraphicAssets::IMAGE_ASSETS_LOGO);
+
+    FontAssets::addToAssets("vingue", GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT], FontAssets::FONT_ASSETS_VINGUE);
     
     this->mainMenu = new MainMenu(this->state);
     this->mainGame = new MainGame(this->state);
 
-
     this->engine->loadMusic("menu-music.ogg");
     this->engine->playMusic(0.1f);
 
-
     this->shader = new ShaderLoader();
     this->shader->compileShaders("vert_shader.glsl", "frag_shader.glsl");
-    this->shader->addAttribute("LVertexPos2D");
-    this->shader->linkShaders();
 
     this->mainLoop();
-
 }
 
 
@@ -93,12 +89,18 @@ void GameManager::update() {
 
 
 void GameManager::render() {
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     glPushMatrix();
-    glOrtho(0, engine->settings.screenWidth, engine->settings.screenHeight, 0, -1.0, 1.0); // Set the matrix
+    glOrtho(0, engine->settings.screenWidth, engine->settings.screenHeight, 0, 0, 1); // Set the matrix
 
     // ================================= Render Start =================================
-
+    
+    
+    this->shader->use();
+    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)(sizeof(GLubyte) * 1));
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    this->shader->unuse();
 
     switch (this->state) {
     case State::SPLASH_SCREEN:
@@ -110,6 +112,21 @@ void GameManager::render() {
         this->mainGame->render();
         break;
     }
+
+    //TextureRect s = {
+    //    0,
+    //    0,
+    //    335,
+    //    201
+    //};
+    //TextureRect d = {
+    //    10,
+    //    10,
+    //    250,
+    //    150
+    //};
+
+    //GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO]->draw(s, d);
 
 
     // ================================== Render End ==================================
@@ -133,6 +150,7 @@ void GameManager::mainLoop() {
 
     }
 
+    delete this->shader;
     this->engine->stop(0);
 
 }

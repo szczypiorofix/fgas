@@ -17,7 +17,7 @@
 //}
 
 
-MainMenuButton::MainMenuButton(std::string& _text, float _x, float _y, float _width, float _height) : GUIElement(_text ,_x, _y, _width, _height) {
+MainMenuButton::MainMenuButton(std::string _text, float _x, float _y, float _width, float _height) : GUIElement(_text ,_x, _y, _width, _height) {
     
     this->buttonTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS];
     this->listeners = { false };

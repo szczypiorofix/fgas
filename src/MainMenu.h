@@ -23,14 +23,20 @@ public:
 	void input(SDL_Event& event);
 	void render();
 
+	const float MAP_SPEED_X = 2.0f;
+	const float MAP_SPEED_Y = 1.5f;
 
 private:
-
+	
+	GLfloat x, y;
+	GLfloat mapMoveDirectionX;
+	GLfloat mapMoveDirectionY;
 	State& state;
 	
 	std::vector<MainMenuButton*> mainMenuButtons;
 
 	Texture* bigSpriteSheet;
+	Texture* logoTexture;
 	
 	TiledMap* mainMenuBackgroundMap;
 

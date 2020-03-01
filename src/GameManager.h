@@ -8,10 +8,10 @@
 
 #include "Engine.h"
 #include "GraphicAssets.h"
-#include "ShaderLoader.h"
 #include "MainMenu.h"
 #include "MainGame.h"
 #include "Defines.h"
+#include "ShaderLoader.h"
 
 
 class GameManager {
@@ -31,9 +31,9 @@ private:
 	MainMenu* mainMenu;
 	MainGame* mainGame;
 	
-	State state;
-	
 	ShaderLoader* shader;
+
+	State state;
 
 	void mainLoop();
 

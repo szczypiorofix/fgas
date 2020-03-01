@@ -16,7 +16,7 @@ class MainMenuButton : public GUIElement {
 
 public:
 
-    MainMenuButton(std::string& _text, float _x, float _y, float _width, float _height);
+    MainMenuButton(std::string _text, float _x, float _y, float _width, float _height);
 
     void input(SDL_Event& event) override;
     void update() override;

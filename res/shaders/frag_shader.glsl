@@ -1,8 +1,7 @@
-#version 140
-
-out vec4 LFragment;
-
-void main() {
-	LFragment = vec4( 0.3, 0.4, 0.4, 1.0 );
-}
-
+    #version 150 core
+    in vec3 Color;
+    out vec4 outColor;
+    void main()
+    {
+        outColor = vec4(Color.r, Color.g, Color.b, 1.0);
+    }

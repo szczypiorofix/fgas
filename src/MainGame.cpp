@@ -12,6 +12,11 @@ MainGame::MainGame(State& _state) : state{ _state } {
     
 
     LuaHandler* lua = new LuaHandler("script.lua");
+    
+    //int value = 0;
+    //lua->getInt("value", value);
+    //printf("Value from LUA script: %i\n", value);
+
     this->player = lua->getPlayer();
     if (this->player) {
 	    std::cout << "Object 'Player' was found. Player name: " << this->player->name << std::endl;
@@ -21,7 +26,6 @@ MainGame::MainGame(State& _state) : state{ _state } {
     }
     delete lua;
 
-    //this->player = new Player(100, 100, 32, 32);
 
 }
 
@@ -35,11 +39,14 @@ void MainGame::update() {
 
 
 void MainGame::input(SDL_Event& event) {
-    switch (event.key.keysym.sym) {
-    case SDLK_1:
-        this->state = State::MAIN_MENU;
-        break;
+    if (event.type == SDL_KEYUP) {
+        switch (event.key.keysym.sym) {
+        case SDLK_ESCAPE:
+            this->state = State::MAIN_MENU;
+            break;
+        }
     }
+    
 }
 
 

@@ -6,3 +6,5 @@ Player = {
 	width = 32,
 	height = 32
 }
+
+-- value = 128

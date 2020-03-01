@@ -41,7 +41,7 @@ private:
 	Texture* fontImage;
 	int imageWidth;
 	int imageHeight;
-	FontItem** fontItems;
+	std::vector<FontItem*> fontItems;
 	int charsCount;
 	
 	std::string fontName;
@@ -51,7 +51,7 @@ private:
 	int fontSpace;
 
 	void parseXML(std::string xmlFileName);
-	float getStringFontWidth(const char* text);
+	float getWithOfFontString(const char* text);
 
 };
 

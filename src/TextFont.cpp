@@ -67,29 +67,25 @@ void TextFont::parseXML(std::string xmlFileName) {
 		mainItems = mainItems->next;
 	}
 
-	this->fontItems = new FontItem * [this->charsCount];
-
-	/*this->fontItems.clear();
-	this->fontItems.reserve(this->charsCount);*/
+	this->fontItems.clear();
+	this->fontItems.reserve(this->charsCount);
 	
-	int i = 0;
 	mainItems = cur;
 	while (mainItems != NULL) {
 		if (!xmlStrcmp(mainItems->name, (const xmlChar*)"item")) {
 			FontItem* tempItem = new FontItem();
-			tempItem->ascii		= XMLHelper::readPropShort(mainItems, (const xmlChar*)"ascii");
-			tempItem->ucode		= XMLHelper::readPropShort(mainItems, (const xmlChar*)"ucode");
-			tempItem->top		= XMLHelper::readPropShort(mainItems, (const xmlChar*)"top");
+			tempItem->ascii			= XMLHelper::readPropShort(mainItems, (const xmlChar*)"ascii");
+			tempItem->ucode			= XMLHelper::readPropShort(mainItems, (const xmlChar*)"ucode");
+			tempItem->top			= XMLHelper::readPropShort(mainItems, (const xmlChar*)"top");
 			tempItem->bottom		= XMLHelper::readPropShort(mainItems, (const xmlChar*)"bottom");
-			tempItem->x			= XMLHelper::readPropShort(mainItems, (const xmlChar*)"x");
-			tempItem->y			= XMLHelper::readPropShort(mainItems, (const xmlChar*)"y");
-			tempItem->width		= XMLHelper::readPropShort(mainItems, (const xmlChar*)"width");
+			tempItem->x				= XMLHelper::readPropShort(mainItems, (const xmlChar*)"x");
+			tempItem->y				= XMLHelper::readPropShort(mainItems, (const xmlChar*)"y");
+			tempItem->width			= XMLHelper::readPropShort(mainItems, (const xmlChar*)"width");
 			tempItem->height		= XMLHelper::readPropShort(mainItems, (const xmlChar*)"height");
-			tempItem->leading	= XMLHelper::readPropShort(mainItems, (const xmlChar*)"leading");
-			tempItem->trailing	= XMLHelper::readPropShort(mainItems, (const xmlChar*)"trailing");
+			tempItem->leading		= XMLHelper::readPropShort(mainItems, (const xmlChar*)"leading");
+			tempItem->trailing		= XMLHelper::readPropShort(mainItems, (const xmlChar*)"trailing");
 			
-			this->fontItems[i] = tempItem;
-			i++;
+			this->fontItems.push_back(tempItem);
 		}
 		mainItems = mainItems->next;
 	}
@@ -101,46 +97,38 @@ void TextFont::parseXML(std::string xmlFileName) {
 }
 
 
-float TextFont::getStringFontWidth(const char* text) {
+float TextFont::getWithOfFontString(const char* text) {
 	float c = 0.0f;
 	for (int i = 0; text[i] != 0; i++) {
 		for (int j = 0; j < this->charsCount; j++) {
-			if (text[i] == this->fontItems[j]->ascii) {
-				c += this->fontItems[j]->width;
+			if (text[i] == this->fontItems.at(j)->ascii) {
+				c += this->fontItems.at(j)->width;
 			}
 		}
 	}
-	std::cout << c << std::endl;
 	return c;
 }
 
 
 void TextFont::draw(const char* text, GLfloat x, GLfloat y, float size) {
 
-	TextureRect src = {
-		0, 0, 0, 0
-	};
-
-	TextureRect dest = {
-		0, 0, 0, 0
-	};
-
 	int c = 0;
-
 	while (text[c] != 0) {
 		for (int i = 0; i < this->charsCount; i++) {
-			if (text[c] == this->fontItems[i]->ascii) {
+			if (text[c] == this->fontItems.at(i)->ascii) {
 
-				dest.x = x + fontItems[i]->trailing + fontItems[i]->leading + (int)(c * fontWidth * size);
-				dest.y = (GLfloat)y;// +fontItems[i]->top;
-				dest.w = (GLfloat)(fontWidth * size);
-				dest.h = (GLfloat)(fontHeight * size);
+				TextureRect dest = {
+					x + fontItems.at(i)->trailing + fontItems.at(i)->leading + (int)(c * fontWidth * size),
+					(GLfloat)y,  // +fontItems[i]->top;
+					(GLfloat)(fontWidth * size),
+					(GLfloat)(fontHeight * size)
+				};
 
-				src = {
-					(GLfloat) fontItems[i]->x,
-					(GLfloat) fontItems[i]->y,
-					(GLfloat) fontItems[i]->width,
-					(GLfloat) fontItems[i]->height
+				TextureRect src = {
+					(GLfloat) fontItems.at(i)->x,
+					(GLfloat) fontItems.at(i)->y,
+					(GLfloat) fontItems.at(i)->width,
+					(GLfloat) fontItems.at(i)->height
 				};
 
 				this->fontImage->draw(src, dest);
