@@ -210,7 +210,7 @@ void Engine::initOGL(void) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Spacify clear color
-	glClearColor(0, 0, 0, 1);
+	glClearColor(0.02f, 0.04f, 0.04f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	// Viewport to display

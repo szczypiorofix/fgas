@@ -3,6 +3,8 @@
  * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
  */
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 #include "GameManager.h"
 #include "FontAssets.h"
 
@@ -38,7 +40,7 @@ void GameManager::start() {
     this->engine->playMusic(0.1f);
 
     this->shader = new ShaderLoader();
-    this->shader->compileShaders("vert_shader.glsl", "frag_shader.glsl");
+    this->shader->compileShaders("shader.vert", "shader.frag");
 
     this->mainLoop();
 }
@@ -89,18 +91,22 @@ void GameManager::update() {
 
 
 void GameManager::render() {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
     glPushMatrix();
-    glOrtho(0, engine->settings.screenWidth, engine->settings.screenHeight, 0, 0, 1); // Set the matrix
+    glOrtho(0, engine->settings.screenWidth, engine->settings.screenHeight, 0.0f, -1.0f, 1.0f); // Set the matrix
+
 
     // ================================= Render Start =================================
     
     
+   
     this->shader->use();
     //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)(sizeof(GLubyte) * 1));
-    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-    this->shader->unuse();
+    
+    //glDrawArrays(GL_TRIANGLES, 0, 3);
+    //this->shader->unuse();
+
+
 
     switch (this->state) {
     case State::SPLASH_SCREEN:
@@ -112,6 +118,8 @@ void GameManager::render() {
         this->mainGame->render();
         break;
     }
+
+
 
     //TextureRect s = {
     //    0,

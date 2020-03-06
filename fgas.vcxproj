@@ -133,6 +133,7 @@
     <ClCompile Include="src\GraphicAssets.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Music.cpp" />
+    <ClCompile Include="src\SpriteRenderer.h" />
     <ClCompile Include="src\TextFont.cpp" />
     <ClCompile Include="src\Texture.cpp" />
     <ClCompile Include="src\TiledMap.cpp" />
@@ -152,8 +153,8 @@
     <None Include="res\music\ex-aws_cave.xm" />
     <None Include="res\music\menu-music.ogg" />
     <None Include="res\scripts\script.lua" />
-    <None Include="res\shaders\frag_shader.glsl" />
-    <None Include="res\shaders\vert_shader.glsl" />
+    <None Include="res\shaders\shader.frag" />
+    <None Include="res\shaders\shader.vert" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\FontAssets.h" />

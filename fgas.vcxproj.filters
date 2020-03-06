@@ -93,6 +93,9 @@
     <ClCompile Include="src\LuaHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\SpriteRenderer.h">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
@@ -130,10 +133,10 @@
     <None Include="res\scripts\script.lua">
       <Filter>scripts</Filter>
     </None>
-    <None Include="res\shaders\frag_shader.glsl">
+    <None Include="res\shaders\shader.frag">
       <Filter>shaders</Filter>
     </None>
-    <None Include="res\shaders\vert_shader.glsl">
+    <None Include="res\shaders\shader.vert">
       <Filter>shaders</Filter>
     </None>
   </ItemGroup>
