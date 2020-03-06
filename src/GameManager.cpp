@@ -29,7 +29,8 @@ void GameManager::start() {
     GraphicAssets::addToAssets("../res/images/spritesheet.png", 32, 32, GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET);
     GraphicAssets::addToAssets("../res/images/mm-gui-button.png", 168, 32, GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS);
     GraphicAssets::addToAssets("../res/fonts/vingue.png", GraphicAssets::IMAGE_ASSETS_VINGUE_FONT);
-    GraphicAssets::addToAssets("../res/images/logo-title.png", GraphicAssets::IMAGE_ASSETS_LOGO);
+    GraphicAssets::addToAssets("../res/images/background.png", GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND);
+    GraphicAssets::addToAssets("../res/images/logo-title.png", GraphicAssets::IMAGE_ASSETS_LOGO);    
 
     FontAssets::addToAssets("vingue", GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT], FontAssets::FONT_ASSETS_VINGUE);
     
@@ -98,11 +99,26 @@ void GameManager::render() {
 
     // ================================= Render Start =================================
     
-    
    
-    this->shader->use();
-    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)(sizeof(GLubyte) * 1));
+    this->shader->use(GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND]->textureId);
+    TextureRect s = {
+        0,
+        0,
+        928,
+        793
+    };
+    TextureRect d = {
+        0,
+        0,
+        800,
+        600
+    };
+
+    GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND]->draw(s, d);
+    this->shader->unuse();
+
     
+    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)(sizeof(GLubyte) * 1));
     //glDrawArrays(GL_TRIANGLES, 0, 3);
     //this->shader->unuse();
 
@@ -112,7 +128,7 @@ void GameManager::render() {
     case State::SPLASH_SCREEN:
         break;
     case State::MAIN_MENU:
-        this->mainMenu->render();
+        //this->mainMenu->render();
         break;
     case State::GAME:
         this->mainGame->render();

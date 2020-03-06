@@ -46,7 +46,13 @@ public:
 
 private:
 	GLuint loadTexture(std::string fileName);
+	
+	GLfloat coordToFloatX(GLint x);
+	GLfloat coordToFloatY(GLint y);
 
+	GLuint vao;
+	GLuint vbo;
+	GLuint ebo;
 };
 
 

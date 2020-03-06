@@ -120,6 +120,7 @@ void Engine::init() {
 	this->initDevIL();
 	this->initBASS();
 	this->setSystemCursor();
+	this->deviLSettings();
 }
 
 
@@ -236,7 +237,12 @@ void Engine::initDevIL(void) {
 #endif
 
 	ilInit(); /* Initialization of DevIL */
-	
+
+}
+
+void Engine::deviLSettings(void) {
+	ilEnable(IL_ORIGIN_SET);
+	ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
 }
 
 

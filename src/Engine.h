@@ -64,6 +64,7 @@ private:
 	void initSDL(void);
 	void initOGL(void);
 	void initDevIL(void);
+	void deviLSettings(void);
 	void initBASS(void);
 
 };
