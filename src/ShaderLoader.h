@@ -11,6 +11,7 @@
 #include <string>
 #include <GL/glew.h>
 
+
 class ShaderLoader {
 
 public:
@@ -19,13 +20,16 @@ public:
 
 	void compileShaders(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath);
 
-	void use();
+	void use(GLuint textureId);
 	void unuse();
 
+	void setBool(const std::string& name, bool value) const;
+	void setInt(const std::string& name, int value) const;
+	void setFloat(const std::string& name, float value) const;
+
+	GLuint programID;
 
 private:
-	
-	GLuint programID;
 
 	GLuint vertexShaderID;
 	GLuint fragmentShaderID;

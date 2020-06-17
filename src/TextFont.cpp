@@ -20,8 +20,7 @@ TextFont::TextFont(std::string fn, Texture* tex) {
 }
 
 
-TextFont::~TextFont() {
-}
+TextFont::~TextFont() {}
 
 
 void TextFont::parseXML(std::string xmlFileName) {
@@ -41,10 +40,8 @@ void TextFont::parseXML(std::string xmlFileName) {
 		std::cout << "Empty document." << std::endl;
 		exit(1);
 	}
-#ifdef _DEBUG 
-	std::cout << "Reading " << xmlFile << " file ..." << std::endl;
-#endif
-	
+
+	debugInfo("Reading " + xmlFile + " file.");
 
 	if (xmlStrcmp(cur->name, (const xmlChar*)"font")) {
 		std::cout << "Document of the wrong type. Root node must be 'font'." << std::endl;

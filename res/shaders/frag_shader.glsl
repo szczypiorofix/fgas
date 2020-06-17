@@ -1,7 +1,0 @@
-    #version 150 core
-    in vec3 Color;
-    out vec4 outColor;
-    void main()
-    {
-        outColor = vec4(Color.r, Color.g, Color.b, 1.0);
-    }

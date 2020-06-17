@@ -4,13 +4,12 @@
  */
 
 #include "FontAssets.h"
-
+#include "Defines.h"
 
 
 FontAssets::FontAssets() {
-#ifdef _DEBUG 
-	printf("Creating new font assets...\n");
-#endif
+
+	debugInfo("Creating new font assets.");
 	
 	this->fonts[0] = NULL;
 }
@@ -20,9 +19,8 @@ FontAssets::~FontAssets() {}
 
 
 void FontAssets::releaseAssets() {
-#ifdef _DEBUG 
-	printf("Releasing fonts ...\n");
-#endif
+
+	debugInfo("Releasing fonts.");
 	
 	for (int i = 0; i < MAX_FONTS; i++) {
 		delete FontAssets::getAssets()->fonts[i];

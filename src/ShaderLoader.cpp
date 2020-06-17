@@ -11,72 +11,19 @@
 #include "Defines.h"
 
 
-const GLchar* vertexSource = R"glsl(
-    #version 150 core
-    in vec2 position;
-    in vec3 color;
-    out vec3 Color;
-    void main()
-    {
-        Color = color;
-        gl_Position = vec4(position, 0.0, 1.0);
-    }
-)glsl";
-const GLchar* fragmentSource = R"glsl(
-    #version 150 core
-    in vec3 Color;
-    out vec4 outColor;
-    void main()
-    {
-        outColor = vec4(Color, 1.0);
-    }
-)glsl";
-
-
 ShaderLoader::ShaderLoader() : programID(0), vertexShaderID(0), fragmentShaderID(0), colAttrib(0), posAttrib(0) {
 }
 
 
 ShaderLoader::~ShaderLoader() {
-	printf("Delete shaders ...\n");
-
-
+	debugInfo("Delete shaders.");
+	glDeleteProgram(this->programID);
 }
 
 
 
 void ShaderLoader::compileShaders(const std::string& vertexShaderFilePath, const std::string& fragmentShaderFilePath) {
-	// Create Vertex Array Object
-	GLuint vao;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-
-	// Create a Vertex Buffer Object and copy the vertex data to it
-	GLuint vbo;
-	glGenBuffers(1, &vbo);
-
-	GLfloat vertices[] = {
-		-0.5f,  0.5f, 1.0f, 0.0f, 0.0f, // Top-left
-		 0.5f,  0.5f, 0.0f, 1.0f, 0.0f, // Top-right
-		 0.5f, -0.5f, 0.0f, 0.0f, 1.0f, // Bottom-right
-		-0.5f, -0.5f, 1.0f, 1.0f, 1.0f  // Bottom-left
-	};
-
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-	// Create an element array
-	GLuint ebo;
-	glGenBuffers(1, &ebo);
-
-	GLuint elements[] = {
-		0, 1, 2,
-		2, 3, 0
-	};
-
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(elements), elements, GL_STATIC_DRAW);
-
+	
 	// Create and compile the vertex shader
 	this->vertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	this->compileShaderFile(vertexShaderFilePath, this->vertexShaderID);
@@ -89,7 +36,7 @@ void ShaderLoader::compileShaders(const std::string& vertexShaderFilePath, const
 	this->programID = glCreateProgram();
 	glAttachShader(this->programID, this->vertexShaderID);
 	glAttachShader(this->programID, this->fragmentShaderID);
-	glBindFragDataLocation(this->programID, 0, "outColor");
+	//glBindFragDataLocation(this->programID, 0, "outColor");
 	glLinkProgram(this->programID);
 	
 	GLint isLinked = 0;
@@ -112,20 +59,28 @@ void ShaderLoader::compileShaders(const std::string& vertexShaderFilePath, const
 	glDetachShader(this->programID, this->fragmentShaderID);
 	glDeleteShader(this->vertexShaderID);
 	glDeleteShader(this->fragmentShaderID);
+
 }
 
 
 void ShaderLoader::compileShaderFile(const std::string& filePath, GLuint& shaderId) {
-	std::ifstream f(DIR_RES_SHADERS + filePath);
-	std::string str = "";
-	if (f) {
-		std::ostringstream ss;
-		ss << f.rdbuf();
-		str = ss.str();
-	}
-	f.close();
 
-	const char* contentsPtr = str.c_str();
+	std::string shaderCode;
+	std::ifstream shaderFile;
+	// ensure ifstream objects can throw exceptions:
+	shaderFile.exceptions(std::ifstream::failbit | std::ifstream::badbit);
+
+	try {
+		shaderFile.open(DIR_RES_SHADERS + filePath);
+		std::stringstream shaderStream;
+		shaderStream << shaderFile.rdbuf();
+		shaderFile.close();
+		shaderCode = shaderStream.str();
+	} catch (std::ifstream::failure e) {
+		printf("ERROR::SHADER::FILE_NOT_SUCCESFULLY_READ\n");
+	}
+
+	const char* contentsPtr = shaderCode.c_str();
 	glShaderSource(shaderId, 1, &contentsPtr, NULL);
 	glCompileShader(shaderId);
 
@@ -137,32 +92,36 @@ void ShaderLoader::compileShaderFile(const std::string& filePath, GLuint& shader
 		std::vector<char> errorLog(maxLength);
 		glGetShaderInfoLog(shaderId, maxLength, &maxLength, &errorLog[0]);
 		glDeleteShader(shaderId);
-		std::printf("%s\n", &(errorLog[0]));
+		printf("%s\n", &(errorLog[0]));
 		printf("Shader %s failed to compile.\n", filePath.c_str());
 		return;
 	}
+	debugInfo("Shader " + filePath + "compiled successfuly.");
 }
 
 
-void ShaderLoader::use() {
+void ShaderLoader::setBool(const std::string& name, bool value) const {
+	glUniform1i(glGetUniformLocation(this->programID, name.c_str()), (int)value);
+}
+
+
+void ShaderLoader::setInt(const std::string& name, int value) const {
+	glUniform1i(glGetUniformLocation(this->programID, name.c_str()), value);
+}
+
+
+void ShaderLoader::setFloat(const std::string& name, float value) const {
+	glUniform1f(glGetUniformLocation(this->programID, name.c_str()), value);
+}
+
+
+void ShaderLoader::use(GLuint textureId) {
+
 	glUseProgram(this->programID);
-
-	this->posAttrib = glGetAttribLocation(this->programID, "position");
-	glEnableVertexAttribArray(this->posAttrib);
-	glVertexAttribPointer(this->posAttrib, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), 0);
-
-	this->colAttrib = glGetAttribLocation(this->programID, "color");
-	glEnableVertexAttribArray(this->colAttrib);
-	glVertexAttribPointer(this->colAttrib, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(GLfloat), (void*)(2 * sizeof(GLfloat)));
+	
 }
 
 
 void ShaderLoader::unuse() {
 	glUseProgram(0);
-
-	this->posAttrib = glGetAttribLocation(this->programID, "position");
-	glDisableVertexAttribArray(this->posAttrib);
-
-	this->colAttrib = glGetAttribLocation(this->programID, "color");
-	glDisableVertexAttribArray(this->colAttrib);
 }

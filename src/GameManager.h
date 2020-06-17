@@ -41,6 +41,11 @@ private:
 	void update();
 	void render();
 
+	GLfloat mX, mY;
+
+	s16 moveX, moveY;
+
+
 };
 
 

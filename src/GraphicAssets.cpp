@@ -8,22 +8,21 @@
 
 
 GraphicAssets::GraphicAssets() {
-#ifdef _DEBUG 
-	printf("Creating new graphic assets.\n");
-#endif
+
+	debugInfo("Creating new graphic assets.");
 	
 	this->textures[IMAGE_ASSETS_MAIN_MENU_BACKGROUND] = NULL;
 	this->textures[IMAGE_ASSETS_LOGO] = NULL;
 	this->textures[IMAGE_ASSETS_MAIN_MENU_BUTTONS] = NULL;
 	this->textures[IMAGE_ASSETS_VINGUE_FONT] = NULL;
 	this->textures[IMAGE_ASSETS_BIG_SPRITESHEET] = NULL;
+	this->textures[IMAGE_ASSETS_MAIN_MENU_BUTTONS] = NULL;
 }
 
 
 void GraphicAssets::releaseAssets() {
-#ifdef _DEBUG 
-	printf("Releasing textures ...\n");
-#endif
+
+	debugInfo("Releasing textures.");
 	
 	for (int i = 0; i < MAX_SPRITESHEETS; i++) {
 		if (GraphicAssets::getAssets()->textures[i] != NULL) {

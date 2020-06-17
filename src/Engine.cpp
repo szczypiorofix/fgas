@@ -37,9 +37,8 @@ void Engine::launch(void) {
 }
 
 void Engine::stop(s16 _exitCode) {
-#ifdef _DEBUG 
-	printf("Shutting down SDL modules.\n");
-#endif
+
+	debugInfo("Shutting down SDL modules.");
 
 	GraphicAssets::getAssets()->releaseAssets();
 
@@ -67,9 +66,9 @@ void Engine::stop() {
 
 
 void Engine::setSystemCursor() {
-#ifdef _DEBUG 
-	printf("Initializing system cursor.\n");
-#endif
+
+	debugInfo("Initializing system cursor.");
+
 	int m = SDL_SetRelativeMouseMode(SDL_FALSE); // Trap mouse on window
 	if (m == -1) {
 		printf("Warning! Error while locking mouse pointer to the window.\n");
@@ -112,30 +111,32 @@ void Engine::setSystemCursor() {
 }
 
 void Engine::init() {
-#ifdef _DEBUG 
-	printf("Engine initialization.\n");
-#endif
+
+	debugInfo("Engine initialization.");
+
 	this->initSDL();
 	this->initOGL();
 	this->initDevIL();
 	this->initBASS();
 	this->setSystemCursor();
+	this->deviLSettings();
+
 }
 
 
 void Engine::initSDL(void) {
-#ifdef _DEBUG 
-	printf("SDL main initialization.\n");
-#endif
+
+	debugInfo("SDL main initialization.");
+
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		printf("SDL_Init error! %s\n", SDL_GetError());
 		this->stop(1);
 	}
 
 	atexit(SDL_Quit);
-#ifdef _DEBUG 
-	printf("SDL Window initialization.\n");
-#endif
+
+	debugInfo("SDL Window initialization.");
+
 	this->window = SDL_CreateWindow("For Gold and Sweetrolls", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, this->settings.screenWidth, this->settings.screenHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
 	if (this->window == NULL) {
 		printf("SDL_CreateWindow error! %s\n", SDL_GetError());
@@ -146,9 +147,8 @@ void Engine::initSDL(void) {
 
 void Engine::initOGL(void) {
 
-#ifdef _DEBUG 
-	printf("Creating GL context.\n");
-#endif
+	debugInfo("Creating GL context.");
+
 	// OGL context
 	this->glContext = SDL_GL_CreateContext(window);
 
@@ -167,11 +167,19 @@ void Engine::initOGL(void) {
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
 
+	int verMin = 0, verMaj = 0, accel = 0;
+	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &verMaj);
+	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &verMin);
+	SDL_GL_GetAttribute(SDL_GL_ACCELERATED_VISUAL, &accel);
+	
+	debugInfo("OpenGL version " + std::to_string(verMaj) + ":" + std::to_string(verMin) + ".");
+
+	debugInfo(accel == 1 ? "Accelerated (hardware) renderer." : "Forced software renderer.");
+
+	//printf("%s.\n", accel == 1 ? "Accelerated (hardware) renderer" : "Forced software renderer");
 
 	// GLEW part
-#ifdef _DEBUG 
-	printf("GLEW initialization.\n");
-#endif
+	debugInfo("GLEW initialization.");
 
 	glewExperimental = GL_TRUE;
 	GLenum err = glewInit();
@@ -179,12 +187,26 @@ void Engine::initOGL(void) {
 		printf("ERROR !!! %s\n", glewGetErrorString(err));
 		this->stop(1);
 	}
-		
-	printf("GLEW STATUS: %s\n", glewGetString(GLEW_VERSION));
+	
+	debugInfo("GLEW status " + std::string((char*)glewGetString(GLEW_VERSION)) + ".");
 
 	if (SDL_GL_SetSwapInterval(1) < 0) { // 1 - VSYNC ON, 0 - VSYNC OFF, -1 - adaptive VSYNC
 		printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 	}
+
+
+	/**
+	int profile = 0;
+	SDL_GL_GetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, &profile);
+	printf("OpenGL profile: ");
+	if (profile == SDL_GL_CONTEXT_PROFILE_ES)
+		printf("OpenGL ES profile - only a subset of the base OpenGL functionality is available\n");  // OpenGL ES 2.0
+	if (profile == SDL_GL_CONTEXT_PROFILE_COMPATIBILITY)
+		printf("OpenGL compatibility profile - deprecated functions are allowed\n");  // Compatibility mode
+	if (profile == SDL_GL_CONTEXT_PROFILE_CORE)
+		printf("OpenGL core profile - deprecated functions are disabled\n");  // OpenGL 2.1
+	*/
+
 
 	//glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
@@ -192,7 +214,7 @@ void Engine::initOGL(void) {
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	// Spacify clear color
-	glClearColor(0, 0, 0, 1);
+	glClearColor(0.02f, 0.04f, 0.04f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	// Viewport to display
@@ -213,19 +235,22 @@ void Engine::initOGL(void) {
 }
 
 void Engine::initDevIL(void) {
-#ifdef _DEBUG 
-	printf("DevIL initialization.\n");
-#endif
+
+	debugInfo("DevIL initialization.");
 
 	ilInit(); /* Initialization of DevIL */
-	
+
+}
+
+void Engine::deviLSettings(void) {
+	ilEnable(IL_ORIGIN_SET);
+	ilOriginFunc(IL_ORIGIN_LOWER_LEFT);
 }
 
 
 void Engine::initBASS(void) {
-#ifdef _DEBUG 
-	printf("Initializing BASS audio module... \n");
-#endif
+
+	debugInfo("Initializing BASS audio module.");
 
 	if (BASS_Init(-1, 44100, 0, 0, NULL) < 0) {
 		printf("SDL_mixer BASS_Init() error code: %i.\n", BASS_ErrorGetCode());
