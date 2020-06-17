@@ -8,9 +8,8 @@
 
 
 GraphicAssets::GraphicAssets() {
-#ifdef _DEBUG 
-	printf("Creating new graphic assets.\n");
-#endif
+
+	debugInfo("Creating new graphic assets.");
 	
 	this->textures[IMAGE_ASSETS_MAIN_MENU_BACKGROUND] = NULL;
 	this->textures[IMAGE_ASSETS_LOGO] = NULL;
@@ -22,9 +21,8 @@ GraphicAssets::GraphicAssets() {
 
 
 void GraphicAssets::releaseAssets() {
-#ifdef _DEBUG 
-	printf("Releasing textures ...\n");
-#endif
+
+	debugInfo("Releasing textures.");
 	
 	for (int i = 0; i < MAX_SPRITESHEETS; i++) {
 		if (GraphicAssets::getAssets()->textures[i] != NULL) {

@@ -15,9 +15,7 @@ TiledMap::TiledMap(std::string fileName) {
 	xmlNodePtr cur;
 	std::string fn = DIR_RES_IMAGES + fileName;
 
-#ifdef _DEBUG
-	std::cout << "Parsing tmx file: " << fn << "... " << std::endl;
-#endif
+	debugInfo("Parsing tmx file: " + fn + ".");
 
 	doc = xmlParseFile(fn.c_str());
 	if (doc == NULL) {
@@ -131,9 +129,8 @@ std::vector<TiledObject*> TiledMap::getObjects(xmlNodePtr cur, int objectCount) 
 			xmlNodePtr txCurNode;
 
 			std::string fn = DIR_RES_IMAGES + charArrayToString(objects.back()->templateFile);
-#ifdef _DEBUG
-			std::cout << "Parsing tx file: " << fn << "... " << std::endl;
-#endif
+
+			debugInfo("Parsing tx file: " + fn + ".");
 
 			txDoc = xmlParseFile(fn.c_str());
 			if (txDoc == NULL) {
@@ -210,9 +207,7 @@ TileSetSource* TiledMap::getTileSetSource(std::string tsxFileName) {
 
 	std::string fn = DIR_RES_IMAGES + tsxFileName;
 
-#ifdef _DEBUG
-	std::cout << "Parsing tsx file: " << fn << "... " << std::endl;
-#endif
+	debugInfo("Parsing tsx file: " + fn + ".");
 
 	tsxDoc = xmlParseFile(fn.c_str());
 	if (tsxDoc == NULL) {

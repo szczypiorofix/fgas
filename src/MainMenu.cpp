@@ -16,11 +16,12 @@ MainMenu::MainMenu(State& _state) : state{ _state } {
     this->mapMoveDirectionY = -MAP_SPEED_Y;
 
     this->bigSpriteSheet = nullptr;
+    this->logoTexture = nullptr;
 
     this->mainMenuBackgroundMap = new TiledMap("mm_background.tmx");
     
     this->bigSpriteSheet = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET];
-    this->logoTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO];
+    //this->logoTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO];
 
     std::vector<u16> framesTorch = { TS_TORCH1, TS_TORCH2, TS_TORCH3, TS_TORCH4 };
     this->torchAnimation = new Animation(4, 4, framesTorch);
@@ -93,7 +94,6 @@ void MainMenu::update() {
     }
 
 
-
     // This need to be the last thing to update !
     for (u16 i = 0; i < this->mainMenuButtons.size(); i++) {
         this->mainMenuButtons.at(i)->update();
@@ -128,21 +128,38 @@ void MainMenu::render() {
     //    this->mainMenuButtons.at(i)->draw();
     //}
 
-    TextureRect s = {
-        0,
-        0,
-        335,
-        201
-    };
-    TextureRect d = {
-        280,
-        25,
-        250,
-        150
-    };
+    //TextureRect s = {
+    //    0,
+    //    0,
+    //    335,
+    //    201
+    //};
+    //TextureRect d = {
+    //    280,
+    //    25,
+    //    250,
+    //    150
+    //};
     
-    this->logoTexture->draw(s, d);
+    //this->logoTexture->draw(s, d);
 
-    //this->bigSpriteSheet->drawTile(1665, 100, 100); // mouse cursor
+
+    //TextureRect s = {
+    //    0,
+    //    0,
+    //    928,
+    //    793
+    //};
+    //TextureRect d = {
+    //    200,
+    //    200,
+    //    200,
+    //    150
+    //};
+
+    //GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND]->draw(s, d);
+    
+    
+    this->bigSpriteSheet->drawTile(2, 300, 250); // mouse cursor
 
 }

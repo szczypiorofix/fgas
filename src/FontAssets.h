@@ -15,7 +15,6 @@ constexpr int MAX_FONTS = 1;
 
 class FontAssets {
 
-
 public:
 
 	static const int FONT_ASSETS_VINGUE = 0;
@@ -33,8 +32,5 @@ private:
 	~FontAssets();
 
 };
-
-
-
 
 #endif

@@ -11,6 +11,7 @@
 #include <IL/il.h>
 
 
+
 typedef struct TextureRect {
 	GLfloat x, y;
 	GLfloat w, h;
@@ -47,8 +48,8 @@ public:
 private:
 	GLuint loadTexture(std::string fileName);
 	
-	GLfloat coordToFloatX(GLint x);
-	GLfloat coordToFloatY(GLint y);
+	GLfloat coordToFloatX(GLfloat x);
+	GLfloat coordToFloatY(GLfloat y);
 
 	GLuint vao;
 	GLuint vbo;

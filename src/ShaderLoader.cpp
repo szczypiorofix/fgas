@@ -16,7 +16,7 @@ ShaderLoader::ShaderLoader() : programID(0), vertexShaderID(0), fragmentShaderID
 
 
 ShaderLoader::~ShaderLoader() {
-	printf("Delete shaders ...\n");
+	debugInfo("Delete shaders.");
 	glDeleteProgram(this->programID);
 }
 
@@ -96,7 +96,7 @@ void ShaderLoader::compileShaderFile(const std::string& filePath, GLuint& shader
 		printf("Shader %s failed to compile.\n", filePath.c_str());
 		return;
 	}
-	printf("Shader %s compiled successfuly.\n", filePath.c_str());
+	debugInfo("Shader " + filePath + "compiled successfuly.");
 }
 
 

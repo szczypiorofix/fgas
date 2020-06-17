@@ -10,6 +10,7 @@
 
 
 GameManager::GameManager() {
+
     this->quit = false;
 
     this->engine = nullptr;
@@ -20,9 +21,18 @@ GameManager::GameManager() {
     this->mainGame = nullptr;
 
     this->state = State::MAIN_MENU;
+
+    this->mX = 0.0f;
+    this->mY = 0.0f;
+
+    this->moveX = 0;
+    this->moveY = 0;
+
 }
 
+
 void GameManager::start() {
+
     this->engine = new Engine();
     this->engine->launch();
 
@@ -33,9 +43,6 @@ void GameManager::start() {
     GraphicAssets::addToAssets("../res/images/logo-title.png", GraphicAssets::IMAGE_ASSETS_LOGO);    
 
     FontAssets::addToAssets("vingue", GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT], FontAssets::FONT_ASSETS_VINGUE);
-    
-    this->mainMenu = new MainMenu(this->state);
-    this->mainGame = new MainGame(this->state);
 
     this->engine->loadMusic("menu-music.ogg");
     this->engine->playMusic(0.1f);
@@ -43,7 +50,11 @@ void GameManager::start() {
     this->shader = new ShaderLoader();
     this->shader->compileShaders("shader.vert", "shader.frag");
 
+    this->mainMenu = new MainMenu(this->state);
+    this->mainGame = new MainGame(this->state);
+
     this->mainLoop();
+
 }
 
 
@@ -53,18 +64,50 @@ void GameManager::input(SDL_Event& event) {
         if (event.type == SDL_QUIT) {
             this->quit = true;
         }
-        else {
-            switch (this->state) {
-            case State::SPLASH_SCREEN:
-                break;
-            case State::MAIN_MENU:
-                this->mainMenu->input(event);
-                break;
-            case State::GAME:
-                this->mainGame->input(event);
-                break;
+        if (event.type == SDL_KEYDOWN) {
+            if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a) {
+                this->moveX = -1;
+            }
+            if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d) {
+                this->moveX = 1;
+            }
+            if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_w) {
+                this->moveY = 1;
+            }
+            if (event.key.keysym.sym == SDLK_DOWN || event.key.keysym.sym == SDLK_s) {
+                this->moveY = -1;
             }
         }
+        if (event.type == SDL_KEYUP) {
+            if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a) {
+                this->moveX = 0;
+            }
+            if (event.key.keysym.sym == SDLK_RIGHT || event.key.keysym.sym == SDLK_d) {
+                this->moveX = 0;
+            }
+            if (event.key.keysym.sym == SDLK_UP || event.key.keysym.sym == SDLK_w) {
+                this->moveY = 0;
+            }
+            if (event.key.keysym.sym == SDLK_DOWN || event.key.keysym.sym == SDLK_s) {
+                this->moveY = 0;
+            }
+        }
+        
+        // ============== GAME STATE ==============
+
+        switch (this->state) {
+        case State::SPLASH_SCREEN:
+            break;
+        case State::MAIN_MENU:
+            this->mainMenu->input(event);
+            break;
+        case State::GAME:
+            this->mainGame->input(event);
+            break;
+        }
+        
+        // ========================================
+
     }
 
 }
@@ -88,10 +131,28 @@ void GameManager::update() {
         this->quit = true;
     }
 
+    if (this->moveX != 0) {
+        if (this->moveX == -1) {
+            this->mX -= 1.0f;
+        }
+        if (this->moveX == 1) {
+            this->mX += 1.0f;
+        }
+    }
+    if (this->moveY != 0) {
+        if (this->moveY == -1) {
+            this->mY -= 1.0f;
+        }
+        if (this->moveY == 1) {
+            this->mY += 1.0f;
+        }
+    }
+
 }
 
 
 void GameManager::render() {
+
     glClear(GL_COLOR_BUFFER_BIT);
     glPushMatrix();
     glOrtho(0, engine->settings.screenWidth, engine->settings.screenHeight, 0.0f, -1.0f, 1.0f); // Set the matrix
@@ -99,7 +160,6 @@ void GameManager::render() {
 
     // ================================= Render Start =================================
     
-   
     this->shader->use(GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND]->textureId);
     TextureRect s = {
         0,
@@ -108,33 +168,35 @@ void GameManager::render() {
         793
     };
     TextureRect d = {
-        0,
-        0,
-        800,
-        600
+        this->mX,
+        this->mY,
+        200,
+        150
     };
-
-    GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND]->draw(s, d);
-    this->shader->unuse();
-
     
-    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)(sizeof(GLubyte) * 1));
-    //glDrawArrays(GL_TRIANGLES, 0, 3);
-    //this->shader->unuse();
-
+    GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND]->draw(s, d);
+    //GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO]->draw(s, d);
+    this->shader->unuse();
 
 
     switch (this->state) {
     case State::SPLASH_SCREEN:
         break;
     case State::MAIN_MENU:
-        //this->mainMenu->render();
+        this->mainMenu->render();
         break;
     case State::GAME:
         this->mainGame->render();
         break;
     }
 
+
+    
+
+    
+    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)(sizeof(GLubyte) * 1));
+    //glDrawArrays(GL_TRIANGLES, 0, 3);
+    //this->shader->unuse();
 
 
     //TextureRect s = {
@@ -157,6 +219,7 @@ void GameManager::render() {
 
     glPopMatrix();
     SDL_GL_SwapWindow(this->engine->window);
+
 }
 
 

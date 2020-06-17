@@ -199,9 +199,21 @@ enum class State {
 
 int stringToInt(const char* a);
 
+
 std::string charArrayToString(char* a);
 
+
 DG_ArrayInt* stringToArrayOfInt(std::string s);
+
+
+/*
+* Simple debugginh function
+*/
+inline void debugInfo(std::string di) {
+#ifdef _DEBUG 
+	printf("DEBUG: %s\n", di.c_str());
+#endif
+}
 
 
 #endif
