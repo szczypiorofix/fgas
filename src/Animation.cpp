@@ -4,6 +4,7 @@
  */
 
 #include "Animation.h"
+#include "Defines.h"
 
 
 Animation::Animation(u16 speed, cu16 size, std::vector<u16> tilesArray) {
@@ -31,7 +32,8 @@ u16 Animation::getTile(void) {
 	try {
 		res = this->tilesArray.at(this->curFrame);
 	} catch (std::out_of_range & ex) {
-		std::cout << "OUT OF RANGE EXCEPTION !!!" << ex.what() << std::endl;
+		//std::cout << "OUT OF RANGE EXCEPTION !!!" << ex.what() << std::endl;
+		debugInfoNl(DEBUG_WARNING, "Out of range exception !!!" + std::string(ex.what()));
 	}
 	return res;
 }

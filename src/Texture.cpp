@@ -26,7 +26,7 @@ Texture::Texture(std::string fileName, GLfloat tileWidth, GLfloat tileHeight) {
 	this->tileHeight = tileHeight;
 	this->columns = (int)(this->width / this->tileWidth);
 
-	debugInfo("Texture " + fileName + " loaded. Columns " + std::to_string(this->columns));
+	debugInfoNl(DEBUG_INFO, "Texture " + fileName + " loaded. Columns " + std::to_string(this->columns));
 	
 }
 
@@ -42,11 +42,12 @@ Texture::Texture(std::string fileName) {
 	this->vbo = 0;
 	this->ebo = 0;
 	this->textureId = loadTexture(fileName);
+	printf("Texture id: %i\n", this->textureId);
 	this->tileWidth = 0.0f;
 	this->tileHeight = 0.0f;
 	this->columns = 0;
 
-	debugInfo("Texture " + fileName + " loaded.");
+	debugInfoNl(DEBUG_INFO, "Texture " + fileName + " loaded.");
 
 }
 
@@ -83,7 +84,7 @@ GLuint Texture::loadTexture(std::string fileName) {
 		this->bytesPerPixel = ilGetInteger(IL_IMAGE_BYTES_PER_PIXEL);
 		this->bitsPerPixel = ilGetInteger(IL_IMAGE_BITS_PER_PIXEL);
 
-		debugInfo("Loading texture " + std::to_string(this->textureId) + ".");
+		debugInfoNl(DEBUG_INFO, "Loading texture " + std::to_string(this->textureId) + ".");
 
 		glTexImage2D(
 			GL_TEXTURE_2D,
@@ -121,7 +122,7 @@ GLfloat Texture::coordToFloatY(GLfloat y) {
 
 Texture::~Texture() {
 	
-	debugInfo("Releasing texture from memory: " + std::to_string(this->textureId));
+	debugInfoNl(DEBUG_INFO, "Releasing texture " + std::to_string(this->textureId) + " from memory.");
 	
 	if (glIsTexture(this->textureId)) {
 		glDeleteTextures(1, &this->textureId);

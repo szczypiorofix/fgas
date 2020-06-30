@@ -1,3 +1,4 @@
+-- Just a file to test Lua scripts.
 
 Player = {
 	name = "Todd",

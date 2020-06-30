@@ -25,7 +25,7 @@ MainGame::MainGame(State& _state) : state{ _state } {
 	    std::cout << "Cannot read object 'Player'." << std::endl;
     }
     delete lua;
-
+    lua = nullptr;
 
 }
 

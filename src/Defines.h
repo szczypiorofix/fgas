@@ -9,6 +9,9 @@
 
 #include <string>
 
+
+// =========================================================================== //
+
 // 8bit
 typedef unsigned char                   u8;  //  0 - 255
 typedef const unsigned char             cu8;
@@ -35,6 +38,9 @@ typedef unsigned long long              u64; // 0 - 18,446,744,073,709,551,615
 typedef const unsigned long long        cu64;
 typedef signed long long                s64; // -9,223,372,036,854,775,807 - 9,223,372,036,854,775,807
 typedef const signed long long          cs64;
+
+// =========================================================================== //
+
 
 
 
@@ -206,10 +212,37 @@ std::string charArrayToString(char* a);
 DG_ArrayInt* stringToArrayOfInt(std::string s);
 
 
+
+// ######################################## DEBUG ########################################
+
+constexpr u8 DEBUG_INFO			= 0;
+constexpr u8 DEBUG_WARNING		= 1;
+constexpr u8 DEBUG_ERROR		= 2;
+
 /*
-* Simple debugginh function
+* Simple debugging function
 */
-inline void debugInfo(std::string di) {
+inline void debugInfo(cu8 v, std::string di) {
+#ifdef _DEBUG 
+	switch (v) {
+	case DEBUG_WARNING:
+		printf("WARNING: %s", di.c_str());
+		break;
+	case DEBUG_ERROR:
+		printf("ERROR: %s", di.c_str());
+		break;
+	default: // DEBUG_INFO and others
+		printf("INFO: %s", di.c_str());
+		break;
+	}
+#endif
+}
+
+
+/*
+* Simple debugging function with new line char at the end of the string
+*/
+inline void debugInfoNl(cu8 v, std::string di) {
 #ifdef _DEBUG 
 	printf("DEBUG: %s\n", di.c_str());
 #endif

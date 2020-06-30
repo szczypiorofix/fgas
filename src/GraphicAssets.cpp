@@ -9,25 +9,27 @@
 
 GraphicAssets::GraphicAssets() {
 
-	debugInfo("Creating new graphic assets.");
+	debugInfoNl(DEBUG_INFO, "Creating new graphic assets.");
 	
-	this->textures[IMAGE_ASSETS_MAIN_MENU_BACKGROUND] = NULL;
-	this->textures[IMAGE_ASSETS_LOGO] = NULL;
-	this->textures[IMAGE_ASSETS_MAIN_MENU_BUTTONS] = NULL;
-	this->textures[IMAGE_ASSETS_VINGUE_FONT] = NULL;
-	this->textures[IMAGE_ASSETS_BIG_SPRITESHEET] = NULL;
-	this->textures[IMAGE_ASSETS_MAIN_MENU_BUTTONS] = NULL;
+	this->textures[IMAGE_ASSETS_MAIN_MENU_BACKGROUND] = nullptr;
+	this->textures[IMAGE_ASSETS_LOGO] = nullptr;
+	this->textures[IMAGE_ASSETS_MAIN_MENU_BUTTONS] = nullptr;
+	this->textures[IMAGE_ASSETS_VINGUE_FONT] = nullptr;
+	this->textures[IMAGE_ASSETS_BIG_SPRITESHEET] = nullptr;
+	this->textures[IMAGE_ASSETS_MAIN_MENU_BUTTONS] = nullptr;
 }
 
 
 void GraphicAssets::releaseAssets() {
 
-	debugInfo("Releasing textures.");
+	debugInfoNl(DEBUG_INFO, "Releasing textures.");
 	
 	for (int i = 0; i < MAX_SPRITESHEETS; i++) {
-		if (GraphicAssets::getAssets()->textures[i] != NULL) {
+		if (GraphicAssets::getAssets()->textures[i]) {
+			/*printf("Releasing texture pointer %p\n", &GraphicAssets::getAssets()->textures[i]);
+			printf("Texture id: %i\n", GraphicAssets::getAssets()->textures[i]->textureId);*/
 			delete GraphicAssets::getAssets()->textures[i];
-			GraphicAssets::getAssets()->textures[i] = NULL;
+			GraphicAssets::getAssets()->textures[i] = nullptr;
 		}
 	}
 }
