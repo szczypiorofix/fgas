@@ -9,9 +9,9 @@
 
 FontAssets::FontAssets() {
 
-	debugInfo("Creating new font assets.");
+	debugInfoNl(DEBUG_INFO, "Creating new font assets.");
 	
-	this->fonts[0] = NULL;
+	this->fonts[0] = nullptr;
 }
 
 
@@ -20,10 +20,11 @@ FontAssets::~FontAssets() {}
 
 void FontAssets::releaseAssets() {
 
-	debugInfo("Releasing fonts.");
+	debugInfoNl(DEBUG_INFO, "Releasing fonts.");
 	
 	for (int i = 0; i < MAX_FONTS; i++) {
 		delete FontAssets::getAssets()->fonts[i];
+		FontAssets::getAssets()->fonts[i] = nullptr;
 	}
 	
 }

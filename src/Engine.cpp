@@ -21,8 +21,9 @@ Engine::Engine() {
 	this->settings = {
 		SCREEN_WIDTH,					// Screen width
 		SCREEN_HEIGHT,					// Screen height
-		MIN_SCALE,						// scale
-		0,								// 1 - fullscreen, 0 - window
+		MIN_SCALE,						// current scale
+		false,							// is full screen?
+		false,							// is window resizable?
 		0.5f							// music volume
 	};
 
@@ -38,7 +39,7 @@ void Engine::launch(void) {
 
 void Engine::stop(s16 _exitCode) {
 
-	debugInfo("Shutting down SDL modules.");
+	debugInfoNl(DEBUG_INFO, "Engine stop.");
 
 	GraphicAssets::getAssets()->releaseAssets();
 
@@ -48,8 +49,9 @@ void Engine::stop(s16 _exitCode) {
 	SDL_DestroyWindow(this->window);
 
 	delete this->currentMusic;
+	this->currentMusic = nullptr;
 	
-	if (this->systemCursor != NULL) {
+	if (this->systemCursor != nullptr) {
 		SDL_FreeCursor(this->systemCursor);
 	}
 	
@@ -67,11 +69,11 @@ void Engine::stop() {
 
 void Engine::setSystemCursor() {
 
-	debugInfo("Initializing system cursor.");
+	debugInfoNl(DEBUG_INFO, "Initializing system cursor.");
 
 	int m = SDL_SetRelativeMouseMode(SDL_FALSE); // Trap mouse on window
 	if (m == -1) {
-		printf("Warning! Error while locking mouse pointer to the window.\n");
+		debugInfoNl(DEBUG_WARNING, "Warning! Error while locking mouse pointer to the window.");
 	}
 
 	SDL_WarpMouseInWindow(this->window, this->settings.screenWidth / 2, this->settings.screenHeight / 2);
@@ -91,28 +93,29 @@ void Engine::setSystemCursor() {
 	int depth = texture->bitsPerPixel; // 3 colors & alpha, 8 bytes each
 	int pitch = texture->bytesPerPixel * width;
 
-	this->cursorIcon = SDL_CreateRGBSurfaceFrom((void*)texture->data, width, height, depth, pitch, rmask, gmask, bmask, amask);
-	
-	if (this->cursorIcon == NULL) {
-		printf("Unable to Create RPG surface!\n");
-		this->stop(1);
+	this->cursorIcon = SDL_CreateRGBSurfaceFrom((void*)texture->data, width, height, depth, pitch, rmask, gmask, bmask, amask);	
+	if (this->cursorIcon == nullptr) {
+		debugInfoNl(DEBUG_ERROR, "Unable to create RPG surface!");
+		exit(1);
 	}
 	else {
 		this->systemCursor = SDL_CreateColorCursor(this->cursorIcon, 0, 0);
-		if (this->systemCursor == NULL) {
-			printf("Unable to create a mouse cursor !\n");
-			this->stop(1);
+		if (this->systemCursor == nullptr) {
+			debugInfoNl(DEBUG_WARNING, "Unable to create mouse cursor.");
+			exit(1);
 		}
 		else {
 			SDL_SetCursor(this->systemCursor);
 		}
+		SDL_FreeSurface(this->cursorIcon);
+		this->cursorIcon = nullptr;
 	}
 
 }
 
 void Engine::init() {
 
-	debugInfo("Engine initialization.");
+	debugInfoNl(DEBUG_INFO, "Engine initialization.");
 
 	this->initSDL();
 	this->initOGL();
@@ -126,20 +129,29 @@ void Engine::init() {
 
 void Engine::initSDL(void) {
 
-	debugInfo("SDL main initialization.");
+	debugInfoNl(DEBUG_INFO, "SDL main initialization.");
 
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		printf("SDL_Init error! %s\n", SDL_GetError());
-		this->stop(1);
+		exit(1);
 	}
 
 	atexit(SDL_Quit);
 
-	debugInfo("SDL Window initialization.");
+	debugInfoNl(DEBUG_INFO, "SDL Window initialization.");
+	
+	Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
+	if (this->settings.windowResizable) {
+		flags |= SDL_WINDOW_RESIZABLE;
+	}
+	if (this->settings.fullScreen) {
+		flags = SDL_WINDOW_FULLSCREEN | SDL_WINDOW_OPENGL;
+	}
 
-	this->window = SDL_CreateWindow("For Gold and Sweetrolls", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, this->settings.screenWidth, this->settings.screenHeight, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
-	if (this->window == NULL) {
-		printf("SDL_CreateWindow error! %s\n", SDL_GetError());
+	this->window = SDL_CreateWindow("For Gold and Sweetrolls", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, this->settings.screenWidth, this->settings.screenHeight, flags);
+	if (this->window == nullptr) {
+		/*printf("SDL_CreateWindow error! %s\n", SDL_GetError());*/
+		debugInfoNl(DEBUG_ERROR, "SDL_CreateWindow error! " + std::string(SDL_GetError()));
 		this->stop(1);
 	}
 }
@@ -147,7 +159,7 @@ void Engine::initSDL(void) {
 
 void Engine::initOGL(void) {
 
-	debugInfo("Creating GL context.");
+	debugInfoNl(DEBUG_INFO, "Creating GL context.");
 
 	// OGL context
 	this->glContext = SDL_GL_CreateContext(window);
@@ -172,23 +184,23 @@ void Engine::initOGL(void) {
 	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &verMin);
 	SDL_GL_GetAttribute(SDL_GL_ACCELERATED_VISUAL, &accel);
 	
-	debugInfo("OpenGL version " + std::to_string(verMaj) + ":" + std::to_string(verMin) + ".");
+	debugInfoNl(DEBUG_INFO, "OpenGL version " + std::to_string(verMaj) + ":" + std::to_string(verMin) + ".");
 
-	debugInfo(accel == 1 ? "Accelerated (hardware) renderer." : "Forced software renderer.");
+	debugInfoNl(DEBUG_INFO, accel == 1 ? "Accelerated (hardware) renderer." : "Forced software renderer.");
 
 	//printf("%s.\n", accel == 1 ? "Accelerated (hardware) renderer" : "Forced software renderer");
 
 	// GLEW part
-	debugInfo("GLEW initialization.");
+	debugInfoNl(DEBUG_INFO, "GLEW initialization.");
 
 	glewExperimental = GL_TRUE;
 	GLenum err = glewInit();
 	if (GLEW_OK != err) {
 		printf("ERROR !!! %s\n", glewGetErrorString(err));
-		this->stop(1);
+		exit(1);
 	}
 	
-	debugInfo("GLEW status " + std::string((char*)glewGetString(GLEW_VERSION)) + ".");
+	debugInfoNl(DEBUG_INFO, "GLEW status " + std::string((char*)glewGetString(GLEW_VERSION)) + ".");
 
 	if (SDL_GL_SetSwapInterval(1) < 0) { // 1 - VSYNC ON, 0 - VSYNC OFF, -1 - adaptive VSYNC
 		printf("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
@@ -236,7 +248,7 @@ void Engine::initOGL(void) {
 
 void Engine::initDevIL(void) {
 
-	debugInfo("DevIL initialization.");
+	debugInfoNl(DEBUG_INFO, "DevIL initialization.");
 
 	ilInit(); /* Initialization of DevIL */
 
@@ -250,11 +262,11 @@ void Engine::deviLSettings(void) {
 
 void Engine::initBASS(void) {
 
-	debugInfo("Initializing BASS audio module.");
+	debugInfoNl(DEBUG_INFO, "Initializing BASS audio module.");
 
-	if (BASS_Init(-1, 44100, 0, 0, NULL) < 0) {
+	if (BASS_Init(-1, 44100, 0, 0, nullptr) < 0) {
 		printf("SDL_mixer BASS_Init() error code: %i.\n", BASS_ErrorGetCode());
-		this->stop(1);
+		exit(1);
 	}
 
 	BASS_Start();
@@ -295,5 +307,6 @@ bool Engine::pauseMusic(void) {
 
 void Engine::releaseMusic(void) {
 	delete this->currentMusic;
+	this->currentMusic = nullptr;
 }
 

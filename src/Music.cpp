@@ -56,7 +56,7 @@ Music::Music(const std::string& musicFile, float volume, bool loop) {
 
 Music::~Music() {
 
-	debugInfo("Releasing music.");
+	debugInfoNl(DEBUG_INFO, "Releasing music.");
 
 	this->musicFileName = "";
 	BASS_StreamFree(this->stream);
@@ -69,7 +69,7 @@ bool Music::playMusic() {
 		printf("Failed to change channel volume! BASS_ChannelSetAttribute Error: %i\n", BASS_ErrorGetCode());
 	}
 
-	debugInfo("Playing " + this->musicFileName + ".");
+	debugInfoNl(DEBUG_INFO, "Playing " + this->musicFileName + ".");
 
 	bool r = BASS_ChannelPlay(this->stream, TRUE);
 	if (!r) {
@@ -85,7 +85,7 @@ bool Music::playMusic(float _volume) {
 		printf("Failed to change channel volume! BASS_ChannelSetAttribute Error: %i\n", BASS_ErrorGetCode());
 	}
 	
-	debugInfo("Playing " + this->musicFileName + ".");
+	debugInfoNl(DEBUG_INFO, "Playing " + this->musicFileName + ".");
 
 	bool r = BASS_ChannelPlay(this->stream, TRUE);
 	if (!r) {

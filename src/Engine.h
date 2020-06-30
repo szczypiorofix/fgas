@@ -19,7 +19,8 @@ typedef struct Settings {
 	u16 screenWidth;
 	u16 screenHeight;
 	float scale;
-	u8 fullScreen;
+	bool fullScreen;
+	bool windowResizable;
 	float musicVolume;
 } Settings;
 

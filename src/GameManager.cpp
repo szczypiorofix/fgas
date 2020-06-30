@@ -22,8 +22,8 @@ GameManager::GameManager() {
 
     this->state = State::MAIN_MENU;
 
-    this->mX = 0.0f;
-    this->mY = 0.0f;
+    this->mX = 200.0f;
+    this->mY = -400.0f;
 
     this->moveX = 0;
     this->moveY = 0;
@@ -36,19 +36,19 @@ void GameManager::start() {
     this->engine = new Engine();
     this->engine->launch();
 
-    GraphicAssets::addToAssets("../res/images/spritesheet.png", 32, 32, GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET);
-    GraphicAssets::addToAssets("../res/images/mm-gui-button.png", 168, 32, GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS);
-    GraphicAssets::addToAssets("../res/fonts/vingue.png", GraphicAssets::IMAGE_ASSETS_VINGUE_FONT);
-    GraphicAssets::addToAssets("../res/images/background.png", GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND);
+    //GraphicAssets::addToAssets("../res/images/spritesheet.png", 32, 32, GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET);
+    //GraphicAssets::addToAssets("../res/images/mm-gui-button.png", 168, 32, GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS);
+    //GraphicAssets::addToAssets("../res/fonts/vingue.png", GraphicAssets::IMAGE_ASSETS_VINGUE_FONT);
+    //GraphicAssets::addToAssets("../res/images/background.png", GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND);
     GraphicAssets::addToAssets("../res/images/logo-title.png", GraphicAssets::IMAGE_ASSETS_LOGO);    
 
-    FontAssets::addToAssets("vingue", GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT], FontAssets::FONT_ASSETS_VINGUE);
+    //FontAssets::addToAssets("vingue", GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT], FontAssets::FONT_ASSETS_VINGUE);
 
     this->engine->loadMusic("menu-music.ogg");
     this->engine->playMusic(0.1f);
 
     this->shader = new ShaderLoader();
-    this->shader->compileShaders("shader.vert", "shader.frag");
+    this->shader->compileShaders("vert.glsl", "frag.glsl");
 
     this->mainMenu = new MainMenu(this->state);
     this->mainGame = new MainGame(this->state);
@@ -160,7 +160,7 @@ void GameManager::render() {
 
     // ================================= Render Start =================================
     
-    this->shader->use(GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND]->textureId);
+    this->shader->use(GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO]->textureId);
     TextureRect s = {
         0,
         0,
@@ -170,50 +170,45 @@ void GameManager::render() {
     TextureRect d = {
         this->mX,
         this->mY,
-        200,
-        150
+        600,
+        450
     };
     
-    GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND]->draw(s, d);
-    //GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO]->draw(s, d);
+    //GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND]->draw(s, d);
+
+    s = {
+        0,
+        0,
+        335,
+        201
+    };
+    d = {
+        250,
+        -100,
+        250,
+        200
+    };
+
+    GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO]->draw(s, d);
+
+
+
+    /*this->shader->unuse();*/
+
+
+    //switch (this->state) {
+    //case State::SPLASH_SCREEN:
+    //    break;
+    //case State::MAIN_MENU:
+    //    this->mainMenu->render();
+    //    break;
+    //case State::GAME:
+    //    this->mainGame->render();
+    //    break;
+    //}
+
+
     this->shader->unuse();
-
-
-    switch (this->state) {
-    case State::SPLASH_SCREEN:
-        break;
-    case State::MAIN_MENU:
-        this->mainMenu->render();
-        break;
-    case State::GAME:
-        this->mainGame->render();
-        break;
-    }
-
-
-    
-
-    
-    //glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, (GLvoid*)(sizeof(GLubyte) * 1));
-    //glDrawArrays(GL_TRIANGLES, 0, 3);
-    //this->shader->unuse();
-
-
-    //TextureRect s = {
-    //    0,
-    //    0,
-    //    335,
-    //    201
-    //};
-    //TextureRect d = {
-    //    10,
-    //    10,
-    //    250,
-    //    150
-    //};
-
-    //GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO]->draw(s, d);
-
 
     // ================================== Render End ==================================
 
@@ -238,6 +233,8 @@ void GameManager::mainLoop() {
     }
 
     delete this->shader;
+    this->shader = nullptr;
+
     this->engine->stop(0);
 
 }

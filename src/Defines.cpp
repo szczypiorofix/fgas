@@ -15,12 +15,12 @@ const float MIN_SCALE           = 1.0f;
 const float MAX_SCALE           = 5.0f;
 
 
-const cu8 DIR_UP                 = 0;
+const cu8 DIR_UP                = 0;
 const cu8 DIR_RIGHT			    = 1;
 const cu8 DIR_DOWN			    = 2;
 const cu8 DIR_LEFT			    = 3;
 const cu8 DIR_UP_RIGHT		    = 4;
-const cu8 DIR_DOWN_RIGHT         = 5;
+const cu8 DIR_DOWN_RIGHT        = 5;
 const cu8 DIR_DOWN_LEFT		    = 6;
 const cu8 DIR_UP_LEFT		    = 7;
 
@@ -221,3 +221,4 @@ std::string charArrayToString(char* a) {
     }
     return str;
 }
+

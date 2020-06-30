@@ -160,6 +160,24 @@ void MainMenu::render() {
     //GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND]->draw(s, d);
     
     
-    this->bigSpriteSheet->drawTile(2, 300, 250); // mouse cursor
+    // this->bigSpriteSheet->drawTile(1, 300, 250); // mouse cursor
+
+
+
+    TextureRect s = {
+        0,
+        0,
+        128,
+        128
+    };
+    TextureRect d = {
+        200,
+        200,
+        128,
+        128
+    };
+
+    this->bigSpriteSheet->draw(s, d);
+
 
 }

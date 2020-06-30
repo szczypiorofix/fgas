@@ -30,18 +30,18 @@ void TextFont::parseXML(std::string xmlFileName) {
 
 	std::string xmlFile = DIR_RES_FONTS + xmlFileName + ".xml";
 	doc = xmlParseFile(xmlFile.c_str());
-	if (doc == NULL) {
+	if (!doc) {
 		std::cout << "Document cannot be parsed successfully." << std::endl;
 		exit(1);
 	}
 
 	cur = xmlDocGetRootElement(doc);
-	if (cur == NULL) {
+	if (!cur) {
 		std::cout << "Empty document." << std::endl;
 		exit(1);
 	}
 
-	debugInfo("Reading " + xmlFile + " file.");
+	debugInfoNl(DEBUG_INFO, "Reading " + xmlFile + " file.");
 
 	if (xmlStrcmp(cur->name, (const xmlChar*)"font")) {
 		std::cout << "Document of the wrong type. Root node must be 'font'." << std::endl;
@@ -57,7 +57,7 @@ void TextFont::parseXML(std::string xmlFileName) {
 
 	xmlNodePtr mainItems = cur;
 
-	while (mainItems != NULL) {
+	while (mainItems != nullptr) {
 		if (!xmlStrcmp(mainItems->name, (const xmlChar*)"item")) {
 			this->charsCount++;
 		}
@@ -68,7 +68,7 @@ void TextFont::parseXML(std::string xmlFileName) {
 	this->fontItems.reserve(this->charsCount);
 	
 	mainItems = cur;
-	while (mainItems != NULL) {
+	while (mainItems != nullptr) {
 		if (!xmlStrcmp(mainItems->name, (const xmlChar*)"item")) {
 			FontItem* tempItem = new FontItem();
 			tempItem->ascii			= XMLHelper::readPropShort(mainItems, (const xmlChar*)"ascii");
