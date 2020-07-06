@@ -57,6 +57,7 @@ void ShaderLoader::compileShaders(const std::string& vertexShaderFilePath, const
 
 	glDetachShader(this->programID, this->vertexShaderID);
 	glDetachShader(this->programID, this->fragmentShaderID);
+
 	glDeleteShader(this->vertexShaderID);
 	glDeleteShader(this->fragmentShaderID);
 

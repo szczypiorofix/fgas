@@ -27,7 +27,6 @@ Texture::Texture(std::string fileName, GLfloat tileWidth, GLfloat tileHeight) {
 	this->columns = (int)(this->width / this->tileWidth);
 
 	debugInfoNl(DEBUG_INFO, "Texture " + fileName + " loaded. Columns " + std::to_string(this->columns));
-	
 }
 
 
@@ -42,13 +41,11 @@ Texture::Texture(std::string fileName) {
 	this->vbo = 0;
 	this->ebo = 0;
 	this->textureId = loadTexture(fileName);
-	printf("Texture id: %i\n", this->textureId);
 	this->tileWidth = 0.0f;
 	this->tileHeight = 0.0f;
 	this->columns = 0;
 
 	debugInfoNl(DEBUG_INFO, "Texture " + fileName + " loaded.");
-
 }
 
 
@@ -99,7 +96,6 @@ GLuint Texture::loadTexture(std::string fileName) {
 		); /* Texture specification */
 		
 		glGenerateMipmap(GL_TEXTURE_2D); // Generating mipmap
-
 	}
 	else {
 		printf("Unable to load image %s !!!\n", fileName.c_str());
@@ -109,14 +105,6 @@ GLuint Texture::loadTexture(std::string fileName) {
 	ilDeleteImages(1, &imageId); /* Because we have already copied image data into texture data we can release memory used by image. */
 
 	return this->textureId;
-}
-
-GLfloat Texture::coordToFloatX(GLfloat x) {
-	return (GLfloat)(x * 2.0 / SCREEN_WIDTH - 1.0f);
-}
-
-GLfloat Texture::coordToFloatY(GLfloat y) {
-	return (GLfloat)(y * 2.0 / SCREEN_HEIGHT + 0.5f);
 }
 
 
@@ -141,44 +129,63 @@ Texture::~Texture() {
 }
 
 
-void Texture::drawTile(int _id, GLfloat dx, GLfloat dy) {
+GLfloat Texture::coordToFloatX(GLfloat _x) {
+	return (GLfloat)(_x * 2.0 / SCREEN_WIDTH - 1.0f);
+}
 
-	if (this->tileWidth > 0 && this->tileHeight > 0) {
-		glColor4ub(0xFF, 0xFF, 0xFF, 0xFF);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, this->textureId);
-
-		int sx = (int)( (_id % this->columns) * this->tileWidth );
-		int sy = (int)( (_id / this->columns) * this->tileHeight );
-		
-		//printf("%i:%i\n", sx, sy);
-
-		glBegin(GL_QUADS);
-			glTexCoord2f( sx / this->width, sy / this->height );
-			glVertex2f( dx, dy );
-			glTexCoord2f( (sx + this->tileWidth) / this->width, sy / this->height );
-			glVertex2f( dx + this->tileWidth, dy );
-			glTexCoord2f( (sx + this->tileWidth) / this->width, (sy + this->tileHeight) / this->height );
-			glVertex2f( dx + this->tileWidth, dy + this->tileHeight );
-			glTexCoord2f( sx / this->width, (sy + this->tileHeight) / this->height );
-			glVertex2f( dx, dy + this->tileHeight );
-		glEnd();
-		glDisable(GL_TEXTURE_2D);
-	}
-
+GLfloat Texture::coordToFloatY(GLfloat _y) {
+	return (GLfloat)(_y * 2.0 / SCREEN_HEIGHT + 1.0f);
 }
 
 
-void Texture::draw(TextureRect src, TextureRect dest) {
-	
-	if (this->textureId != 0) {
+void Texture::drawTile(int _id, GLfloat _dx, GLfloat _dy) {
 
+	if (this->tileWidth > 0 && this->tileHeight > 0) {
+
+		int sx = (int)( (_id % this->columns) * this->tileWidth );
+		int sy = (int)( (_id / this->columns) * this->tileHeight );
+
+		TextureRect s = { std::floor((_id % this->columns) * this->tileWidth), std::floor((_id / this->columns) * this->tileHeight), this->tileWidth, this->tileHeight };
+		TextureRect d = { _dx, _dy, this->tileWidth, this->tileHeight };
+
+		this->draw(s, d);
+
+	}
+}
+
+
+void Texture::drawTile(int _id, GLfloat _dx, GLfloat _dy, GLfloat _scale) {
+
+	if (this->tileWidth > 0 && this->tileHeight > 0) {
+
+		int sx = (int)((_id % this->columns) * this->tileWidth);
+		int sy = (int)((_id / this->columns) * this->tileHeight);
+
+		TextureRect s = { std::floor((_id % this->columns) * this->tileWidth), std::floor((_id / this->columns) * this->tileHeight), this->tileWidth, this->tileHeight };
+		TextureRect d = { _dx, _dy, this->tileWidth * _scale, this->tileHeight * _scale };
+
+		this->draw(s, d);
+
+	}
+}
+
+
+void Texture::draw(TextureRect _src, TextureRect _dest) {
+	if (this->textureId != 0) {
+		
+		float tx = ( _src.x / this->width);
+		float ty = 1.0f - ( (_src.y + _src.h) / this->height);
+		float tw = _src.w / this->width;
+		float th = _src.h / this->height;
+
+		//printf("TX: %.3f, TY: %.3f\n", tx, ty);
+		
 		float vertices[] = {
-			// positions																				// colors				// texture coords
-			this->coordToFloatX(dest.x),			this->coordToFloatY(dest.y),			0.0f,		1.0f, 1.0f, 1.0f,		0.0f, 0.0f, // top right
-			this->coordToFloatX(dest.x + dest.w),	this->coordToFloatY(dest.y),			0.0f,		1.0f, 1.0f, 1.0f,		1.0f, 0.0f, // bottom right
-			this->coordToFloatX(dest.x + dest.w),	this->coordToFloatY(dest.y + dest.h),	0.0f,		1.0f, 1.0f, 1.0f,		1.0f, 1.0f, // bottom left
-			this->coordToFloatX(dest.x),			this->coordToFloatY(dest.y + dest.h),	0.0f,		1.0f, 1.0f, 1.0f,		0.0f, 1.0f  // top left 
+			// positions																				// colors				// texture coords				// Whole texture
+			this->coordToFloatX(_dest.x + _dest.w),	this->coordToFloatY(_dest.y),	0.0f,		1.0f, 1.0f, 1.0f,		tx + tw, ty + th, // top right		1.0 - 1.0
+			this->coordToFloatX(_dest.x + _dest.w),	this->coordToFloatY(_dest.y - _dest.h),			0.0f,		1.0f, 1.0f, 1.0f,		tx + tw, ty, // bottom right		1.0 - 0.0
+			this->coordToFloatX(_dest.x),			this->coordToFloatY(_dest.y - _dest.h),			0.0f,		1.0f, 1.0f, 1.0f,		tx,      ty, // bottom left		0.0 - 0.0
+			this->coordToFloatX(_dest.x),			this->coordToFloatY(_dest.y),	0.0f,		1.0f, 1.0f, 1.0f,		tx,      ty + th  // top left			0.0 - 1.0
 		};
 		unsigned int indices[] = {
 			0, 1, 3, // first triangle
@@ -212,7 +219,5 @@ void Texture::draw(TextureRect src, TextureRect dest) {
 		glBindVertexArray(this->vao);
 		glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 		glDisable(GL_TEXTURE_2D);
-
 	}
-
 }

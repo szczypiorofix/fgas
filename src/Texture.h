@@ -22,8 +22,8 @@ typedef struct TextureRect {
 class Texture {
 
 public:
-	Texture(std::string fileName);
-	Texture(std::string fileName, GLfloat tileWidth, GLfloat tileHeight);
+	Texture(std::string _fileName);
+	Texture(std::string _fileName, GLfloat _tileWidth, GLfloat _tileHeight);
 	~Texture();
 
 	ILuint imageId;
@@ -42,14 +42,15 @@ public:
 
 	int columns;
 
-	void draw(TextureRect src, TextureRect dest);
-	void drawTile(int _id, GLfloat dx, GLfloat dy);
+	void draw(TextureRect _src, TextureRect _dest);
+	void drawTile(int _id, GLfloat _dx, GLfloat _dy);
+	void drawTile(int _id, GLfloat _dx, GLfloat _dy, GLfloat _scale);
 
 private:
-	GLuint loadTexture(std::string fileName);
+	GLuint loadTexture(std::string _fileName);
 	
-	GLfloat coordToFloatX(GLfloat x);
-	GLfloat coordToFloatY(GLfloat y);
+	GLfloat coordToFloatX(GLfloat _x);
+	GLfloat coordToFloatY(GLfloat _y);
 
 	GLuint vao;
 	GLuint vbo;

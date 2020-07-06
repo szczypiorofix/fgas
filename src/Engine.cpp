@@ -23,7 +23,7 @@ Engine::Engine() {
 		SCREEN_HEIGHT,					// Screen height
 		MIN_SCALE,						// current scale
 		false,							// is full screen?
-		false,							// is window resizable?
+		true,							// is window resizable?
 		0.5f							// music volume
 	};
 
@@ -225,8 +225,13 @@ void Engine::initOGL(void) {
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
+	
+	// Clear only part of the screen
+	/*glEnable(GL_SCISSOR_TEST);*/
+
+
 	// Spacify clear color
-	glClearColor(0.02f, 0.04f, 0.04f, 1.0f);
+	glClearColor(0.3f, 0.4f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	// Viewport to display

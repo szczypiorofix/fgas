@@ -160,7 +160,7 @@ void MainMenu::render() {
     //GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND]->draw(s, d);
     
     
-    // this->bigSpriteSheet->drawTile(1, 300, 250); // mouse cursor
+     //this->bigSpriteSheet->drawTile(1, 300, 250); // mouse cursor
 
 
 
@@ -177,7 +177,14 @@ void MainMenu::render() {
         128
     };
 
-    this->bigSpriteSheet->draw(s, d);
+    //this->bigSpriteSheet->draw(s, d);
 
 
+    //glBegin(GL_QUADS);   //We want to draw a quad, i.e. shape with four sides
+    //    glColor3f(1, 0, 0); //Set the colour to red 
+    //    glVertex2d(10, 10);            //Draw the four corners of the rectangle
+    //    glVertex2d(100, 10);
+    //    glVertex2d(100, 200);
+    //    glVertex2d(10, 200);
+    //glEnd();
 }
