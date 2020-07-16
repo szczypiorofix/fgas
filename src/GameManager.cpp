@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "GameManager.h"
-#include "FontAssets.h"
+#include <iostream>
 
 
 GameManager::GameManager() {
@@ -33,25 +33,34 @@ GameManager::GameManager() {
 
 void GameManager::start() {
 
-    this->engine = new Engine();
+    this->engine = new CE::Engine();
     this->engine->launch();
 
-    GraphicAssets::addToAssets("../res/images/spritesheet.png", 32, 32, GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET);
-    //GraphicAssets::addToAssets("../res/images/mm-gui-button.png", 168, 32, GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS);
-    //GraphicAssets::addToAssets("../res/fonts/vingue.png", GraphicAssets::IMAGE_ASSETS_VINGUE_FONT);
-    //GraphicAssets::addToAssets("../res/images/background.png", GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND);
-    GraphicAssets::addToAssets("../res/images/logo-title.png", GraphicAssets::IMAGE_ASSETS_LOGO);    
+    //CE::GraphicAssets::addToAssets("../res/images/spritesheet.png", 32, 32, CE::GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET);
+    //CE::GraphicAssets::addToAssets("../res/images/spritesheet.png", CE::GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET);
+    //CE::GraphicAssets::addToAssets("../res/images/mm-gui-button.png", 168, 32, CE::GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS);
+    //CE::GraphicAssets::addToAssets("../res/fonts/vingue.png", CE::GraphicAssets::IMAGE_ASSETS_VINGUE_FONT);
+    //CE::GraphicAssets::addToAssets("../res/images/background.png", CE::GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND);
+    CE::GraphicAssets::addToAssets("../res/images/logo-title.png", CE::GraphicAssets::IMAGE_ASSETS_LOGO);    
 
-    //FontAssets::addToAssets("vingue", GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT], FontAssets::FONT_ASSETS_VINGUE);
+    CE::FontAssets::addToAssets("vingue", CE::GraphicAssets::getAssets()->textures[CE::GraphicAssets::IMAGE_ASSETS_VINGUE_FONT], CE::FontAssets::FONT_ASSETS_VINGUE);
 
     this->engine->loadMusic("menu-music.ogg");
     this->engine->playMusic(0.1f);
 
-    this->shader = new ShaderLoader();
+    this->shader = new CE::ShaderLoader();
     this->shader->compileShaders("vert.glsl", "frag.glsl");
 
     this->mainMenu = new MainMenu(this->state);
     this->mainGame = new MainGame(this->state);
+
+
+    glm::vec4 vec(1.0f, 0.0f, 0.0f, 1.0f);
+    glm::mat4 trans = glm::mat4(1.0f);
+    trans = glm::translate(trans, glm::vec3(1.0f, 1.0f, 0.0f));
+    vec = trans * vec;
+    std::cout << vec.x << vec.y << vec.z << std::endl;
+
 
     this->mainLoop();
 
@@ -183,76 +192,16 @@ void GameManager::update() {
 void GameManager::render() {
 
     glClear(GL_COLOR_BUFFER_BIT);
-    
     glPushMatrix();
-    glOrtho(0, engine->settings.screenWidth, engine->settings.screenHeight, 0.0f, -1.0f, 1.0f); // Set the matrix
-
+    
+    //glOrtho(0, engine->settings.screenWidth, engine->settings.screenHeight, 0.0f, -1.0f, 1.0f); // Set the matrix
 
 
     // ================================= Render Start =================================
     
-    //this->shader->use(GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO]->textureId);
-    TextureRect s = {
-        32 * 1,
-        32 * 12,
-        32,
-        32
-    };
-    TextureRect d = {
-        this->mX,
-        this->mY,
-        128,
-        128
-    };
-    //
-    //this->shader->unuse();
-    //this->shader->use(GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND]->textureId);
+    this->shader->use();
 
-    //GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND]->draw(s, d);
-
-    s = {
-        0,
-        0,
-        335,
-        201
-    };
-    d = {
-        0,
-        -200,
-        335,
-        201
-    };
-
-    //this->shader->unuse();
-    //this->shader->use(GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO]->textureId);
-    //GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO]->draw(s, d);
-
-
-
-    s = {
-        32 * 2,
-        32 * 0,
-        32,
-        32
-    };
-    d = {
-        this->mX,
-        this->mY,
-        32,
-        32
-    };
-
-    //this->shader->unuse();
     
-    this->shader->use(GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET]->textureId);
-    
-    //GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET]->draw(s, d);
-    GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET]->drawTile(101, this->mX, this->mY);
-
-    this->shader->unuse();
-
-    //this->shader->use(GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET]->textureId);
-
     switch (this->state) {
     case State::SPLASH_SCREEN:
         break;
@@ -264,9 +213,8 @@ void GameManager::render() {
         break;
     }
 
-
-    //this->shader->unuse();
-
+    this->shader->unuse();
+    
     // ================================== Render End ==================================
 
     glPopMatrix();
@@ -280,13 +228,11 @@ void GameManager::mainLoop() {
     SDL_Event event;
 
     while (!this->quit) {
-
         this->input(event);
         this->update();
         this->render();
 
-        SDL_Delay(1000 / 60);
-
+        //SDL_Delay(1000 / 60);
     }
 
     delete this->shader;

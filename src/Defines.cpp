@@ -7,8 +7,8 @@
 
 
 
-const u16 SCREEN_WIDTH		    = 800;
-const u16 SCREEN_HEIGHT		    = 600;
+const u16 DEFAULT_SCREEN_WIDTH		    = 800;
+const u16 DEFAULT_SCREEN_HEIGHT		    = 600;
 
 
 const float MIN_SCALE           = 1.0f;
@@ -188,7 +188,7 @@ int stringToInt(const char* a) {
 }
 
 
-DG_ArrayInt* stringToArrayOfInt(std::string s) {
+CE_ArrayInt* stringToArrayOfInt(std::string s) {
     int str_length = s.length();
     int* arr { new int[str_length + 1] { 0 } };
     int i = 0, j = 0;
@@ -205,7 +205,7 @@ DG_ArrayInt* stringToArrayOfInt(std::string s) {
     }
     j++;
     arr[j] = arr[j] * 10 + (s[i] - 48);
-    DG_ArrayInt* array = new DG_ArrayInt();
+    CE_ArrayInt* array = new CE_ArrayInt();
     array->size = j;
     array->arr = arr;
     return array;

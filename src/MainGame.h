@@ -8,8 +8,7 @@
 #pragma once
 
 #include <SDL2/SDL_events.h>
-#include "Defines.h"
-#include "Player.h"
+#include "Engine.h"
 
 
 class MainGame {
@@ -26,7 +25,7 @@ public:
 private:
 
     State& state;
-    Player* player;
+    CE::GameObject* player;
 
 };
 

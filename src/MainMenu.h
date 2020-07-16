@@ -7,10 +7,8 @@
 #pragma once
 
 #include <SDL2/SDL_events.h>
-#include "TiledMap.h"
-#include "Animation.h"
-#include "Texture.h"
 #include "MainMenuButton.h"
+#include "Engine.h"
 
 
 class MainMenu {
@@ -29,20 +27,22 @@ public:
 private:
 	
 	GLfloat x, y;
+	s8 moveX, moveY;
 	GLfloat mapMoveDirectionX;
 	GLfloat mapMoveDirectionY;
 	State& state;
 	
 	std::vector<MainMenuButton*> mainMenuButtons;
 
-	Texture* bigSpriteSheet;
-	Texture* logoTexture;
+	CE::Texture* bigSpriteSheet;
+	CE::Texture* logoTexture;
+	CE::Texture* backgroundTexture;
 	
-	TiledMap* mainMenuBackgroundMap;
+	CE::TiledMap* mainMenuBackgroundMap;
 
-	Animation* torchAnimation;
-	Animation* diamondAnimation;
-	Animation* cardsAnimation;
+	CE::Animation* torchAnimation;
+	CE::Animation* diamondAnimation;
+	CE::Animation* cardsAnimation;
 
 };
 

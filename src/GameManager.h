@@ -7,11 +7,9 @@
 #pragma once
 
 #include "Engine.h"
-#include "GraphicAssets.h"
 #include "MainMenu.h"
 #include "MainGame.h"
 #include "Defines.h"
-#include "ShaderLoader.h"
 
 
 class GameManager {
@@ -25,13 +23,13 @@ public:
 
 private:
 
-	Engine* engine;
+	CE::Engine* engine;
 	bool quit;
 
 	MainMenu* mainMenu;
 	MainGame* mainGame;
 	
-	ShaderLoader* shader;
+	CE::ShaderLoader* shader;
 
 	State state;
 

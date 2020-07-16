@@ -8,8 +8,7 @@
 #pragma once
 
 #include "GUIElement.h"
-#include "Texture.h"
-#include "TextFont.h"
+#include "Engine.h"
 
 
 class MainMenuButton : public GUIElement {
@@ -25,8 +24,8 @@ public:
 
 private:
 
-    Texture* buttonTexture;
-    TextFont* textFont;
+    CE::Texture* buttonTexture;
+    CE::TextFont* textFont;
 };
 
 
