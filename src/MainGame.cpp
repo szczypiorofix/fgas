@@ -4,20 +4,20 @@
  */
 
 #include "MainGame.h"
-#include "GraphicAssets.h"
-#include "LuaHandler.h"
+#include <iostream>
+#include "Player.h"
 
 
 MainGame::MainGame(State& _state) : state{ _state } {
     
-
-    LuaHandler* lua = new LuaHandler("script.lua");
+    this->player = nullptr;
+    CE::LuaHandler* lua = new CE::LuaHandler("script.lua");
     
-    //int value = 0;
-    //lua->getInt("value", value);
-    //printf("Value from LUA script: %i\n", value);
+    int value = 0;
+    lua->getInt("value", value);
+    printf("Value from LUA script: %i\n", value);
 
-    this->player = lua->getPlayer();
+    this->player = lua->getObject("Player");
     if (this->player) {
 	    std::cout << "Object 'Player' was found. Player name: " << this->player->name << std::endl;
 	    std::cout << "X: " << this->player->vector->x << ", Y: " << this->player->vector->y << ", player width: " << this->player->width << ", height: " << this->player->height << std::endl;
@@ -51,13 +51,13 @@ void MainGame::input(SDL_Event& event) {
 
 
 void MainGame::render() {
-    glBegin(GL_TRIANGLES); //GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON
-        glColor3ub(255, 0, 0);
-        glVertex2f(400, 200);
-        glColor3ub(0, 255, 0);
-        glVertex2f(600, 400);
-        glColor3ub(0, 0, 255);
-        glVertex2f(200, 400);
-    glEnd();
+    //glBegin(GL_TRIANGLES); //GL_POINTS, GL_LINES, GL_LINE_STRIP, GL_LINE_LOOP, GL_QUADS, GL_TRIANGLES, GL_POLIGON
+    //    glColor3ub(255, 0, 0);
+    //    glVertex2f(400, 200);
+    //    glColor3ub(0, 255, 0);
+    //    glVertex2f(600, 400);
+    //    glColor3ub(0, 0, 255);
+    //    glVertex2f(200, 400);
+    //glEnd();
 }
 

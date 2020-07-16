@@ -45,8 +45,8 @@ typedef const signed long long          cs64;
 
 
 
-extern const u16 SCREEN_WIDTH;
-extern const u16 SCREEN_HEIGHT;
+extern const u16 DEFAULT_SCREEN_WIDTH;
+extern const u16 DEFAULT_SCREEN_HEIGHT;
 
 
 extern const float MIN_SCALE;
@@ -187,10 +187,10 @@ public:
 
 
 
-typedef struct DG_ArrayInt {
+typedef struct CE_ArrayInt {
     u16 size;
     int* arr;
-} DG_ArrayInt;
+} CE_ArrayInt;
 
 
 
@@ -209,7 +209,7 @@ int stringToInt(const char* a);
 std::string charArrayToString(char* a);
 
 
-DG_ArrayInt* stringToArrayOfInt(std::string s);
+CE_ArrayInt* stringToArrayOfInt(std::string s);
 
 
 

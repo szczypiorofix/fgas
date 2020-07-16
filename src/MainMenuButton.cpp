@@ -4,9 +4,7 @@
  */
 
 #include "MainMenuButton.h"
-#include "GraphicAssets.h"
-#include "FontAssets.h"
-
+#include "Engine.h"
 
 //MainMenuButton::MainMenuButton() : GUIElement() {
 //    
@@ -19,9 +17,9 @@
 
 MainMenuButton::MainMenuButton(std::string _text, float _x, float _y, float _width, float _height) : GUIElement(_text ,_x, _y, _width, _height) {
     
-    this->buttonTexture = GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS];
+    this->buttonTexture = CE::GraphicAssets::getAssets()->textures[CE::GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS];
     this->listeners = { false };
-    this->textFont = FontAssets::getAssets()->fonts[FontAssets::FONT_ASSETS_VINGUE];
+    this->textFont = CE::FontAssets::getAssets()->fonts[CE::FontAssets::FONT_ASSETS_VINGUE];
 
 }
 
@@ -83,7 +81,7 @@ void MainMenuButton::draw() {
             yOffset = 3.0f;
         }
     }
-    this->buttonTexture->drawTile(tile, this->x, this->y);
+    //this->buttonTexture->drawTile(tile, this->x, this->y);
     this->textFont->draw(this->text.c_str(), this->x + 28.0f, this->y + 8.0f + yOffset, 0.25f);
 
 }

@@ -7,10 +7,10 @@
 #define _PLAYER_H_
 #pragma once
 
-#include "GameObject.h"
+#include "Engine.h"
 
 
-class Player : public GameObject {
+class Player : public CE::GameObject {
 
 public:
     Player();

@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "GameManager.h"
-#include "FontAssets.h"
+#include <iostream>
 
 
 GameManager::GameManager() {
@@ -22,8 +22,8 @@ GameManager::GameManager() {
 
     this->state = State::MAIN_MENU;
 
-    this->mX = 200.0f;
-    this->mY = -400.0f;
+    this->mX = 0.0f;
+    this->mY = 0.0f;
 
     this->moveX = 0;
     this->moveY = 0;
@@ -33,25 +33,34 @@ GameManager::GameManager() {
 
 void GameManager::start() {
 
-    this->engine = new Engine();
+    this->engine = new CE::Engine();
     this->engine->launch();
 
-    //GraphicAssets::addToAssets("../res/images/spritesheet.png", 32, 32, GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET);
-    //GraphicAssets::addToAssets("../res/images/mm-gui-button.png", 168, 32, GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS);
-    //GraphicAssets::addToAssets("../res/fonts/vingue.png", GraphicAssets::IMAGE_ASSETS_VINGUE_FONT);
-    //GraphicAssets::addToAssets("../res/images/background.png", GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND);
-    GraphicAssets::addToAssets("../res/images/logo-title.png", GraphicAssets::IMAGE_ASSETS_LOGO);    
+    //CE::GraphicAssets::addToAssets("../res/images/spritesheet.png", 32, 32, CE::GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET);
+    //CE::GraphicAssets::addToAssets("../res/images/spritesheet.png", CE::GraphicAssets::IMAGE_ASSETS_BIG_SPRITESHEET);
+    //CE::GraphicAssets::addToAssets("../res/images/mm-gui-button.png", 168, 32, CE::GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BUTTONS);
+    //CE::GraphicAssets::addToAssets("../res/fonts/vingue.png", CE::GraphicAssets::IMAGE_ASSETS_VINGUE_FONT);
+    //CE::GraphicAssets::addToAssets("../res/images/background.png", CE::GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND);
+    CE::GraphicAssets::addToAssets("../res/images/logo-title.png", CE::GraphicAssets::IMAGE_ASSETS_LOGO);    
 
-    //FontAssets::addToAssets("vingue", GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_VINGUE_FONT], FontAssets::FONT_ASSETS_VINGUE);
+    CE::FontAssets::addToAssets("vingue", CE::GraphicAssets::getAssets()->textures[CE::GraphicAssets::IMAGE_ASSETS_VINGUE_FONT], CE::FontAssets::FONT_ASSETS_VINGUE);
 
     this->engine->loadMusic("menu-music.ogg");
     this->engine->playMusic(0.1f);
 
-    this->shader = new ShaderLoader();
+    this->shader = new CE::ShaderLoader();
     this->shader->compileShaders("vert.glsl", "frag.glsl");
 
     this->mainMenu = new MainMenu(this->state);
     this->mainGame = new MainGame(this->state);
+
+
+    glm::vec4 vec(1.0f, 0.0f, 0.0f, 1.0f);
+    glm::mat4 trans = glm::mat4(1.0f);
+    trans = glm::translate(trans, glm::vec3(1.0f, 1.0f, 0.0f));
+    vec = trans * vec;
+    std::cout << vec.x << vec.y << vec.z << std::endl;
+
 
     this->mainLoop();
 
@@ -64,6 +73,35 @@ void GameManager::input(SDL_Event& event) {
         if (event.type == SDL_QUIT) {
             this->quit = true;
         }
+
+        if (event.type == SDL_WINDOWEVENT) {
+            switch (event.window.event) {
+                case SDL_WINDOWEVENT_RESIZED:
+                    
+                    GLuint w = event.window.data1, h = event.window.data2;
+
+                    GLint oldViewport[4];
+                    glGetIntegerv(GL_VIEWPORT, oldViewport);
+                    GLint oldX = oldViewport[0], oldY = oldViewport[1], oldW = oldViewport[2], oldH = oldViewport[3];
+                    printf("Old viewport: %i : %i   %i : %i\n", oldX, oldY, oldW, oldH);
+                    SDL_Log("New window : %dx%d", w, h);
+                    
+                    float ratio = (float)oldW / (float)oldH;
+
+                    SDL_Log("Aspect ratio (%i:%i): %.5f \n", w, h, ratio);
+
+                    //if (w != oldW) {
+                    //    w = event.window.data1;
+                    //    h = oldH * w / oldW;
+                    //}
+                    //
+
+                    glViewport( 0, 0 , w, h);
+               
+
+            }
+        }
+
         if (event.type == SDL_KEYDOWN) {
             if (event.key.keysym.sym == SDLK_LEFT || event.key.keysym.sym == SDLK_a) {
                 this->moveX = -1;
@@ -155,61 +193,28 @@ void GameManager::render() {
 
     glClear(GL_COLOR_BUFFER_BIT);
     glPushMatrix();
-    glOrtho(0, engine->settings.screenWidth, engine->settings.screenHeight, 0.0f, -1.0f, 1.0f); // Set the matrix
+    
+    //glOrtho(0, engine->settings.screenWidth, engine->settings.screenHeight, 0.0f, -1.0f, 1.0f); // Set the matrix
 
 
     // ================================= Render Start =================================
     
-    this->shader->use(GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO]->textureId);
-    TextureRect s = {
-        0,
-        0,
-        928,
-        793
-    };
-    TextureRect d = {
-        this->mX,
-        this->mY,
-        600,
-        450
-    };
+    this->shader->use();
+
     
-    //GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_MAIN_MENU_BACKGROUND]->draw(s, d);
-
-    s = {
-        0,
-        0,
-        335,
-        201
-    };
-    d = {
-        250,
-        -100,
-        250,
-        200
-    };
-
-    GraphicAssets::getAssets()->textures[GraphicAssets::IMAGE_ASSETS_LOGO]->draw(s, d);
-
-
-
-    /*this->shader->unuse();*/
-
-
-    //switch (this->state) {
-    //case State::SPLASH_SCREEN:
-    //    break;
-    //case State::MAIN_MENU:
-    //    this->mainMenu->render();
-    //    break;
-    //case State::GAME:
-    //    this->mainGame->render();
-    //    break;
-    //}
-
+    switch (this->state) {
+    case State::SPLASH_SCREEN:
+        break;
+    case State::MAIN_MENU:
+        this->mainMenu->render();
+        break;
+    case State::GAME:
+        this->mainGame->render();
+        break;
+    }
 
     this->shader->unuse();
-
+    
     // ================================== Render End ==================================
 
     glPopMatrix();
@@ -223,13 +228,11 @@ void GameManager::mainLoop() {
     SDL_Event event;
 
     while (!this->quit) {
-
         this->input(event);
         this->update();
         this->render();
 
-        SDL_Delay(1000 / 60);
-
+        //SDL_Delay(1000 / 60);
     }
 
     delete this->shader;

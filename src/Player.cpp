@@ -21,7 +21,7 @@ Player::Player(float _x, float _y, float _width, float _height) : GameObject(new
 }
 
 
-Player::Player(const char* _name, float _x, float _y, float _width, float _height) : GameObject(new Vector2(_x, _y), _width, _height) {
+Player::Player(const char* _name, float _x, float _y, float _width, float _height) : GameObject(_name, _x, _y, _width, _height) {
     this->name = _name;
 }
 
