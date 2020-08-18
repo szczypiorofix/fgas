@@ -3,15 +3,15 @@
  * Copyright (C) 2020 Piotr Wróblewski <szczypiorofix@o2.pl>
  */
 
-#include "MainGame.h"
 #include <iostream>
-#include "Player.h"
+#include "MainGame.h"
+#include "LuaHandler.h"
 
 
 MainGame::MainGame(State& _state) : state{ _state } {
     
     this->player = nullptr;
-    CE::LuaHandler* lua = new CE::LuaHandler("script.lua");
+    LuaHandler* lua = new LuaHandler("script.lua");
     
     int value = 0;
     lua->getInt("value", value);

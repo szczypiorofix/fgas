@@ -8,6 +8,7 @@
 #pragma once
 
 #include <string>
+#include <GL/glew.h>
 
 
 // =========================================================================== //
@@ -192,6 +193,11 @@ typedef struct CE_ArrayInt {
     int* arr;
 } CE_ArrayInt;
 
+
+typedef struct TextureRect {
+	GLfloat x, y;
+	GLfloat w, h;
+} TextureRect;
 
 
 enum class State {

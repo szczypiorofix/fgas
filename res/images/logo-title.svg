@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-
 <svg
    xmlns:dc="http://purl.org/dc/elements/1.1/"
    xmlns:cc="http://creativecommons.org/ns#"
@@ -9,12 +7,12 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="210mm"
-   height="297mm"
-   viewBox="0 0 210 297"
+   width="64.000336mm"
+   height="32.000114mm"
+   viewBox="0 0 64.000335 32.000114"
    version="1.1"
    id="svg8"
-   inkscape:version="0.92.2 (5c3e80d, 2017-08-06)"
+   inkscape:version="1.0 (4035a4fb49, 2020-05-01)"
    sodipodi:docname="logo-title.svg"
    inkscape:export-filename="C:\workshop\cpp\dungeon_engine\res\images\logo-title.png"
    inkscape:export-xdpi="160"
@@ -29,16 +27,21 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="315.28244"
-     inkscape:cy="979.94372"
+     inkscape:cx="144.28022"
+     inkscape:cy="150.64851"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1600"
-     inkscape:window-height="838"
-     inkscape:window-x="-8"
-     inkscape:window-y="-8"
-     inkscape:window-maximized="1" />
+     inkscape:window-width="1920"
+     inkscape:window-height="1001"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
+     inkscape:window-maximized="1"
+     inkscape:document-rotation="0"
+     fit-margin-top="0"
+     fit-margin-left="0"
+     fit-margin-right="0"
+     fit-margin-bottom="0" />
   <metadata
      id="metadata5">
     <rdf:RDF>
@@ -47,14 +50,15 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
-     id="layer1">
+     id="layer1"
+     transform="translate(-5.2079852,-3.649311)">
     <text
        xml:space="preserve"
        style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:condensed;line-height:0%;font-family:Arial;-inkscape-font-specification:'Arial, Condensed';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
@@ -67,29 +71,30 @@
          id="tspan3336"
          x="65.717461"
          y="35.339684"
-         style="font-size:14.11111069px;line-height:1.25"> </tspan></text>
+         style="font-size:14.1111px;line-height:1.25"> </tspan></text>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;line-height:0%;font-family:Vinque;-inkscape-font-specification:'Vinque, Normal';text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#f3dd42;fill-opacity:1;stroke:#af5017;stroke-width:0.40000001;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-       x="89.456291"
-       y="14.173018"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.8042px;line-height:0%;font-family:'Segoe Print';-inkscape-font-specification:'Segoe Print, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;text-align:center;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:middle;fill:#f3dd42;fill-opacity:1;stroke:#af5017;stroke-width:0.418254;stroke-linecap:round;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       x="34.554237"
+       y="13.954004"
        id="text3338"
-       inkscape:export-xdpi="160"
-       inkscape:export-ydpi="160"><tspan
+       inkscape:export-xdpi="203.21599"
+       inkscape:export-ydpi="203.21599"
+       transform="scale(1.0740275,0.93107489)"><tspan
          sodipodi:role="line"
          id="tspan3340"
-         x="89.456291"
-         y="14.173018"
-         style="font-size:11.28888893px;line-height:1">For Gold</tspan><tspan
+         x="34.554237"
+         y="13.954004"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.8042px;line-height:1;font-family:'Segoe Print';-inkscape-font-specification:'Segoe Print, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.418254">For Gold</tspan><tspan
          sodipodi:role="line"
-         x="89.456291"
-         y="25.461906"
+         x="34.554237"
+         y="25.758205"
          id="tspan3350"
-         style="font-size:11.28888893px;line-height:1">&amp;</tspan><tspan
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.8042px;line-height:1;font-family:'Segoe Print';-inkscape-font-specification:'Segoe Print, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.418254">&amp;</tspan><tspan
          sodipodi:role="line"
-         x="89.456291"
-         y="36.750797"
+         x="34.554237"
+         y="37.562405"
          id="tspan3352"
-         style="font-size:11.28888893px;line-height:1">Sweetrolls</tspan></text>
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:11.8042px;line-height:1;font-family:'Segoe Print';-inkscape-font-specification:'Segoe Print, Normal';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.418254">Sweetrolls</tspan></text>
   </g>
 </svg>
